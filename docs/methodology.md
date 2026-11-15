@@ -1,75 +1,76 @@
-# Méthode d'harmonisation (résumé)
+# Harmonization method (summary)
 
-Le détail mathématique est dans [`DOSSIER_TECHNIQUE.pdf`](DOSSIER_TECHNIQUE.pdf) (section 5) et dans le document de
-recherche ([français](HEXAFIRE_document.pdf), [anglais](HEXAFIRE_document_en.pdf)). La page *Méthode* du site en donne une version grand public.
+The mathematical details are in [`TECHNICAL_DOSSIER.pdf`](TECHNICAL_DOSSIER.pdf) (section 5) and in the research
+document ([English](HEXAFIRE_document_en.pdf), [French](HEXAFIRE_document.pdf)). The "About & guide" page of the
+site gives a plain-language version.
 
-## Le problème
+## The problem
 
-MODIS (Terra depuis novembre 2000, Aqua depuis juillet 2002) détecte les feux actifs avec des pixels de 1 km. VIIRS
-(Suomi NPP depuis 2012, NOAA-20 depuis 2018, NOAA-21 depuis 2023) descend à 375 m et détecte, à nombre de passages égal,
-environ 5 fois plus de points chauds le jour et 15 fois plus la nuit. Raccorder les deux séries sans correction crée une
-fausse hausse au changement de capteur.
+MODIS (Terra since November 2000, Aqua since July 2002) detects active fires with 1 km pixels. VIIRS (Suomi NPP since
+2012, NOAA-20 since 2018, NOAA-21 since 2023) goes down to 375 m and, for the same number of overpasses, detects about
+5.7 times more hotspots by day and 15.6 times more at night. Joining the two series without correction creates a
+false increase at the sensor change.
 
-## Données et filtres
+## Data and filters
 
-Archives mensuelles MCD14ML (collections 6 puis 6.1) et VNP14IMGML / VJ114IMGML / VJ214IMGML (collection 2), API FIRMS
-pour les mois récents. Filtres : type 0 (feu de végétation présumé), confiance MODIS ≥ 30, classe VIIRS « faible »
-exclue. Chaque détection est rangée dans la cellule de 0,25° contenant son centre, jour et nuit séparément.
+Monthly archives MCD14ML (collections 6 then 6.1) and VNP14IMGML / VJ114IMGML / VJ214IMGML (collection 2), FIRMS API
+for the recent months. Filters: type 0 (presumed vegetation fire), MODIS confidence ≥ 30, VIIRS "low" class removed.
+Each detection goes to the 0.25° cell that contains its centre, day and night separately.
 
-## Occasions d'observation
+## Observation opportunities
 
-Le nombre de passages de chaque satellite au-dessus d'une cellule dépend de la latitude et de la fauchée (calcul
-analytique, niveau 0). Les jours sans données (capteur sous 10 % de son activité mondiale habituelle) sont repérés : un
-mois est « couverture partielle » sous 80 % de jours, « non observé » sous 30 %.
+The number of overpasses of each satellite over a cell depends on latitude and swath (analytical computation). Days
+without data (sensor below 10% of its usual global activity) are detected: a month is "partial coverage" below 80% of
+days and "not observed" below 30%.
 
-## Conversion VIIRS → MODIS
+## VIIRS → MODIS conversion
 
-Modèle binomial conditionnel avec décalage d'occasions : sur 2012–2020, pour chaque strate (bloc de 10°), mois de
-l'année et période (jour / nuit), on estime le facteur α tel que
+Conditional binomial model with an overpass offset: over 2012–2020, for each stratum (10° block), calendar month and
+period (day / night), the factor α is estimated such that
 
 ```
-N_MODIS ≈ N_S-NPP · exp(α) · (E_Terra + E_Aqua) / E_S-NPP
+N_MODIS ≈ N_S-NPP · exp(−α) · (E_Terra + E_Aqua) / E_S-NPP
 ```
 
-où E est le nombre de passages. Les estimations peu sûres sont rapprochées de la valeur annuelle de la strate
-(rétrécissement). NOAA-20 et NOAA-21 sont raccordés à S-NPP sur leurs années communes. Terra seul (2000–2002) est ramené
-à Terra + Aqua par un facteur γ estimé de la même façon.
+where E is the number of overpasses. Uncertain estimates are pulled towards the annual value of the stratum
+(shrinkage). NOAA-20 and NOAA-21 are linked to S-NPP over their common years. Terra alone (2000–2002) is brought to
+Terra + Aqua by a factor γ estimated in the same way.
 
-## Série harmonisée
+## Harmonized series
 
-| Période | Source | Statut |
+| Period | Source | Status |
 |---|---|---|
-| nov. 2000 – juin 2002 | Terra seul, ramené à Terra + Aqua | converti |
-| juil. 2002 – déc. 2020 | MODIS Terra + Aqua | mesuré |
-| depuis janv. 2021 | VIIRS converti (moyenne pondérée S-NPP, NOAA-20, NOAA-21) | converti |
-| mois sans VIIRS disponible | MODIS | provisoire |
+| Nov 2000 – Jun 2002 | Terra alone, brought to Terra + Aqua | converted |
+| Jul 2002 – Dec 2020 | MODIS Terra + Aqua | measured |
+| from Jan 2021 | converted VIIRS (weighted mean of S-NPP, NOAA-20, NOAA-21) | converted |
+| months without VIIRS data | MODIS | provisional |
 
-Chaque valeur est ramenée au même nombre de passages (médiane 2003–2020). Deux unités : équivalent MODIS (Terra + Aqua)
-et équivalent VIIRS (ce que S-NPP seul aurait détecté, mêmes facteurs dans l'autre sens).
+Each value is brought to the same number of overpasses (2003–2020 median). Two units: MODIS equivalent (Terra + Aqua)
+and VIIRS equivalent (what S-NPP alone would have detected, same factors used the other way round).
 
-## Incertitude
+## Uncertainty
 
-L'erreur type de chaque facteur est propagée aux valeurs converties (échelle log, premier ordre), puis à la zone
-choisie : écarts types additionnés dans une même strate, variances additionnées entre strates. Le site affiche
-l'intervalle à 95 % et signale les verdicts incertains (intervalle à cheval sur deux classes d'écart).
+The standard error of each factor is propagated to the converted values (log scale, first order), then to the chosen
+area: standard deviations add up within a stratum, variances add up between strata. The site shows the 95% interval
+and flags uncertain verdicts (interval spanning two departure classes).
 
-## Écart à la normale
+## Departure from normal
 
-Rapport entre la valeur du mois et la médiane du même mois de l'année sur 2003–2020, pour la même zone (ou la même
-cellule de 1° sur la carte). Cinq classes : < 0,5 ; 0,5–0,8 ; 0,8–1,25 ; 1,25–2 ; > 2. Non calculé si moins de 10 années
-de référence ou médiane < 5. Indépendant de l'unité.
+Ratio between the value of the month and the median of the same calendar month over 2003–2020, for the same area (or
+the same 1° cell on the map). Five classes: < 0.5; 0.5–0.8; 0.8–1.25; 1.25–2; > 2. Not computed with fewer than 10
+reference years or a median below 5. Independent of the unit.
 
-## Validation « une année exclue »
+## Leave-one-year-out validation
 
-Pour chaque année de test, les facteurs sont recalculés sans elle, VIIRS est converti et le verdict mensuel (bas /
-normal / haut, seuils 10 % et 90 % de 2003–2011) est comparé au vrai MODIS. Critères : kappa ≥ 0,5, fausses anomalies
-≤ 0,15, |biais médian| < 0,10, erreur médiane < 0,25, saut annuel max < 0,10. Comparaison avec M1 (un facteur
-mondial) et M0 (VIIRS brut). Sur 2012–2020 (17 309 région-mois), HEXAFIRE obtient un kappa de 0,747 et 9,0 % de
-fausses anomalies, contre 0,558 et 23,9 % pour M1. Le tableau complet figure dans le README et en bas de la page
-*Explorer* du site.
+For each test year, the factors are recomputed without it, VIIRS is converted and the monthly verdict (low / normal /
+high, 10% and 90% thresholds of 2003–2011) is compared with real MODIS. Criteria: kappa ≥ 0.5, false anomalies
+≤ 0.15, |median bias| < 0.10, median error < 0.25, largest annual step < 0.10. Comparison with M1 (one worldwide
+factor) and M0 (raw VIIRS). Over 2012–2020 (17,309 region-months), HEXAFIRE reaches a kappa of 0.747 and 9.0% false
+anomalies, against 0.558 and 23.9% for M1. The full table is in the README and at the bottom of the site's
+*Explore* page.
 
-## Limites
+## Limitations
 
-- Un point chaud n'est pas un incendie ; l'absence de point chaud ne prouve pas l'absence de feu.
-- Passages calculés analytiquement ; strates de 10° (régions GFED × occupation du sol prévues).
-- La FRP n'est pas harmonisée : comparable seulement entre mois d'un même capteur.
+- A hotspot is not a wildfire; the absence of hotspots does not prove the absence of fire.
+- Overpasses computed analytically; 10° strata (GFED regions × land cover planned).
+- FRP is not harmonized: it is only comparable between months of the same sensor.

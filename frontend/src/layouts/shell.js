@@ -32,23 +32,7 @@ export function monterShell({ page }) {
       </div>
     </div>
     <nav class="mobile-nav" id="mobile-nav" aria-label="Navigation">${nav(page)}</nav>`;
-  if (footer) footer.innerHTML = `
-    <div class="wrap">
-      <div class="top">
-        <div class="brand"><span class="name">HEXA<b>FIRE</b></span><span class="pip"></span><span class="sub" data-i18n="shell.sub"></span></div>
-        <div class="links">
-          <a href="explore.html" data-i18n="nav.explore"></a><a href="compare.html" data-i18n="nav.compare"></a>
-          <a href="methodology.html" data-i18n="nav.methodology"></a>
-          <a href="${CONFIG.liens.depot}" target="_blank" rel="noopener" data-i18n="shell.github"></a>
-          <a href="${CONFIG.liens.firms}" target="_blank" rel="noopener">NASA FIRMS</a>
-        </div>
-      </div>
-      <p class="ack" style="padding-top:1.25rem" data-i18n-html="shell.ack"></p>
-      <div class="bottom">
-        <span data-i18n="shell.copyright"></span>
-        <span class="row"><span class="pip orbital"></span><span data-i18n="shell.grid"></span></span>
-      </div>
-    </div>`;
+  if (footer) footer.remove();
 
   const majLangue = () => document.querySelectorAll(".lang button").forEach(b => b.classList.toggle("active", b.dataset.lang === getLangue()));
   document.querySelectorAll(".lang button").forEach(b => (b.onclick = () => choisirLangue(b.dataset.lang)));

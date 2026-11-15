@@ -175,3 +175,7 @@ td.ok { color: #7ee2a0; } td.ko { color: var(--error); }
 .skeleton { background: linear-gradient(90deg, var(--surface-low), var(--surface-high), var(--surface-low)); background-size: 200% 100%; animation: shimmer 1.6s infinite; border-radius: var(--r-lg); }
 @keyframes shimmer { to { background-position: -200% 0; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } html { scroll-behavior: auto; } }
+
+/* Barre de menus : rectangles simples, sans angles arrondis */
+.site-nav a, .lang, .lang button, .site-header .btn, .site-header .icon-btn, .mobile-nav a { border-radius: 0; }
+.site-footer { display: none; }

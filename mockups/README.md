@@ -1,21 +1,23 @@
-# Maquettes Google Stitch
+# Google Stitch mockups
 
-Références visuelles dont le frontend est issu. Chaque dossier contient l'export HTML (Tailwind via CDN, images
-distantes) et la capture d'écran.
+Visual references the front end was built from. They were generated with Google Stitch, a Super Intelligence (SI)
+design tool. Each folder holds the HTML export (Tailwind through a CDN, remote images) and the screenshot.
 
-| Dossier | Page du site | Remarques |
+| Folder | Site page | Notes |
 |---|---|---|
-| `Home/` | `index.html` | Héros plein écran, section « continuité des capteurs », trois regards, appel final |
-| `Explore/` (états A et B) | `explore.html` | État A : recherche, outils, globe ; état B : bandeau de sélection, cycle annuel en douze cartes |
-| `Compare/` | `compare.html` | Deux entités A / B, viewports jumeaux, courbes, synthèse |
-| `Methodology/` | `methodology.html` | Éditorial aéré en six sections |
-| `DESIGN.md` | tout le site | Système de design « Nuit Braise » : couleurs, typographie, espacements, composants |
+| `Home/` | `index.html` | Full-screen hero, "fire is changing our world" section, three lenses, final call |
+| `Explore/` (states A and B) | `explore.html` | State A: search, tools, globe; state B: selection banner, annual cycle in twelve cards |
+| `Compare/` | `compare.html` | Two entities A / B, twin viewports, curves, summary |
+| `Methodology/` | `methodology.html` | Airy editorial page in six sections |
+| `DESIGN.md` | whole site | "Nuit Braise" design system: colours, typography, spacing, components |
 
-Écarts volontaires entre maquettes et site :
+Deliberate differences between the mockups and the site:
 
-- les contenus factices des maquettes (Copernicus EMS, latence < 3 h, normale décennale 2014–2023, FRP en GW…) sont
-  remplacés par les grandeurs réelles du moteur (normale 2003–2020, équivalent MODIS, validation « une année exclue ») ;
-- les icônes Material Symbols sont remplacées par des SVG en ligne, et Tailwind par des feuilles CSS natives
-  (`frontend/src/styles/tokens.css` reprend les jetons de `DESIGN.md`) ;
-- le globe est un vrai globe (MapLibre GL JS 5, fond NASA Black Marble), pas une image ;
-- le bouton « Export GeoTIFF » devient des exports CSV / JSON / PNG / SVG, qui correspondent aux données publiées.
+- the placeholder content of the mockups (Copernicus EMS, latency < 3 h, 2014–2023 decadal normal, FRP in GW…) is
+  replaced by the real quantities of the engine (2003–2020 normal, MODIS equivalent, leave-one-year-out validation);
+- Material Symbols icons are replaced by inline SVG, and Tailwind by native CSS sheets
+  (`frontend/src/styles/tokens.css` takes the tokens of `DESIGN.md`);
+- the globe is a real globe (MapLibre GL JS 5, NASA Black Marble background), not an image;
+- the "Export GeoTIFF" button becomes CSV / JSON / PNG / SVG exports, which match the published data;
+- the site was then simplified for non-specialist readers: technical labels removed, plain-language summary and
+  "About & guide" page.

@@ -2,7 +2,7 @@
 /* Page Explorer : recherche, outils, scène du globe, bandeau de sélection, résultats. */
 .explore { position: relative; overflow: hidden; padding-top: var(--space-lg); }
 .explore-head { text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); padding-bottom: var(--space-md); }
-.explore-head h1 { text-transform: uppercase; }
+.explore-head h1 { text-transform: none; }
 .explore-head .lead { max-width: 36rem; }
 
 /* Recherche et outils */
@@ -103,3 +103,14 @@
 @media (max-width: 760px) { .analyses { grid-template-columns: 1fr; } }
 /* Sur petit écran, le graphique garde une taille lisible et défile horizontalement */
 .chart svg { min-width: 560px; }
+
+/* Lecture en mots simples et explications */
+.reading { display: grid; gap: .35rem; margin-bottom: var(--space-md); font-size: 1.05rem; line-height: 1.6; color: var(--starlight); max-width: 60rem; }
+.reading b { color: var(--fire-soft); font-weight: 600; }
+.explain { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: var(--space-lg); margin-top: var(--space-lg); padding-top: var(--space-lg); border-top: 1px solid var(--hairline); }
+.explain h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; margin-bottom: .35rem; }
+.explain p { color: var(--atmosphere); font-size: .95rem; line-height: 1.6; }
+.v-simple { max-width: 60rem; margin: .4rem 0 var(--space-md); font-size: .95rem; } .v-simple b { color: var(--starlight); }
+/* Pas d'étiquettes techniques sur le globe */
+.stage-frame .corner.tr { display: none; }
+.explore-head h1, .compare h1, .methodology h1 { font-family: var(--font-display); font-weight: 600; letter-spacing: -0.03em; }

@@ -1,103 +1,104 @@
 # Architecture
 
-HEXAFIRE est composé d'un **moteur hors ligne** (Python) qui produit des fichiers statiques, et d'un **site statique**
-(HTML, CSS, modules JavaScript natifs) qui les lit dans le navigateur. Aucun serveur applicatif, aucune base de données,
-aucune étape de compilation : n'importe quel serveur de fichiers (GitHub Pages, `python -m http.server`) suffit.
+HEXAFIRE is made of an **offline engine** (Python) that produces static files, and a **static website** (HTML, CSS,
+native JavaScript modules) that reads them in the browser. No application server, no database, no build step: any
+file server (GitHub Pages, `python -m http.server`) is enough.
 
 ```
-archives MODIS / VIIRS ──► backend (python -m hexafire …) ──► frontend/public/data/*.json ──► navigateur
+MODIS / VIIRS archives ──► backend (python -m hexafire …) ──► frontend/public/data/*.json ──► browser
 ```
 
 ## Backend (`backend/`)
 
-Paquet `hexafire`, un module par étape :
+`hexafire` package, one module per step:
 
-| Module | Étape | Sortie |
+| Module | Step | Output |
 |---|---|---|
-| `lecture.py` | inventaire des archives | — |
-| `preparation.py` | filtres P1–P9, un fichier par capteur et par mois | `donnees_preparees/` |
-| `agregation.py` | comptages cellule × mois × capteur × jour/nuit, FRP | `agregats/cell_month` |
-| `occasions.py` | passages par cellule, jours disponibles | `agregats/` |
-| `harmonisation.py` | calibration S-NPP → MODIS (strates, mois, jour/nuit), relais NOAA, série harmonisée, incertitude | `agregats/conversion_*`, `harmonized_cell_month`, `serie_mois` |
-| `validation.py` | « une année exclue », comparaison M0 / M1 | `journaux/validation_resultats.csv` |
-| `firms_recent.py` | mois récents par l'API FIRMS | `donnees_preparees/` |
-| `publication.py` | fichiers du site, jeu d'exemple, frontières des pays | `frontend/public/data/` |
+| `lecture.py` | inventory of the archives | — |
+| `preparation.py` | filters P1–P9, one file per sensor and month | `donnees_preparees/` |
+| `agregation.py` | counts per cell × month × sensor × day/night, FRP | `agregats/cell_month` |
+| `occasions.py` | overpasses per cell, available days | `agregats/` |
+| `harmonisation.py` | S-NPP → MODIS calibration (strata, months, day/night), NOAA relays, harmonized series, uncertainty | `agregats/conversion_*`, `harmonized_cell_month`, `serie_mois` |
+| `validation.py` | leave-one-year-out test, comparison with M0 / M1 | `journaux/validation_resultats.csv` |
+| `firms_recent.py` | recent months through the FIRMS API | `donnees_preparees/` |
+| `publication.py` | site files, example dataset, country borders | `frontend/public/data/` |
 
-Réglages dans `backend/config.toml` (grille, filtres, périodes). Les chemins relatifs y sont relatifs au dossier
-`backend/` : par défaut, les données volumineuses vivent dans `../donnees_brutes`, `../donnees_preparees`,
-`../agregats`, `../journaux`, à la racine du dépôt (ignorées par git).
+Settings are in `backend/config.toml` (grid, filters, periods). Relative paths there are relative to `backend/`: by
+default the large data live in `../donnees_brutes`, `../donnees_preparees`, `../agregats` and `../journaux`, at the
+repository root (ignored by git).
 
-## Format d'échange moteur → site (v2)
+## Engine → site exchange format (v2)
 
-Dossier `frontend/public/data/` :
+Folder `frontend/public/data/`:
 
-- `index.json` : `format`, `genere_le`, `unites` (`modis`, `viirs`), `carte` (`pas` = 1°, modèle de nom),
-  `pas_grille` (0,25), `taille_tuile` (5), `debut` (`2000-11`), `periode_reference` (`[2003, 2020]`),
-  `mois` (liste ; `t` = 0 pour novembre 2000, `annee`, `mois`, `statut`, `source`, `couverture`), `tuiles` (identifiants
-  `ilat_ilon` des tuiles non vides), `validation` (tableau repris tel quel), `taille_bloc` (strates), **`totaux`**
-  (`{"v": [...], "b": [...]}`, cumul mondial par mois, ajouté dans cette version), `exemple` (vrai pour le jeu fictif).
-- `tuiles/t_<ilat>_<ilon>.json` : tuile de 5° × 5°, listes alignées `cellules`, `t`, `v` (équivalent MODIS), `b`
-  (détections brutes de la source du mois), `w` (équivalent VIIRS), `e` / `f` (écart type de conversion, MODIS /
-  VIIRS), `p` (FRP totale, MW). Seules les valeurs non nulles sont écrites ; cellule absente = 0.
-- `cartes/m_<t>.json` : couche du mois `t` sur une grille de 1° : `c` (cellules), `v`, `w`, `r` (rapport à la médiane
-  2003–2020 du même mois, `-1` si non calculable : moins de 10 années de référence ou médiane < 5).
-- `pays.geojson` (facultatif, `python -m hexafire pays`) : frontières Natural Earth 1:110 M, propriétés allégées.
+- `index.json`: `format`, `genere_le` (generation date), `unites` (`modis`, `viirs`), `carte` (`pas` = 1°, file name
+  pattern), `pas_grille` (0.25), `taille_tuile` (5), `debut` (`2000-11`), `periode_reference` (`[2003, 2020]`),
+  `mois` (list; `t` = 0 for November 2000, `annee`, `mois`, `statut`, `source`, `couverture`), `tuiles` (`ilat_ilon`
+  identifiers of non-empty tiles), `validation` (table shown as is), `taille_bloc` (strata), `totaux`
+  (`{"v": [...]}`, global total per month), `exemple` (true for the fictitious dataset).
+- `tuiles/t_<ilat>_<ilon>.json`: 5° × 5° tile, aligned lists `cellules`, `t`, `v` (MODIS equivalent), `b` (raw
+  detections of the source of the month), `w` (VIIRS equivalent), `e` / `f` (conversion standard deviation, MODIS /
+  VIIRS), `p` (total FRP, MW). Only non-zero values are written; a missing cell means 0.
+- `cartes/m_<t>.json`: layer of month `t` on a 1° grid: `c` (cells), `v`, `w`, `r` (ratio to the 2003–2020 median of
+  the same month, `-1` when it cannot be computed: fewer than 10 reference years or a median below 5).
+- `pays.geojson` (optional, `python -m hexafire pays`): Natural Earth 1:110 M borders, reduced properties.
 
-Numérotation des cellules : `ligne * n_lon + colonne`, ligne 0 au nord (90° N), colonne 0 à l'ouest (180° W)
+Cell numbering: `row * n_lon + column`, row 0 in the north (90° N), column 0 in the west (180° W)
 (`backend/hexafire/grille.py`, `frontend/src/utils/geo.js`).
 
-## Frontend (`frontend/`)
+## Front end (`frontend/`)
 
 ```
 frontend/
-├── index.html  explore.html  compare.html  methodology.html      une page = une vue
+├── index.html  explore.html  compare.html  methodology.html      one page per view
 ├── public/
-│   ├── assets/images/   images d'ambiance issues des maquettes (JPEG)
+│   ├── assets/images/   background images from the mockups (JPEG)
 │   ├── assets/icons/    favicon
-│   └── data/            fichiers du moteur (non versionnés)
+│   └── data/            engine files (not versioned on main)
 └── src/
-    ├── config/app.js            chemins, tuiles du globe, régions suggérées, liens
-    ├── styles/                  tokens.css (système de design), base.css (coquille, composants), une feuille par page
-    ├── layouts/shell.js         en-tête, navigation, langue, pied de page, bandeau « données d'exemple »
+    ├── config/app.js            paths, globe tiles, suggested regions, links
+    ├── styles/                  tokens.css (design system), base.css (shell, components), one sheet per page
+    ├── layouts/shell.js         header, navigation, language, "example data" banner
     ├── components/
-    │   ├── globe.js             MapLibre GL JS 5 en projection globe : fond NASA GIBS, dessin de zones, couche de 1°, rotation
-    │   ├── calendar.js          calendrier années × mois (SVG) et légende
-    │   ├── monthCards.js        douze cartes mensuelles d'une année
-    │   ├── charts.js            profil saisonnier, saison cumulée, brut vs harmonisé, courbes A / B, tableaux
+    │   ├── globe.js             MapLibre GL JS 5 in globe projection: NASA GIBS background, area drawing, 1° layer
+    │   ├── calendar.js          year × month calendar (SVG) and legend
+    │   ├── monthCards.js        twelve monthly cards of a year
+    │   ├── charts.js            raw vs harmonized, A / B curves, tables
     │   ├── tooltip.js, icons.js
     ├── services/
-    │   ├── data.js              index, tuiles, cartes, pays ; série d'une zone (somme des cellules dont le centre est dedans)
-    │   ├── geocode.js           Nominatim (une requête par recherche) et coordonnées tapées
+    │   ├── data.js              index, tiles, maps, countries; series of an area (sum of the cells whose centre is inside)
+    │   ├── geocode.js           Nominatim (one request per search) and typed coordinates
     │   └── export.js            CSV, JSON, SVG, PNG
     ├── utils/
-    │   ├── i18n.js              textes FR / EN communs, formats de nombres
-    │   ├── geo.js               zones (cercle, rectangle, polygone, pays), emprise, aire, appartenance
-    │   ├── stats.js             normale 2003–2020, classes d'écart, intervalle de conversion, palettes
-    │   └── link.js              lien partageable (#z=…&m=…&a=…)
+    │   ├── i18n.js              shared English / French texts, number formats
+    │   ├── geo.js               areas (circle, rectangle, polygon, country), extent, area, membership
+    │   ├── stats.js             2003–2020 normal, departure classes, conversion interval, palettes
+    │   └── link.js              shareable link (#z=…&m=…&a=…)
     └── pages/
-        ├── Home/home.js         vignettes alimentées par index.json
-        ├── Explore/explore.js   état de la page, outils de sélection, résultats, couche mensuelle, exports
-        ├── Compare/compare.js   deux entités A / B, globes jumeaux, métriques, synthèse
-        └── Methodology/methodology.js   contenu éditorial bilingue
+        ├── Home/home.js         home page
+        ├── Explore/explore.js   page state, selection tools, plain-language summary, calendar, monthly layer, exports
+        ├── Compare/compare.js   two entities A / B, twin globes, metrics, summary
+        └── Methodology/methodology.js   "About & guide" page, in plain words, English and French
 ```
 
-Conventions : identifiants en français comme dans le moteur (cellule, tuile, zone, série), noms de dossiers en anglais.
-Les textes de l'interface passent par `t("cle")` ; chaque page ajoute ses clés avec `ajouterTextes()`.
+Conventions: identifiers in French as in the engine (cellule = cell, tuile = tile, zone = area, série = series),
+folder names in English. Interface texts go through `t("key")`; each page adds its keys with `ajouterTextes()`.
+The site opens in English; French is available from the header.
 
 ### Globe
 
-MapLibre GL JS 5 (`projection: globe`) : vue sphérique aux petits zooms, Mercator en se rapprochant. Fond : NASA GIBS
-*VIIRS Black Marble* (jusqu'au niveau 8), imagerie Esri assombrie au-delà, traits de côte, frontières et toponymes GIBS.
-La couche mensuelle de 1° est un GeoJSON de carrés colorés ; la zone sélectionnée est un polygone (cercle de 72 côtés,
-rectangle, polygone dessiné, multipolygone d'un pays).
+MapLibre GL JS 5 (`projection: globe`): spherical view at low zoom, Mercator when zooming in. Background: NASA GIBS
+*VIIRS Black Marble* (up to level 8), darkened Esri imagery beyond, GIBS coastlines, borders and labels. The 1°
+monthly layer is a GeoJSON of coloured squares; the selected area is a polygon (72-sided circle, rectangle, drawn
+polygon, country multipolygon).
 
-### Dépendances externes du site
+### External dependencies of the site
 
-MapLibre GL JS (CDN unpkg), Google Fonts (Space Grotesk, Inter), tuiles NASA GIBS et Esri, Nominatim. Sans connexion, la
-page reste utilisable par saisie de coordonnées (le globe affiche un message).
+MapLibre GL JS (unpkg CDN), Google Fonts (Space Grotesk, Inter), NASA GIBS and Esri tiles, Nominatim. Without a
+connection, the page can still be used by typing coordinates (the globe shows a message).
 
 ## Tests
 
-- `backend/tests/` : 14 tests pytest (préparation, harmonisation, validation, API FIRMS).
-- `tests/frontend_smoke.mjs` : ouvre chaque page dans Edge / Chrome sans fenêtre, relève les erreurs JavaScript et les
-  fichiers manquants, enregistre une capture (voir `tests/README.md`).
+- `backend/tests/`: 14 pytest tests (preparation, harmonization, validation, FIRMS API).
+- `tests/frontend_smoke.mjs`: opens each page in headless Edge / Chrome, reports JavaScript errors and missing files,
+  saves a screenshot (see `tests/README.md`).

@@ -1,22 +1,21 @@
 # Tests
 
-## Moteur (Python)
+## Engine (Python)
 
 ```bash
-cd backend && python -m pytest -q      # 14 tests : préparation, harmonisation, validation, API FIRMS
+cd backend && python -m pytest -q      # 14 tests: preparation, harmonization, validation, FIRMS API
 ```
 
-## Frontend (test de fumée)
+## Front end (smoke test)
 
-`frontend_smoke.mjs` ouvre chaque page du site dans Edge ou Chrome sans fenêtre (protocole DevTools, Node.js 22+ sans
-dépendance), relève les erreurs JavaScript et les fichiers introuvables, puis enregistre une capture d'écran.
+`frontend_smoke.mjs` opens each page of the site in headless Edge or Chrome (DevTools protocol, Node.js 22+ without
+dependencies), reports JavaScript errors and missing files, then saves a screenshot.
 
 ```bash
 cd frontend && python -m http.server 8000          # terminal 1
 node tests/frontend_smoke.mjs --base http://localhost:8000 --out captures   # terminal 2
-# options : --pages home,explore   --browser "C:\...\chrome.exe"
+# options: --pages home,explore   --browser "C:\...\chrome.exe"
 ```
 
-Pages testées : accueil, Explorer (vide et avec une zone restaurée depuis le lien), Comparer (deux zones), Méthode.
-Code de sortie 1 si une page produit une erreur JavaScript ou un 404 vers ses propres fichiers (`pays.geojson`,
-facultatif, est toléré).
+Pages tested: Home, Explore (empty and with an area restored from the link), Compare (two areas), About & guide.
+Exit code 1 if a page produces a JavaScript error or a 404 on its own files (`pays.geojson`, optional, is tolerated).

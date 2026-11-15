@@ -6,7 +6,7 @@
 const T = {
   fr: {
     // coquille
-    "nav.home": "Accueil", "nav.explore": "Explorer", "nav.compare": "Comparer", "nav.methodology": "Méthode",
+    "nav.home": "Accueil", "nav.explore": "Explorer", "nav.compare": "Comparer", "nav.methodology": "À propos et guide",
     "shell.sub": "Observatoire planétaire des feux", "shell.launch": "Ouvrir le globe", "shell.menu": "Menu",
     "shell.example": "Données d'exemple (fictives) : lancez python -m hexafire publier pour la série réelle",
     "shell.sources": "Sources", "shell.github": "Dépôt GitHub", "shell.docs": "Documentation",
@@ -73,7 +73,7 @@ const T = {
     "avertissement": "Un point chaud n'est pas un incendie, et l'absence de point chaud ne prouve pas l'absence de feu.",
   },
   en: {
-    "nav.home": "Home", "nav.explore": "Explore", "nav.compare": "Compare", "nav.methodology": "Methodology",
+    "nav.home": "Home", "nav.explore": "Explore", "nav.compare": "Compare", "nav.methodology": "About & guide",
     "shell.sub": "Planetary fire observatory", "shell.launch": "Open the globe", "shell.menu": "Menu",
     "shell.example": "Example data (fictitious): run python -m hexafire publier for the real series",
     "shell.sources": "Sources", "shell.github": "GitHub repository", "shell.docs": "Documentation",
@@ -173,7 +173,7 @@ export function appliquerTextes(racine = document) {
 }
 
 export function choisirLangue(l, notifier = true) {
-  langue = l === "en" ? "en" : "fr";
+  langue = l === "fr" ? "fr" : "en";
   try { localStorage.setItem("hexafire-langue", langue); } catch { /* stockage indisponible */ }
   appliquerTextes();
   if (notifier) ecouteurs.forEach(f => f(langue));
@@ -183,7 +183,7 @@ export function langueInitiale() {
   const h = new URLSearchParams(location.hash.replace(/^#/, "")).get("l");
   if (h === "fr" || h === "en") return h;
   try { const l = localStorage.getItem("hexafire-langue"); if (l) return l; } catch { /* ignoré */ }
-  return (navigator.language || "fr").toLowerCase().startsWith("fr") ? "fr" : "en";
+  return "en";
 }
 
 export function surChangementLangue(f) { ecouteurs.push(f); }

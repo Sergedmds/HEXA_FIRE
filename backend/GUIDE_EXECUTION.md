@@ -1,66 +1,67 @@
-# Faire tourner le moteur HEXAFIRE depuis le début
+# Running the HEXAFIRE engine from the start
 
-Ce guide décrit la chaîne complète, des archives téléchargées jusqu'aux fichiers de l'application web.
-Pour chaque étape : ce qu'elle fait, la commande, ce qui s'affiche et comment le lire. Les modèles mathématiques de
-chaque étape sont détaillés dans `docs/DOSSIER_TECHNIQUE.pdf` (section 5).
+This guide describes the full chain, from the downloaded archives to the files of the web application.
+For each step: what it does, the command, what is printed and how to read it. The mathematical models behind each
+step are detailed in `docs/TECHNICAL_DOSSIER.pdf` (section 5). The engine prints its messages in French; the
+examples below show them as they appear, with an English explanation.
 
-## 0. Avant de commencer
+## 0. Before you start
 
-**Installation (une fois).** Il faut Python 3.11 ou plus récent, et `lftp` pour le téléchargement.
+**Installation (once).** You need Python 3.11 or later, and `lftp` for the download.
 
 ```bash
 sudo apt install lftp                      # Ubuntu / Debian
-cd hexafire-observatory/backend
+cd HEXA_FIRE/backend
 python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt            # pandas, numpy, pyarrow, requests, pytest
 ```
 
-**Téléchargement des archives** (serveur SFTP de l'université du Maryland ; provenance : `DATA_SOURCES.md`) :
+**Downloading the archives** (SFTP server of the University of Maryland; provenance in `docs/data-sources.md`):
 
 ```bash
-cd hexafire-observatory
+cd HEXA_FIRE
 bash telecharger_archives.sh modis              # MODIS collection 6, 2000-2022
 bash telecharger_archives.sh modis_recent       # MODIS collection 6.1, 2023 ->
-bash telecharger_archives.sh snpp               # VIIRS S-NPP 2012 -> (indispensable : calibration et 2021 ->)
-bash telecharger_archives.sh noaa21             # facultatif : relais après l'arrêt de S-NPP
-bash telecharger_archives.sh noaa20             # facultatif
-for f in donnees_brutes/*/*.gz; do gzip -t "$f" 2>/dev/null || echo "ABÎMÉ : $f"; done   # contrôle
+bash telecharger_archives.sh snpp               # VIIRS S-NPP 2012 -> (required: calibration and 2021 ->)
+bash telecharger_archives.sh noaa21             # optional: relay after the end of S-NPP
+bash telecharger_archives.sh noaa20             # optional
+for f in donnees_brutes/*/*.gz; do gzip -t "$f" 2>/dev/null || echo "DAMAGED: $f"; done   # check
 ```
 
-Le téléchargement reprend là où il s'est arrêté. Un fichier coupé et daté plus récemment que celui du serveur n'est
-pas retéléchargé : supprimez-le puis relancez la commande.
+The download resumes where it stopped. A truncated file dated more recently than the server copy is not downloaded
+again: delete it and run the command again.
 
-**Vérification de l'installation** :
+**Checking the installation**:
 
 ```bash
-cd hexafire-observatory/backend
-source .venv/bin/activate          # (.venv) doit apparaître au début de la ligne
-pytest -q                          # attendu : 14 passed
+cd HEXA_FIRE/backend
+source .venv/bin/activate          # (.venv) must appear at the start of the line
+pytest -q                          # expected: 14 passed
 ```
 
-Si un test échoue, ne lancez pas la chaîne : le code ou l'environnement a un problème.
+If a test fails, do not run the chain: the code or the environment has a problem.
 
-**Dossiers utilisés** (réglés dans `config.toml`, à côté de `hexafire_moteur/`) :
+**Folders used** (set in `config.toml`, relative to `backend/`):
 
-| Dossier | Contenu | Écrit par |
+| Folder | Content | Written by |
 |---|---|---|
-| `donnees_brutes/` | archives mensuelles MODIS et VIIRS (`.txt.gz`, `.csv.gz`) | `telecharger_archives.sh`, `firms` |
-| `donnees_preparees/` | détections filtrées, un fichier par capteur et par mois | `preparer`, `firms` |
-| `agregats/` | tables de comptage, occasions, facteurs, série harmonisée | `agreger` à `serie` |
-| `journaux/` | journal de préparation, résultats de validation | `preparer`, `valider` |
-| `../frontend/public/data/` | fichiers lus par l'application | `publier` |
+| `donnees_brutes/` | MODIS and VIIRS monthly archives (`.txt.gz`, `.csv.gz`) | `telecharger_archives.sh`, `firms` |
+| `donnees_preparees/` | filtered detections, one file per sensor and month | `preparer`, `firms` |
+| `agregats/` | count tables, overpasses, factors, harmonized series | `agreger` to `serie` |
+| `journaux/` | preparation log, validation results | `preparer`, `valider` |
+| `../frontend/public/data/` | files read by the application | `publier` |
 
-**Réglages importants** (`config.toml`) : grille de 0,25° ; on garde les feux de végétation (type 0), les
-détections MODIS de confiance ≥ 30 et les VIIRS hors confiance « faible » ; normale 2003–2020 ;
-calibration 2012–2020 ; passage à VIIRS en janvier 2021.
+**Main settings** (`config.toml`): 0.25° grid; vegetation fires only (type 0), MODIS detections with confidence ≥ 30
+and VIIRS detections other than "low" confidence; 2003–2020 normal; 2012–2020 calibration; switch to VIIRS in
+January 2021.
 
-## Vue d'ensemble
+## Overview
 
 ```
 inventaire → preparer → (firms) → agreger → occasions → calibrer → valider → serie → publier
 ```
 
-Chaîne complète en une ligne (s'arrête à la première erreur) :
+Full chain in one line (stops at the first error):
 
 ```bash
 python -m hexafire preparer && python -m hexafire agreger && python -m hexafire occasions \
@@ -68,125 +69,122 @@ python -m hexafire preparer && python -m hexafire agreger && python -m hexafire 
  && python -m hexafire publier
 ```
 
-**Règle d'or : après chaque `agreger`, relancez `occasions`.** Sinon `calibrer` exclut les nouveaux mois
-(voir l'étape 5).
+**Golden rule: after each `agreger`, run `occasions` again.** Otherwise `calibrer` leaves out the new months
+(see step 6).
 
 ---
 
-## 1. `inventaire`, ce qui sera utilisé
+## 1. `inventaire`, what will be used
 
-**Ce que ça fait**. Parcourt `donnees_brutes/`, reconnaît chaque archive (produit, année, mois, version)
-et dit ce qui sera utilisé. Ne modifie rien. Si deux versions du même mois existent, la plus récente
-est retenue (MODIS : collection 6 jusqu'en 2022, 6.1 ensuite).
+**What it does.** Scans `donnees_brutes/`, recognizes each archive (product, year, month, version) and reports what
+will be used. It changes nothing. When two versions of the same month exist, the most recent one is kept (MODIS:
+collection 6 until 2022, 6.1 after).
 
 ```bash
 python -m hexafire inventaire
 ```
 
-**Sortie** :
+**Output**:
 ```
 Dossier : /home/.../donnees_brutes
   MCD14ML      310 mois  (2000-11 -> 2026-08)
-  VNP14IMGML   176 mois  (2012-01 -> 2026-07)
+  VNP14IMGML   175 mois  (2012-01 -> 2026-07)
   ...
 ```
 
-**Comment la lire** :
-- une ligne par produit : nombre de mois, premier et dernier mois ;
-- MCD14ML devrait couvrir 2000-11 → 2026-08 (environ 310 mois) ;
-- pour calibrer, il faut **VNP14IMGML de 2012 à 2020** (108 mois) ;
-- un trou (moins de mois que l'intervalle) signale un fichier manquant ou encore en téléchargement.
+**How to read it**:
+- one line per product: number of months, first and last month;
+- MCD14ML should cover 2000-11 → 2026-08 (about 310 months);
+- calibration needs **VNP14IMGML from 2012 to 2020** (108 months);
+- a gap (fewer months than the interval) means a missing file or one still downloading.
 
-## 2. `preparer`, filtrer et ranger les détections
+## 2. `preparer`, filter and store the detections
 
-**Ce que ça fait**. Lit chaque archive, garde uniquement les détections utiles (type 0, confiance),
-les met dans un format commun et écrit un fichier par capteur (Terra, Aqua, S-NPP, NOAA-20, NOAA-21)
-et par mois dans `donnees_preparees/`. Chaque archive traitée est notée dans
-`journaux/preparation.jsonl` avec son empreinte : **relancer ne refait que les nouvelles archives**.
+**What it does.** Reads each archive, keeps only the useful detections (type 0, confidence), puts them in a common
+format and writes one file per sensor (Terra, Aqua, S-NPP, NOAA-20, NOAA-21) and per month in `donnees_preparees/`.
+Each processed archive is recorded in `journaux/preparation.jsonl` with its fingerprint: **running it again only
+processes new archives**.
 
 ```bash
-python -m hexafire preparer                         # tout
-python -m hexafire preparer --produits MCD14ML      # un seul produit
-python -m hexafire preparer --limite 3              # essai sur 3 archives
-python -m hexafire preparer --forcer                # tout refaire (après changement de filtres)
+python -m hexafire preparer                         # everything
+python -m hexafire preparer --produits MCD14ML      # a single product
+python -m hexafire preparer --limite 3              # trial on 3 archives
+python -m hexafire preparer --forcer                # redo everything (after changing the filters)
 ```
 
-**Sortie** :
+**Output**:
 ```
 [12/486] MCD14ML.201203.006.03.txt.gz :   312,455 lues,   268,910 retenues (4.2 s)
 [13/486] VNP14IMGML.201203.C2.04.csv.gz : ignorée (EOFError: ...)
 486 archive(s) préparée(s). Journal : .../journaux/preparation.jsonl
 ```
 
-**Comment la lire** :
-- `lues` / `retenues` : la part retenue tourne en général autour de **80 à 95 %** pour MODIS (on retire les
-  volcans, sources fixes et faibles confiances). Pour VIIRS elle est un peu plus basse (classe « faible »
-  retirée). Une part proche de 0 % ou de 100 % mérite une vérification ;
-- `ignorée (EOFError…)` : archive incomplète, en général **encore en téléchargement**. Relancez
-  `preparer` quand le téléchargement est fini ;
-- une archive déjà préparée n'apparaît pas : c'est normal.
+**How to read it**:
+- `lues` / `retenues` (read / kept): for MODIS the kept share is usually **80 to 95%** (volcanoes, static sources and
+  low confidence are removed). For VIIRS it is a little lower ("low" class removed). A share close to 0% or 100%
+  deserves a check;
+- `ignorée (EOFError…)` (skipped): incomplete archive, usually **still downloading**. Run `preparer` again once the
+  download is over;
+- an archive already prepared does not appear: this is normal.
 
-## 3. `firms` (facultatif), les mois les plus récents
+## 3. `firms` (optional), the most recent months
 
-**Ce que ça fait**. Télécharge par l'API FIRMS ce qui manque après la fin des archives du serveur
-(MODIS après août 2026, VIIRS après juillet 2026), puis le prépare comme à l'étape 2 (fichiers
-`<capteur>_<AAAAMM>_api`). Reprend là où il s'était arrêté. Peut tourner **en même temps** que les
-téléchargements SFTP. À lancer **avant** `agreger`.
+**What it does.** Downloads through the FIRMS API what is missing after the end of the server archives (MODIS after
+August 2026, VIIRS after July 2026), then prepares it as in step 2 (files `<sensor>_<YYYYMM>_api`). It resumes where
+it stopped and can run **at the same time** as the SFTP downloads. Run it **before** `agreger`.
 
 ```bash
-export FIRMS_MAP_KEY=votre_cle
-python -m hexafire firms                    # télécharger et préparer
+export FIRMS_MAP_KEY=your_key
+python -m hexafire firms                    # download and prepare
 python -m hexafire firms --seulement-preparer
 ```
 
-**Sortie** :
+**Output**:
 ```
   MODIS : archive jusqu'au 2026-08-31, API à partir du 2026-09-01
   VIIRS_NOAA21_NRT 2026-08-01 +5 j : 61,204 détections
 API FIRMS : 1,254,330 détections lues, 1,050,112 retenues, 12 fichiers capteur-mois écrits
 ```
 
-**Comment la lire** :
-- les premières lignes rappellent les dates de raccord archive / API ;
-- `réponse inattendue` : clé invalide, quota dépassé (5 000 requêtes par 10 min) ou service indisponible.
-  Attendez quelques minutes et relancez ;
-- quand l'archive d'un mois arrive plus tard, `agreger` ignore automatiquement la version API de ce mois.
+**How to read it**:
+- the first lines give the dates where the archive hands over to the API;
+- `réponse inattendue` (unexpected response): invalid key, quota exceeded (5,000 requests per 10 minutes) or service
+  unavailable. Wait a few minutes and run it again;
+- when the archive of a month arrives later, `agreger` automatically ignores the API version of that month.
 
-## 4. `agreger`, compter par cellule et par mois
+## 4. `agreger`, count per cell and month
 
-**Ce que ça fait**. Compte les détections par cellule de 0,25°, mois, capteur et période (jour/nuit).
-C'est la table de base de tout le reste (`agregats/cell_month`). Elle produit aussi les comptages
-mondiaux par jour (`capteur_jour`), qui servent à repérer les jours sans données, et un résumé
-`agregats/resume_mensuel.csv`.
+**What it does.** Counts the detections per 0.25° cell, month, sensor and period (day or night). This is the base
+table for everything else (`agregats/cell_month`). It also produces global daily counts (`capteur_jour`), used to
+find days without data, and a summary `agregats/resume_mensuel.csv`.
 
 ```bash
 python -m hexafire agreger
 ```
 
-**Sortie** :
+**Output**:
 ```
   3 mois API ignorés (archive disponible)
   100/486 fichiers agrégés
 cell_month : 48,215,330 lignes, 512,904,118 détections -> .../agregats/cell_month.parquet
 ```
 
-**Comment la lire** :
-- le total de détections doit être **proche de la somme des « retenues »** de l'étape 2 ;
-- ouvrez `resume_mensuel.csv` (tableur) : un mois avec beaucoup moins de détections que ses voisins
-  signale un fichier incomplet ou une panne du satellite.
+**How to read it**:
+- the total number of detections should be **close to the sum of the "retenues"** of step 2;
+- open `resume_mensuel.csv` in a spreadsheet: a month with far fewer detections than its neighbours points to an
+  incomplete file or a satellite outage.
 
-## 5. `occasions`, combien de fois chaque cellule a été vue
+## 5. `occasions`, how many times each cell was seen
 
-**Ce que ça fait**. Calcule le nombre de passages de chaque satellite au-dessus de chaque cellule (selon la
-latitude et la fauchée) et repère les **jours sans données**. Un jour compte comme manquant quand le
-capteur détecte moins de 10 % de son activité mondiale habituelle. Sans ce calcul, on confondrait
-« moins de feux » et « moins de passages ».
+**What it does.** Computes the number of overpasses of each satellite over each cell (from latitude and swath) and
+finds **days without data**. A day counts as missing when the sensor detects less than 10% of its usual global
+activity. Without this step, "fewer fires" and "fewer overpasses" would be confused.
 
 ```bash
 python -m hexafire occasions
 ```
 
-**Sortie** :
+**Output**:
 ```
 occasions : 412,880 cellules actives, 1,104 capteur-mois -> .../agregats
   37 capteur-mois incomplets, par exemple :
@@ -196,174 +194,171 @@ occasions : 412,880 cellules actives, 1,104 capteur-mois -> .../agregats
    S-NPP   2012     1          31                 19
 ```
 
-**Comment la lire** :
-- `capteur-mois` = nombre de mois connus, tous capteurs confondus ;
-- la liste des mois incomplets doit correspondre à des **pannes connues** : Terra juin 2001, début d'Aqua
-  en juillet 2002, début de S-NPP en janvier 2012, arrêt de S-NPP en novembre 2026. Ces mois sont
-  corrigés par le nombre de jours réels. Sous 80 % de jours, ils seront marqués
-  « couverture partielle », et « non observé » sous 30 %.
+**How to read it**:
+- `capteur-mois` = number of sensor-months known, all sensors together;
+- the list of incomplete months should match **known outages**: Terra June 2001, start of Aqua in July 2002, start
+  of S-NPP in January 2012, end of S-NPP in November 2026. These months are corrected for the actual number of days.
+  Below 80% of days they are flagged "partial coverage", and "not observed" below 30%.
 
-## 6. `calibrer`, apprendre le facteur VIIRS → MODIS
+## 6. `calibrer`, learn the VIIRS → MODIS factor
 
-**Ce que ça fait**. Sur 2012–2020, quand MODIS et S-NPP observaient ensemble, estime combien un point chaud
-S-NPP vaut de points chauds MODIS, à nombre de passages égal. Le facteur est estimé par strate (bloc de 10°),
-mois de l'année et jour/nuit, puis stabilisé (estimations peu sûres rapprochées de la valeur annuelle de la
-strate). Raccorde ensuite NOAA-20 et NOAA-21 à S-NPP sur leurs années communes.
+**What it does.** Over 2012–2020, when MODIS and S-NPP observed together, it estimates how many MODIS hotspots one
+S-NPP hotspot is worth, for the same number of overpasses. The factor is estimated per stratum (10° block), calendar
+month and day or night, then stabilized (uncertain estimates are pulled towards the annual value of the stratum). It
+then links NOAA-20 and NOAA-21 to S-NPP over their common years.
 
 ```bash
-python -m hexafire calibrer           # --bloc 5 pour des strates de 5°
+python -m hexafire calibrer           # --bloc 5 for 5° strata
 ```
 
-**Sortie** :
+**Output** (final 2012–2020 run):
 ```
-Calibration S-NPP -> MODIS sur 2012-2020 (9 année(s)), 2,104,556 couples cellule-mois, 328 strates
-  jour : 1 point chaud S-NPP = 0.185 point chaud MODIS (médiane des strates ; 10 %-90 % : 0.120-0.260)
-  nuit : 1 point chaud S-NPP = 0.064 point chaud MODIS (médiane des strates ; 10 %-90 % : 0.030-0.110)
+Calibration S-NPP -> MODIS sur 2012-2020 (9 année(s)), 6,743,461 couples cellule-mois, 402 strates
+  jour : 1 point chaud S-NPP = 0.176 point chaud MODIS (médiane des strates ; 10 %-90 % : 0.075-0.268)
+  nuit : 1 point chaud S-NPP = 0.064 point chaud MODIS (médiane des strates ; 10 %-90 % : 0.017-0.109)
   -> .../agregats/conversion_snpp.parquet
-  NOAA-20 raccordé à S-NPP sur [2018, ..., 2026] : 1 point chaud NOAA-20 = 0.950 (jour) / 0.930 (nuit) point chaud S-NPP
+  NOAA-20 raccordé à S-NPP sur [2018, ..., 2026] : ...
   NOAA-21 raccordé à S-NPP sur [2023, ..., 2026] : ...
 ```
 
-**Comment la lire** :
-- **jour**. Facteur attendu entre **0,15 et 0,25** (VIIRS voit 4 à 7 fois plus de points chauds que MODIS).
-  Premiers résultats 2012–2013 : 0,185, soit 5,4 fois ;
-- **nuit**. Facteur plus faible, autour de **0,05 à 0,10** (10 à 20 fois plus). Premier résultat : 0,064 ;
-- l'intervalle 10 %–90 % montre la variation entre régions : c'est justement ce qu'un facteur unique raterait ;
-- **NOAA-20 et NOAA-21**. Facteur proche de **1** (même instrument que S-NPP). Un écart de ±10 % est plausible.
-  Un écart beaucoup plus grand est suspect ;
-- `attention : … couples sans occasions connues, exclus` : vous n'avez pas relancé `occasions` après
-  `agreger`. Relancez `occasions`, puis `calibrer` ;
-- **facteurs à 0,000** ou erreur de logarithme : même cause (occasions manquantes) ;
-- `pas encore de recouvrement avec S-NPP` : les fichiers NOAA ne sont pas encore préparés. Ce n'est pas
-  bloquant.
+**How to read it**:
+- **day** (`jour`). Factor expected between **0.15 and 0.25** (VIIRS sees 4 to 7 times more hotspots than MODIS).
+  Final result: 0.176, that is 5.7 times;
+- **night** (`nuit`). Lower factor, around **0.05 to 0.10** (10 to 20 times more). Final result: 0.064;
+- the 10%–90% range shows the variation between regions: this is exactly what a single factor would miss;
+- **NOAA-20 and NOAA-21**. Factor close to **1** (same instrument as S-NPP). A ±10% difference is plausible; a much
+  larger one is suspicious;
+- `attention : … couples sans occasions connues, exclus` (pairs without known overpasses, excluded): `occasions` was
+  not run again after `agreger`. Run `occasions`, then `calibrer`;
+- **factors at 0.000** or a logarithm error: same cause (missing overpasses);
+- `pas encore de recouvrement avec S-NPP` (no overlap with S-NPP yet): the NOAA files are not prepared yet, or
+  `occasions` has not seen them. Run `occasions` again, then `calibrer`.
 
-## 7. `valider`, vérifier que la conversion donne les bons verdicts
+## 7. `valider`, check that the conversion gives the right verdicts
 
-**Ce que ça fait**. Pour chaque année de 2012 à 2020, refait la calibration **sans cette année**, convertit
-VIIRS pour cette année-là et compare au vrai MODIS. On compare le verdict de chaque mois (bas / normal /
-haut par rapport aux seuils 10 % et 90 % de 2003–2011) avec trois méthodes :
-- **HEXAFIRE**. Notre conversion ;
-- **M1**. Un seul facteur pour le monde ;
-- **M0**. VIIRS brut, sans conversion.
+**What it does.** For each year from 2012 to 2020, it redoes the calibration **without that year**, converts VIIRS
+for that year and compares with real MODIS. The verdict of each month (low / normal / high against the 10% and 90%
+thresholds of 2003–2011) is compared for three methods:
+- **HEXAFIRE**. Our conversion;
+- **M1**. A single factor for the whole world;
+- **M0**. Raw VIIRS, without conversion.
 
 ```bash
 python -m hexafire valider
 ```
 
-**Sortie** (exemple réel sur 2012–2013) :
-```
-Validation « une année exclue » sur 2012, 2013 : 5,830 strate-mois comparés
-          methode  kappa  accord  fausses_anomalies  biais_median  erreur_mediane  marche_max_annee  ic95_kappa_H_moins_methode
-         HEXAFIRE  0.645   ...              0.157         0.016           0.182             0.066
-M1 facteur global  0.543   ...              0.236         0.024           0.245             0.108   [0.060 ; 0.140]
-  M0 raccord brut  0.013   ...              0.924         1.946           1.946             1.979   [0.580 ; 0.680]
-```
+**Result** (final 2012–2020 run, 17,309 stratum-months):
 
-**Comment lire chaque colonne** :
+| Method | kappa | False anomalies | Median bias | Median error | Largest annual step |
+|---|---|---|---|---|---|
+| HEXAFIRE | 0.747 | 0.090 | 0.007 | 0.125 | 0.049 |
+| M1 global factor | 0.558 | 0.239 | 0.032 | 0.262 | 0.117 |
+| M0 raw splice | 0.014 | 0.921 | 1.955 | 1.955 | 2.028 |
 
-| Colonne | Sens | Cible |
+**How to read each column**:
+
+| Column | Meaning | Target |
 |---|---|---|
-| `kappa` | accord des verdicts avec MODIS, corrigé du hasard (0 = hasard, 1 = parfait) | ≥ 0,5 |
-| `accord` | part des mois où le verdict est identique | indicatif |
-| `fausses_anomalies` | part des mois normaux pour MODIS que la méthode déclare bas ou haut | ≤ 0,15 |
-| `biais_median` | écart systématique (en log) : > 0 surestime, < 0 sous-estime | \|·\| < 0,10 |
-| `erreur_mediane` | écart typique d'un mois (en log ; 0,18 ≈ 20 %) | < 0,25 |
-| `marche_max_annee` | plus grand saut moyen d'une année : mesure la « fausse marche » au changement de capteur | < 0,10 |
-| `ic95_kappa_H_moins_methode` | intervalle de confiance à 95 % de kappa(HEXAFIRE) − kappa(méthode) | entièrement > 0 |
+| `kappa` | agreement of the verdicts with MODIS, corrected for chance (0 = chance, 1 = perfect) | ≥ 0.5 |
+| `accord` | share of months with the same verdict | indicative |
+| `fausses_anomalies` | share of months normal for MODIS that the method calls low or high | ≤ 0.15 |
+| `biais_median` | systematic gap (log scale): > 0 overestimates, < 0 underestimates | \|·\| < 0.10 |
+| `erreur_mediane` | typical gap of a month (log scale; 0.18 ≈ 20%) | < 0.25 |
+| `marche_max_annee` | largest mean shift of a year: measures the "false step" at the sensor change | < 0.10 |
+| `ic95_kappa_H_moins_methode` | 95% confidence interval of kappa(HEXAFIRE) − kappa(method) | entirely > 0 |
 
-**Verdict** :
-- HEXAFIRE est **meilleur que M1** si l'intervalle de la ligne M1 est entièrement positif ;
-- **M0** doit être très mauvais (kappa proche de 0, biais proche de 2). C'est la preuve que sans harmonisation,
-  la série est inutilisable ;
-- avec moins de 4 années testées, le programme prévient que les intervalles sont **indicatifs** ;
-- fichiers écrits dans `journaux/` : `validation_resultats.csv` (le tableau, repris par l'application) et
-  `validation_detail.csv.gz` (chaque strate-mois, pour creuser une région).
+**Verdict**:
+- HEXAFIRE is **better than M1** if the interval of the M1 row is entirely positive ([0.174 ; 0.205] in the final run);
+- **M0** must be very poor (kappa close to 0, bias close to 2). This is the proof that without harmonization the series
+  cannot be used;
+- with fewer than 4 test years, the program warns that the intervals are **indicative**;
+- files written in `journaux/`: `validation_resultats.csv` (the table, shown by the application) and
+  `validation_detail.csv.gz` (each stratum-month, to dig into a region).
 
-## 8. `serie`, construire la série harmonisée de 2000 à aujourd'hui
+## 8. `serie`, build the harmonized series from 2000 to today
 
-**Ce que ça fait**. Assemble une seule série, en équivalent MODIS, pour chaque cellule et chaque mois.
-Chaque valeur est ramenée au même nombre de passages (médiane 2003–2020).
+**What it does.** Builds a single series, in MODIS equivalent, for each cell and each month. Each value is brought to
+the same number of overpasses (2003–2020 median).
 
-| Période | Source | Statut |
+| Period | Source | Status |
 |---|---|---|
-| nov. 2000 – juin 2002 | Terra seul, ramené à Terra + Aqua | converti |
-| juil. 2002 – déc. 2020 | MODIS Terra + Aqua | mesuré |
-| depuis janv. 2021 | VIIRS converti (moyenne pondérée de S-NPP, NOAA-20, NOAA-21) | converti |
-| mois sans VIIRS disponible | MODIS | provisoire |
+| Nov 2000 – Jun 2002 | Terra alone, brought to Terra + Aqua | converted |
+| Jul 2002 – Dec 2020 | MODIS Terra + Aqua | measured |
+| from Jan 2021 | converted VIIRS (weighted mean of S-NPP, NOAA-20, NOAA-21) | converted |
+| months without VIIRS data | MODIS | provisional |
 
 ```bash
 python -m hexafire serie
 ```
 
-**Sortie** :
+**Output**:
 ```
-Série harmonisée : 31,502,118 cellules-mois non nulles, 98,450,220 points chauds équivalent MODIS -> .../harmonized_cell_month.parquet
+Série harmonisée : ... cellules-mois non nulles, ... points chauds équivalent MODIS -> .../harmonized_cell_month.parquet
 statut
-mesuré                  218
-converti                 70
-couverture partielle      2
-provisoire                1
+mesuré                  222
+converti                 83
+couverture partielle      6
+provisoire                2
 ```
 
-**Comment la lire** :
-- le tableau compte les **mois** par statut. On attend environ 200 mois « mesuré » (juil. 2002 – déc. 2020), une
-  vingtaine de « converti » pour Terra seul (nov. 2000 – juin 2002) et un « converti » par mois depuis 2021 ;
-- `couverture partielle` doit correspondre aux pannes vues à l'étape 5 ;
-- `provisoire` : mois sans VIIRS encore (par exemple VIIRS pas fini de télécharger). Ils deviendront
-  « converti » après un nouveau passage de la chaîne ;
-- contrôle visuel : dans l'onglet **Capteurs** de l'application, la courbe harmonisée ne doit **pas
-  sauter** en 2021, contrairement à la courbe brute.
+**How to read it**:
+- the table counts **months** per status (`mesuré` measured, `converti` converted, `couverture partielle` partial
+  coverage, `provisoire` provisional). About 220 measured months (Jul 2002 – Dec 2020), about twenty converted months
+  for Terra alone (Nov 2000 – Jun 2002) and one converted month per month since 2021 are expected;
+- `couverture partielle` should match the outages seen at step 5, plus the month in progress;
+- `provisoire`: months without VIIRS yet. They become "converted" after a new run of the chain;
+- visual check: at the bottom of the **Explore** page of the application, the harmonized curve must **not jump** in
+  2021, unlike the raw curve.
 
-## 9. `publier`, préparer les fichiers de l'application
+## 9. `publier`, prepare the application files
 
-**Ce que ça fait**. Écrit dans `../frontend/public/data/` :
-- `index.json` (mois, statuts, validation) ;
-- les tuiles de 5° (équivalent MODIS, équivalent VIIRS, brut) ;
-- les cartes mensuelles de 1° (valeur et rapport à la normale).
+**What it does.** Writes to `../frontend/public/data/`:
+- `index.json` (months, statuses, validation, global monthly totals);
+- the 5° tiles (MODIS equivalent, VIIRS equivalent, raw, FRP, uncertainty);
+- the 1° monthly maps (value and ratio to normal).
 
 ```bash
-python -m hexafire publier            # série réelle
-python -m hexafire publier --exemple  # jeu fictif, pour tester l'interface sans données
+python -m hexafire publier            # real series
+python -m hexafire publier --exemple  # fictitious dataset, to test the interface without data
 ```
 
-**Sortie** :
+**Output**:
 ```
-Publication : 1,820 tuiles, 9,240,115 valeurs, 311 mois, 309 cartes -> .../frontend/public/data
+Publication : 1,108 tuiles, ... valeurs, 313 mois, 313 cartes -> .../frontend/public/data
 ```
 
-**Comment la lire** :
-- `tuiles` : nombre de carrés de 5° qui ont au moins un point chaud (au plus 2 592) ;
-- `mois` : nombre de mois de la série ; `cartes` : mois observés (les « non observé » n'ont pas de carte) ;
-- `conversion_snpp absente : unité équivalent VIIRS non publiée` : `calibrer` n'a pas tourné. L'application
-  marche, mais sans l'unité VIIRS ;
-- avec `--exemple`, l'application affiche le bandeau « Données d'exemple (fictives) ». Il disparaît avec la
-  série réelle.
+**How to read it**:
+- `tuiles` (tiles): number of 5° squares with at least one hotspot (at most 2,592);
+- `mois` (months): number of months in the series; `cartes` (maps): observed months ("not observed" months have no map);
+- `conversion_snpp absente : unité équivalent VIIRS non publiée`: `calibrer` has not run. The application works, but
+  without the VIIRS unit;
+- with `--exemple`, the application shows the "Example data (fictitious)" banner. It disappears with the real series.
 
-Puis :
+Then:
 ```bash
-cd ../frontend && python3 -m http.server 8000     # ouvrir http://localhost:8000
+cd ../frontend && python3 -m http.server 8000     # open http://localhost:8000
 ```
 
 ---
 
-## Quand relancer quoi ?
+## What to run again, and when
 
-| Situation | À relancer |
+| Situation | Run again |
 |---|---|
-| De nouvelles archives sont arrivées | `preparer` → `agreger` → `occasions` → `calibrer` → `valider` → `serie` → `publier` |
-| Nouveaux mois via l'API FIRMS | `firms` → `agreger` → `occasions` → `serie` → `publier` |
-| Filtres modifiés dans `config.toml` | `preparer --forcer` puis toute la suite |
-| Taille des strates modifiée (`--bloc`) | `calibrer --bloc X` → `valider --bloc X` → `serie --bloc X` → `publier --bloc X` |
-| Seule l'application a changé | rien (éventuellement `publier`) |
+| New archives have arrived | `preparer` → `agreger` → `occasions` → `calibrer` → `valider` → `serie` → `publier` |
+| New months through the FIRMS API | `firms` → `agreger` → `occasions` → `serie` → `publier` |
+| Filters changed in `config.toml` | `preparer --forcer`, then the whole chain |
+| Stratum size changed (`--bloc`) | `calibrer --bloc X` → `valider --bloc X` → `serie --bloc X` → `publier --bloc X` |
+| Only the application changed | nothing (possibly `publier`) |
 
-## Problèmes fréquents
+## Common problems
 
-| Message | Cause | Solution |
+| Message | Cause | Fix |
 |---|---|---|
-| `ModuleNotFoundError: No module named 'hexafire'` | lancé hors de `hexafire_moteur`, ou ancien pytest | `cd hexafire_moteur`, puis `python -m ...` |
-| `no tests ran` | pytest lancé depuis un autre dossier | lancer depuis `hexafire_moteur` |
-| `ignorée (EOFError …)` | archive en cours de téléchargement | relancer `preparer` plus tard |
-| `couples sans occasions connues` / facteurs 0,000 | `occasions` pas relancé après `agreger` | `occasions` puis `calibrer` |
-| `Aucun couple MODIS / S-NPP sur la période de calibration` | pas de S-NPP 2012–2020 préparé | télécharger, `preparer`, `agreger`, `occasions` |
-| `Clé FIRMS manquante` | variable non définie | `export FIRMS_MAP_KEY=...` dans le même terminal |
-| `index.json introuvable` dans l'application | `publier` pas lancé | `python -m hexafire publier` (ou `--exemple`) |
+| `ModuleNotFoundError: No module named 'hexafire'` | run outside `backend/`, or old pytest | `cd backend`, then `python -m ...` |
+| `no tests ran` | pytest run from another folder | run it from `backend/` |
+| `ignorée (EOFError …)` | archive still downloading | run `preparer` again later |
+| `couples sans occasions connues` / factors 0.000 | `occasions` not run again after `agreger` | `occasions`, then `calibrer` |
+| `Aucun couple MODIS / S-NPP sur la période de calibration` | no S-NPP 2012–2020 prepared | download, `preparer`, `agreger`, `occasions` |
+| `Clé FIRMS manquante` (FIRMS key missing) | variable not set | `export FIRMS_MAP_KEY=...` in the same terminal |
+| `index.json introuvable` in the application | `publier` not run | `python -m hexafire publier` (or `--exemple`) |

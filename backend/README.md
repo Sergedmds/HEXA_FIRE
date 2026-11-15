@@ -1,64 +1,64 @@
-# Moteur d'harmonisation HEXAFIRE
+# HEXAFIRE harmonization engine
 
-Chaîne hors ligne qui transforme les archives FIRMS/UMD en comptages harmonisés.
+Offline chain that turns the NASA monthly fire archives into harmonized counts.
 
-| Étape | Module | État |
+| Step | Module | Status |
 |---|---|---|
-| 1. Acquisition | `../telecharger_archives.sh` | fait |
-| 2. Préparation (règles P1–P9) | `hexafire/preparation.py` | **fait** |
-| 2b. Comptages cellule × mois | `hexafire/agregation.py` | **fait** |
-| 3. Occasions d'observation (niveau 0 analytique ; CMR plus tard) | `hexafire/occasions.py` | **fait** |
-| 4a. Conversion S-NPP → MODIS (strates de 10°, jour/nuit) | `hexafire/harmonisation.py` | **fait** |
-| 4b. Série harmonisée + poids + statuts (S-NPP) | `hexafire/harmonisation.py` | **fait** |
-| 4c. Relais NOAA-20 / NOAA-21 (raccordés à S-NPP), série multi-plateformes | `hexafire/harmonisation.py` | **fait** |
-| 4d. Mois récents via l'API FIRMS (SP sinon NRT) | `hexafire/firms_recent.py` | **fait** |
-| 4e. Incertitude des valeurs converties (propagation analytique) | `harmonisation.py`, `publication.py` | fait |
-| 5. Validation T1, T2, T4 (une année exclue) + comparaison M0, M1 | `hexafire/validation.py` | **fait** |
-| 6. Publication pour l'application web (format v1, tuiles de 5°) | `hexafire/publication.py` | **fait** |
+| 1. Acquisition | `../telecharger_archives.sh` | done |
+| 2. Preparation (rules P1–P9) | `hexafire/preparation.py` | done |
+| 2b. Counts per cell × month | `hexafire/agregation.py` | done |
+| 3. Observation opportunities (analytical; CMR footprints later) | `hexafire/occasions.py` | done |
+| 4a. S-NPP → MODIS conversion (10° strata, day/night) | `hexafire/harmonisation.py` | done |
+| 4b. Harmonized series, weights and statuses | `hexafire/harmonisation.py` | done |
+| 4c. NOAA-20 / NOAA-21 relays (linked to S-NPP), multi-platform series | `hexafire/harmonisation.py` | done |
+| 4d. Recent months through the FIRMS API (standard, otherwise NRT) | `hexafire/firms_recent.py` | done |
+| 4e. Uncertainty of converted values (analytical propagation) | `harmonisation.py`, `publication.py` | done |
+| 5. Leave-one-year-out validation, comparison with M0 and M1 | `hexafire/validation.py` | done |
+| 6. Publication for the web application (format v2, 5° tiles) | `hexafire/publication.py` | done |
 
-## Installation (une seule fois)
+## Installation (once)
 
 ```bash
-cd hexafire-observatory/backend
+cd HEXA_FIRE/backend
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-python -m pytest -q          # 14 tests doivent passer
+python -m pytest -q          # 14 tests must pass
 ```
 
-## Utilisation
+## Usage
 
 ```bash
 source .venv/bin/activate
-python -m hexafire inventaire   # ce qui est téléchargé et sera utilisé
-python -m hexafire preparer     # relançable à volonté pendant les téléchargements
-python -m hexafire agreger      # produit ../agregats/cell_month.parquet, capteur_jour.parquet, resume_mensuel.csv
-python -m hexafire occasions    # passages par cellule + jours disponibles par capteur et par mois
-python -m hexafire calibrer     # facteurs S-NPP -> MODIS (agregats/conversion_snpp.parquet)
-python -m hexafire valider      # résultats dans ../journaux/validation_resultats.csv
-export FIRMS_MAP_KEY=votre_cle && python -m hexafire firms   # mois récents (API FIRMS)
-python -m hexafire publier      # fichiers de l'application -> ../frontend/public/data (--exemple : jeu fictif)
-                                # format v2 : tuiles (équiv. MODIS v, équiv. VIIRS w, brut b) + cartes mensuelles de 1°
-python -m hexafire serie        # série harmonisée (agregats/harmonized_cell_month.parquet, serie_mois.parquet)
+python -m hexafire inventaire   # what has been downloaded and will be used
+python -m hexafire preparer     # can be run again at will while downloads continue
+python -m hexafire agreger      # writes ../agregats/cell_month.parquet, capteur_jour.parquet, resume_mensuel.csv
+python -m hexafire occasions    # overpasses per cell + available days per sensor and month
+python -m hexafire calibrer     # S-NPP -> MODIS factors (agregats/conversion_snpp.parquet)
+python -m hexafire valider      # results in ../journaux/validation_resultats.csv
+export FIRMS_MAP_KEY=your_key && python -m hexafire firms   # recent months (FIRMS API)
+python -m hexafire serie        # harmonized series (agregats/harmonized_cell_month.parquet, serie_mois.parquet)
+python -m hexafire publier      # application files -> ../frontend/public/data (--exemple: fictitious dataset)
 ```
 
-Options utiles : `python -m hexafire preparer --produits MCD14ML --limite 5`.
+Useful options: `python -m hexafire preparer --produits MCD14ML --limite 5`. Step-by-step guide:
+[GUIDE_EXECUTION.md](GUIDE_EXECUTION.md).
 
-## Où vont les fichiers
+## Where the files go
 
 ```
-hexafire-observatory/
-├── donnees_brutes/        archives téléchargées (ne pas modifier)
-├── donnees_preparees/     détections filtrées : <capteur>/<année>/<capteur>_<AAAAMM>.parquet
-├── agregats/              cell_month.parquet, resume_mensuel.csv
-├── journaux/              preparation.jsonl (empreinte SHA-256, effectifs avant/après filtres)
-├── backend/               ce code
-└── frontend/public/data/  fichiers publiés pour le site
+HEXA_FIRE/
+├── donnees_brutes/        downloaded archives (do not modify)
+├── donnees_preparees/     filtered detections: <sensor>/<year>/<sensor>_<YYYYMM>.parquet
+├── agregats/              cell_month.parquet, resume_mensuel.csv, conversion factors, series
+├── journaux/              preparation.jsonl (SHA-256 fingerprint, counts before/after filters), validation results
+├── backend/               this code
+└── frontend/public/data/  files published for the site
 ```
 
-## Règles appliquées
+## Rules applied
 
-- MODIS : collection 6 jusqu'en décembre 2022, 6.1 ensuite ; VIIRS : version la plus récente.
-- Conservés : type 0 (feu de végétation), confiance MODIS ≥ 30, VIIRS hors classe « faible ».
-- Cellule de 0,25° contenant le centre de la détection ; jour et nuit gardés séparément.
-- Contrôle automatique : lues = retenues + exclues (par motif), sinon arrêt.
+- MODIS: collection 6 until December 2022, 6.1 after; VIIRS: most recent version.
+- Kept: type 0 (vegetation fire), MODIS confidence ≥ 30, VIIRS outside the "low" class.
+- 0.25° cell containing the centre of the detection; day and night kept separate.
+- Automatic check: read = kept + excluded (by reason), otherwise the run stops.

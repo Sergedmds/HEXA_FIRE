@@ -39,15 +39,18 @@ ajouterTextes({
     "ex.zoom_in": "Zoom avant", "ex.zoom_out": "Zoom arrière", "ex.zoom_reset": "Vue initiale",
     "ex.r_months": "Mois publiés", "ex.r_last": "Dernier mois", "ex.r_total": "Points chauds (équiv. MODIS)", "ex.r_normal": "Normale", "ex.r_kappa": "Accord de la conversion (kappa)",
     "ex.cycle": "Cycle annuel", "ex.cycle_sub": (a, n) => `Points chauds par mois en ${a}, comparés à la normale 2003–2020 (barre grise). Cliquez un mois pour l'afficher sur le globe. ${n}`,
-    "ex.calendar": "Calendrier 2000 → aujourd'hui", "ex.calendar_sub": "Une ligne par année, une colonne par mois. Survolez une case pour le détail ; cliquez pour l'afficher sur le globe.",
+    "ex.calendar": "Mois par mois, depuis 2000", "ex.calendar_sub": "Une ligne par année, une colonne par mois. Survolez une case pour le détail ; cliquez pour l'afficher sur le globe.",
     "ex.m_level": "Nombre", "ex.m_anom": "Écart à la normale", "ex.from": "De", "ex.to": "À",
     "ex.unit_help": "Même série, exprimée dans l'échelle d'un capteur (équivalent MODIS Terra + Aqua, ou VIIRS S-NPP). L'écart à la normale ne dépend pas de l'unité.",
     "ex.i_last": "Dernier mois", "ex.i_ecart": "Écart à la normale", "ex.i_pic": "Mois de pic habituel", "ex.i_rank": a => `Rang de ${a}`, "ex.rank": (r, n) => `${r}e / ${n}`,
     "ex.i_total": (v, d0, d1) => `${v} points chauds sur ${d0}–${d1}`, "ex.i_med": "médiane 2003–2020", "ex.x_med": v => `${v} × la normale`, "ex.ic": (a, b) => `IC 95 % ${a}–${b}`,
     "ex.h_profile": "Saison type : les mois qui brûlent le plus", "ex.h_season": "Saison en cours comparée aux saisons passées",
     "ex.h_years": "Années les plus et les moins actives", "ex.h_unusual": "Mois les plus inhabituels",
-    "ex.h_sensors": "Sans harmonisation, le changement de satellite crée une fausse hausse", "ex.h_sensors_sub": "Totaux annuels de la zone : détections brutes (MODIS jusqu'en 2020, VIIRS ensuite) et série harmonisée.",
-    "ex.h_validation": "VIIRS converti donne-t-il le même verdict que MODIS ? (validation « une année exclue »)",
+    "ex.h_sensors": "Sans correction, le changement de satellite crée une fausse hausse", "ex.h_sensors_sub": "Total de chaque année dans votre zone. En gris, les points chauds tels que vus par les satellites : la hausse après 2020 vient d'un satellite plus sensible, pas de plus de feux. En orange, la série corrigée par HEXAFIRE.",
+    "ex.h_validation": "La correction est-elle fiable ?",
+    "ex.v_simple": (h, b, k) => `Nous avons testé la correction sur 2012–2020, quand les deux satellites volaient ensemble. Un mois normal n'est déclaré inhabituel à tort que <b>${h} %</b> du temps, contre <b>${b} %</b> sans correction. Le tableau ci-dessous donne le détail pour les spécialistes.`,
+    "ex.q_hotspot": "Qu'est-ce qu'un point chaud", "ex.a_hotspot": "Un point chaud est une petite parcelle de terrain qu'un satellite a vue beaucoup plus chaude que ses alentours, le plus souvent un feu en train de brûler. Un grand feu peut en produire plusieurs, et un feu caché par les nuages peut n'en produire aucun.",
+    "ex.q_colours": "Comment lire les couleurs", "ex.a_colours": "En mode Nombre, plus l'orange est vif, plus il y a eu de points chauds ce mois-là. En mode Écart à la normale, le bleu signifie moins que d'habitude pour ce mois, le gris comme d'habitude, l'orange et le rouge plus que d'habitude. Une case vide signifie que le satellite n'a pas pu observer ce mois.",
     "ex.cells_ctx": n => `${n} cellules de 0,25° actives`,
   },
   en: {
@@ -72,15 +75,18 @@ ajouterTextes({
     "ex.zoom_in": "Zoom in", "ex.zoom_out": "Zoom out", "ex.zoom_reset": "Reset view",
     "ex.r_months": "Published months", "ex.r_last": "Latest month", "ex.r_total": "Hotspots (MODIS eq.)", "ex.r_normal": "Normal", "ex.r_kappa": "Conversion agreement (kappa)",
     "ex.cycle": "Annual cycle", "ex.cycle_sub": (a, n) => `Hotspots per month in ${a}, compared with the 2003–2020 normal (grey bar). Click a month to show it on the globe. ${n}`,
-    "ex.calendar": "Calendar 2000 → today", "ex.calendar_sub": "One row per year, one column per month. Hover a cell for details; click to show it on the globe.",
+    "ex.calendar": "Month by month, since 2000", "ex.calendar_sub": "One row per year, one column per month. Hover a cell for details; click to show it on the globe.",
     "ex.m_level": "Count", "ex.m_anom": "Departure from normal", "ex.from": "From", "ex.to": "To",
     "ex.unit_help": "Same series, expressed on one sensor's scale (MODIS Terra + Aqua equivalent, or VIIRS S-NPP). The departure from normal does not depend on the unit.",
     "ex.i_last": "Latest month", "ex.i_ecart": "Departure from normal", "ex.i_pic": "Usual peak month", "ex.i_rank": a => `Rank of ${a}`, "ex.rank": (r, n) => `#${r} / ${n}`,
     "ex.i_total": (v, d0, d1) => `${v} hotspots over ${d0}–${d1}`, "ex.i_med": "2003–2020 median", "ex.x_med": v => `${v} × the normal`, "ex.ic": (a, b) => `95% CI ${a}–${b}`,
     "ex.h_profile": "Typical season: the months that burn most", "ex.h_season": "Current season compared with past seasons",
     "ex.h_years": "Most and least active years", "ex.h_unusual": "Most unusual months",
-    "ex.h_sensors": "Without harmonization, the change of satellite creates a false increase", "ex.h_sensors_sub": "Annual totals of the area: raw detections (MODIS until 2020, VIIRS after) and harmonized series.",
-    "ex.h_validation": "Does converted VIIRS give the same verdict as MODIS? (leave-one-year-out validation)",
+    "ex.h_sensors": "Without correction, the change of satellite creates a false increase", "ex.h_sensors_sub": "Total of each year in your area. In grey, the hotspots as seen by the satellites: the rise after 2020 comes from a more sensitive satellite, not from more fires. In orange, the series corrected by HEXAFIRE.",
+    "ex.h_validation": "Is the correction reliable?",
+    "ex.v_simple": (h, b, k) => `We tested the correction on 2012–2020, when both satellites flew together. A normal month is wrongly flagged as unusual only <b>${h}%</b> of the time, against <b>${b}%</b> without correction. The table below gives the details for specialists.`,
+    "ex.q_hotspot": "What is a hotspot", "ex.a_hotspot": "A hotspot is a small patch of land that a satellite saw as much hotter than its surroundings, most often a burning fire. A large fire can produce several, and a fire hidden by clouds may produce none.",
+    "ex.q_colours": "How to read the colours", "ex.a_colours": "In Count mode, the brighter the orange, the more hotspots there were that month. In Departure from normal mode, blue means fewer than usual for that month, grey means usual, orange and red mean more than usual. An empty cell means the satellite could not observe that month.",
     "ex.cells_ctx": n => `${n} active 0.25° cells`,
   },
 });
@@ -183,9 +189,10 @@ function rafraichir() {
   cartesMois();
   calendrier();
   indicateurs();
-  profilSaisonnier($("g-profil"), etat.stats); saisonCumulee($("g-saison"), etat.stats);
-  tableAnnees($("t-annees"), classementAnnees(etat.stats)); tableInhabituels($("t-inhabituels"), etat.stats);
+  lecture();
   brutHarmonise($("g-capteurs"), getIndex(), etat.serie); tableValidation($("t-validation"), getIndex().validation);
+  const val = getIndex().validation || [], vh = val.find(v => v.methode === "HEXAFIRE"), v0 = val.find(v => v.methode.startsWith("M0"));
+  $("v-simple").innerHTML = vh && v0 ? t("ex.v_simple", nf(vh.fausses_anomalies * 100, 0), nf(v0.fausses_anomalies * 100, 0)) : "";
 }
 
 function bandeau() {
@@ -226,6 +233,43 @@ function calendrier() {
   dessinerLegende($("legend"), etat.mode);
 }
 
+// Lecture en mots simples : trois phrases au plus, sans chiffres superflus
+const LECTURE = {
+  en: {
+    pic: m => `In this area, fires usually peak in <b>${m}</b>.`,
+    dernier: (m, v, cmp) => `In <b>${m}</b>, satellites saw about <b>${v}</b> hotspots${cmp ? `, ${cmp}` : ""}.`,
+    cmp: { tres_inf: "far fewer than usual for that month", inf: "fewer than usual for that month", normale: "about as many as usual for that month", sup: "more than usual for that month", tres_sup: "far more than usual for that month" },
+    prov: "This recent month is provisional and may still change.",
+    rang: (a, r, n) => r === 1 ? `<b>${a}</b> was the most active year since 2000.` : r === n ? `<b>${a}</b> was the least active year since 2000.` : `<b>${a}</b> ranks ${r} out of ${n} years for fire activity (1 = most active).`,
+    vide: "No hotspot was detected in this area.",
+  },
+  fr: {
+    pic: m => `Dans cette zone, les feux culminent habituellement en <b>${m}</b>.`,
+    dernier: (m, v, cmp) => `En <b>${m}</b>, les satellites y ont vu environ <b>${v}</b> points chauds${cmp ? `, ${cmp}` : ""}.`,
+    cmp: { tres_inf: "beaucoup moins que d'habitude pour ce mois", inf: "moins que d'habitude pour ce mois", normale: "à peu près comme d'habitude pour ce mois", sup: "plus que d'habitude pour ce mois", tres_sup: "beaucoup plus que d'habitude pour ce mois" },
+    prov: "Ce mois récent est provisoire et peut encore changer.",
+    rang: (a, r, n) => r === 1 ? `<b>${a}</b> a été l'année la plus active depuis 2000.` : r === n ? `<b>${a}</b> a été l'année la moins active depuis 2000.` : `<b>${a}</b> se classe ${r}<sup>e</sup> sur ${n} années pour l'activité des feux (1 = la plus active).`,
+    vide: "Aucun point chaud n'a été détecté dans cette zone.",
+  },
+};
+
+function lecture() {
+  const L = LECTURE[getLangue()] || LECTURE.en, el = $("reading");
+  if (!el) return;
+  const cases = etat.stats.cases.filter(c => c.valeur !== null), d = cases.at(-1);
+  if (!cases.length || cases.every(c => c.valeur === 0)) { el.innerHTML = `<p>${L.vide}</p>`; return; }
+  const med = etat.stats.mediane.map(x => (Number.isFinite(x) ? x : -1)), pic = med.indexOf(Math.max(...med));
+  const completes = classementAnnees(etat.stats);
+  const derniere = completes.length ? completes.reduce((x, y) => (y.annee > x.annee ? y : x)) : null;
+  const phrases = [];
+  const mois = k => (getLangue() === "fr" ? nomMoisLong(k).toLowerCase() : nomMoisLong(k));
+  if (pic >= 0 && med[pic] > 0) phrases.push(L.pic(mois(pic)));
+  if (d) phrases.push(L.dernier(`${mois(d.mois - 1)} ${d.annee}`, nf(Math.round(d.valeur)), d.classe ? L.cmp[d.classe.cle] : "")
+    + (d.statut === "provisoire" || d.statut === "couverture partielle" ? ` ${L.prov}` : ""));
+  if (derniere) phrases.push(L.rang(derniere.annee, completes.findIndex(x => x.annee === derniere.annee) + 1, completes.length));
+  el.innerHTML = phrases.map(s => `<p>${s}</p>`).join("");
+}
+
 function indicateurs() {
   const [d0, d1] = etat.periode;
   const cases = etat.stats.cases.filter(c => c.valeur !== null), dernier = cases.at(-1);
@@ -236,10 +280,9 @@ function indicateurs() {
   const rang = dansPeriode ? completes.findIndex(x => x.annee === dansPeriode.annee) + 1 : null;
   const ecart = dernier && dernier.rapport !== null ? t("ex.x_med", nf(dernier.rapport, 2)) : (dernier && dernier.refus ? t("refus." + dernier.refus) : t("nd"));
   const items = [
-    [t("ex.i_last"), dernier ? nf(dernier.valeur) : t("nd"), dernier ? `${nomMois(dernier.mois - 1)} ${dernier.annee} · ${t("statut." + dernier.statut)} · ${uniteCourte()}${dernier.bas !== null ? ` · ${t("ex.ic", nf(dernier.bas), nf(dernier.haut))}` : ""}` : ""],
+    [t("ex.i_last"), dernier ? nf(Math.round(dernier.valeur)) : t("nd"), dernier ? `${nomMoisLong(dernier.mois - 1)} ${dernier.annee} · ${t("statut." + dernier.statut)}` : ""],
     [t("ex.i_ecart"), ecart, dernier && dernier.classe ? nomClasse(dernier.classe) : "", dernier && dernier.classe ? dernier.classe.couleur : ""],
     [t("ex.i_pic"), pic >= 0 && med[pic] > 0 ? nomMoisLong(pic) : t("nd"), t("ex.i_med")],
-    [t("ex.i_rank", dansPeriode ? dansPeriode.annee : ""), dansPeriode ? t("ex.rank", rang, completes.length) : t("nd"), t("ex.i_total", nf(total), d0, d1)],
   ];
   $("indicators").innerHTML = items.map(([l, v, c, col]) => `<div class="stat"><span class="label">${l}</span><span class="value" ${col ? `style="color:${col}"` : ""}>${v}</span><span class="ctx">${c}</span></div>`).join("");
 }

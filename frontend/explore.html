@@ -1,10 +1,10 @@
 <!doctype html>
 <!-- Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE. -->
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title data-i18n-doc="ex.doc">HEXAFIRE · Explorer</title>
+  <title data-i18n-doc="ex.doc">HEXAFIRE · Explore</title>
   <meta name="description" content="Globe interactif des points chauds MODIS et VIIRS harmonisés, 2000 → aujourd'hui.">
   <link rel="icon" href="public/assets/icons/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,7 +21,6 @@
 
   <!-- En-tête de page -->
   <section class="wrap explore-head">
-    <span class="chip"><span class="pip pulse"></span><span id="head-chip" data-i18n="ex.chip"></span></span>
     <h1 class="headline-xl" data-i18n="ex.titre"></h1>
     <p class="lead" data-i18n="ex.sous"></p>
   </section>
@@ -130,11 +129,11 @@
   </section>
 
   <!-- Ruban de repères mondiaux -->
-  <section class="wrap ribbon" id="ribbon" aria-live="polite"></section>
+  <section class="wrap ribbon" id="ribbon" aria-live="polite" hidden></section>
 
   <!-- Résultats -->
   <section class="wrap results" id="results" hidden>
-    <article class="pane block">
+    <article class="pane block" hidden>
       <div class="block-head">
         <div>
           <h2 class="headline-md" data-i18n="ex.cycle"></h2>
@@ -164,13 +163,18 @@
           <label class="field inline"><span data-i18n="ex.to"></span><select id="in-fin" class="select"></select></label>
         </div>
       </div>
+      <div class="reading" id="reading"></div>
       <div class="indicators" id="indicators"></div>
       <div class="calendar-wrap" id="calendar"></div>
       <div class="legend" id="legend"></div>
       <p class="muted" style="font-size:.8rem" data-i18n="ex.unit_help"></p>
+      <div class="explain">
+        <div><h3 data-i18n="ex.q_hotspot"></h3><p data-i18n="ex.a_hotspot"></p></div>
+        <div><h3 data-i18n="ex.q_colours"></h3><p data-i18n="ex.a_colours"></p></div>
+      </div>
     </article>
 
-    <div class="grid grid-2 analyses">
+    <div class="grid grid-2 analyses" hidden>
       <article class="pane block"><h3 class="headline-md" data-i18n="ex.h_profile"></h3><div class="chart" id="g-profil"></div></article>
       <article class="pane block"><h3 class="headline-md" data-i18n="ex.h_season"></h3><div class="chart" id="g-saison"></div></article>
       <article class="pane block"><h3 class="headline-md" data-i18n="ex.h_years"></h3><div id="t-annees"></div></article>
@@ -181,6 +185,7 @@
       <div class="block-head"><div><h2 class="headline-md" data-i18n="ex.h_sensors"></h2><p class="muted" data-i18n="ex.h_sensors_sub"></p></div></div>
       <div class="chart" id="g-capteurs"></div>
       <h3 class="headline-md" style="font-size:1.1rem;margin-top:var(--space-lg)" data-i18n="ex.h_validation"></h3>
+      <p class="muted v-simple" id="v-simple"></p>
       <div id="t-validation"></div>
     </article>
 
