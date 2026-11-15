@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n-doc="co.doc">HEXAFIRE · Comparer</title>
+  <meta name="description" content="Comparer l'activité des feux entre deux régions ou deux années, sur la série harmonisée MODIS + VIIRS.">
+  <link rel="icon" href="public/assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles/base.css">
+  <link rel="stylesheet" href="src/styles/compare.css">
+</head>
+<body data-page="compare">
+<header id="shell-header" class="site-header"></header>
+<main class="compare wrap">
+  <div class="glow fire" style="top:0;left:30%;width:24rem;height:24rem"></div>
+  <div class="glow orbital" style="top:6rem;right:20%;width:20rem;height:20rem"></div>
+
+  <header class="co-head">
+    <div class="stack" style="max-width:48rem">
+      <span class="eyebrow telemetry amber"><span class="pip amber pulse"></span><span data-i18n="co.chip"></span></span>
+      <h1 class="headline-xl" data-i18n="co.h1"></h1>
+      <p class="lead" data-i18n="co.lead"></p>
+    </div>
+    <div class="stack" style="align-items:flex-end">
+      <div class="seg thermal" id="metric">
+        <button type="button" data-metric="niveau" class="active" data-i18n="co.m_count"></button>
+        <button type="button" data-metric="densite" data-i18n="co.m_density"></button>
+        <button type="button" data-metric="anomalie" data-i18n="co.m_anom"></button>
+        <button type="button" data-metric="frp" data-i18n="co.m_frp"></button>
+      </div>
+      <span class="telemetry dim" id="metric-help"></span>
+    </div>
+  </header>
+
+  <section class="pane config">
+    <div class="config-grid">
+      <div class="entity" id="entity-A"></div>
+      <div class="middle">
+        <button type="button" class="icon-btn swap" id="swap" data-i18n-aria="co.swap"></button>
+        <button type="button" class="btn btn-primary btn-sm" id="run" data-i18n="co.run"></button>
+        <button type="button" class="btn btn-text btn-sm" id="link" data-i18n="co.link"></button>
+      </div>
+      <div class="entity" id="entity-B"></div>
+    </div>
+    <p class="telemetry dim" id="config-note"></p>
+  </section>
+
+  <section id="empty" class="empty-state">
+    <span class="chip"><span class="pip pulse"></span><span data-i18n="co.empty"></span></span>
+  </section>
+
+  <section id="results" hidden>
+    <div class="row between" style="margin-bottom:var(--space-sm)"><span class="telemetry muted" data-i18n="co.spatial"></span><span class="tag">WGS84 · 0,25°</span></div>
+    <div class="grid grid-2 viewports">
+      <article class="viewport" id="view-A"></article>
+      <article class="viewport" id="view-B"></article>
+    </div>
+
+    <article class="pane block">
+      <div class="block-head">
+        <div><h2 class="headline-md" data-i18n="co.evolution"></h2><p class="muted" id="evolution-sub"></p></div>
+        <div class="legend big" id="curve-legend"></div>
+      </div>
+      <div class="chart" id="curves"></div>
+    </article>
+
+    <div class="row between" style="margin:var(--space-lg) 0 var(--space-sm)"><span class="telemetry muted" data-i18n="co.synthesis"></span></div>
+    <div class="grid grid-3" id="synthesis"></div>
+
+    <section class="pane note">
+      <span class="ico" id="ico-info"></span>
+      <div><strong class="telemetry" data-i18n="co.note_title"></strong><p class="muted" data-i18n="co.note"></p></div>
+      <a class="btn btn-ghost btn-sm" href="methodology.html" data-i18n="co.note_link"></a>
+    </section>
+  </section>
+</main>
+<footer id="shell-footer" class="site-footer"></footer>
+<script type="module" src="src/pages/Compare/compare.js"></script>
+</body>
+</html>

@@ -1,0 +1,23 @@
+# Données volumineuses (téléchargées ou recalculées) : jamais dans le dépôt
+donnees_brutes/
+donnees_preparees/
+agregats/
+journaux/
+
+# Données publiées pour le site : produites par `python -m hexafire publier`, déployées par publier_site.sh
+frontend/public/data/
+
+# Captures du test de fumée
+captures/
+
+# Python
+**/.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Divers
+.DS_Store
+Thumbs.db
+*.tmp
+*.log

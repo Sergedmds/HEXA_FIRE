@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "on-tertiary": "#452b00", "surface-midnight": "#0D1426", "secondary-fixed-dim": "#b8c3ff", "surface-container-lowest": "#0a0e19", "tertiary": "#ffb955", "text-atmosphere": "#9AA8C7", "text-starlight": "#EAF0FF", "secondary": "#b8c3ff", "primary-fixed": "#ffdbd0", "surface-container-high": "#262a36", "surface-container": "#1b1f2b", "on-primary": "#5e1700", "on-background": "#dfe2f2", "on-secondary": "#002388", "on-tertiary-fixed-variant": "#633f00", "primary-fixed-dim": "#ffb59e", "inverse-primary": "#ae3200", "inverse-surface": "#dfe2f2", "primary": "#ffb59e", "on-tertiary-container": "#3e2600", "on-primary-fixed": "#3a0b00", "background": "#0f131e", "tertiary-fixed": "#ffddb4", "on-tertiary-fixed": "#291800", "tertiary-fixed-dim": "#ffb955", "secondary-fixed": "#dde1ff", "error-container": "#93000a", "inverse-on-surface": "#2c303c", "surface-tint": "#ffb59e", "surface-container-highest": "#303441", "surface-dim": "#0f131e", "tertiary-container": "#c68414", "surface-container-low": "#171b27", "on-primary-fixed-variant": "#852400", "surface-bright": "#353946", "on-surface": "#dfe2f2", "outline": "#ab897f", "on-secondary-container": "#afbcff", "outline-variant": "#5b4038", "border-orbital": "rgba(76, 111, 255, 0.15)", "border-thermal": "rgba(255, 90, 31, 0.25)", "on-secondary-fixed": "#001356", "surface": "#0f131e", "secondary-container": "#003acf", "on-surface-variant": "#e4beb3", "on-primary-container": "#541400", "surface-variant": "#303441", "primary-container": "#ff5a1f", "error": "#ffb4ab", "on-error-container": "#ffdad6", "on-secondary-fixed-variant": "#0035be", "on-error": "#690005" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-sm": "0.5rem", "gutter-mobile": "1rem", "margin": "4rem", "gutter": "1.5rem", "space-md": "1rem", "margin-mobile": "1.25rem", "space-lg": "1.75rem", "space-xl": "3rem", "space-xs": "0.25rem" }, "fontFamily": { "body-lead": ["Inter"], "body-muted": ["Inter"], "display-hero": ["Space Grotesk"], "label-telemetry": ["Space Grotesk"], "headline-lg": ["Space Grotesk"], "label-caps": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "headline-xl-mobile": ["Space Grotesk"], "headline-xl": ["Space Grotesk"], "body-default": ["Inter"], "display-hero-mobile": ["Space Grotesk"] }, "fontSize": { "body-lead": ["18px", { "lineHeight": "28px", "fontWeight": "400" }], "body-muted": ["13px", { "lineHeight": "20px", "fontWeight": "400" }], "display-hero": ["72px", { "lineHeight": "80px", "letterSpacing": "-0.04em", "fontWeight": "700" }], "label-telemetry": ["11px", { "lineHeight": "14px", "letterSpacing": "0.12em", "fontWeight": "600" }], "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "500" }], "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.08em", "fontWeight": "500" }], "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "500" }], "headline-xl-mobile": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "600" }], "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.03em", "fontWeight": "600" }], "body-default": ["15px", { "lineHeight": "24px", "fontWeight": "400" }], "display-hero-mobile": ["40px", { "lineHeight": "48px", "letterSpacing": "-0.03em", "fontWeight": "700" }] } } } };</script></head><body class="bg-surface font-body-default text-on-surface antialiased"><header class="fixed top-0 left-0 right-0 z-50 bg-surface-midnight/85 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="h-16 max-w-7xl mx-auto px-6 lg:px-12 flex items-center justify-between gap-space-md"><div class="flex items-center gap-space-lg"><div class="flex items-center gap-space-sm"><div class="flex flex-col"><div class="flex items-center gap-space-xs"><span class="font-headline-md text-headline-md font-bold tracking-tight text-text-starlight uppercase">HEXA<span class="text-primary-container">FIRE</span></span><span class="w-1.5 h-1.5 rounded-full bg-primary-container shadow-[0_0_8px_rgba(255,90,31,0.6)] animate-pulse"></span></div><span class="font-label-telemetry text-label-telemetry uppercase text-text-atmosphere tracking-widest">Planetary Observatory</span></div></div><div class="hidden xl:flex items-center gap-space-xs px-space-sm py-space-xs rounded bg-surface-container-lowest/80"><span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-ping"></span><span class="font-label-telemetry text-label-telemetry text-text-starlight uppercase">Satellite Sync • VIIRS &amp; MODIS Active</span></div></div><nav class="hidden md:flex items-center gap-space-xs px-space-xs py-space-xs rounded-xl bg-surface-container-lowest/60" data-active-classes="bg-primary-container text-on-primary-container font-medium rounded-lg shadow-[0_0_20px_rgba(255,90,31,0.35)]"><a class="px-space-md py-space-xs rounded font-label-caps text-label-caps uppercase transition-colors text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high" data-path="home" href="#">Home</a><a class="px-space-md py-space-xs rounded font-label-caps text-label-caps uppercase transition-colors text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high" data-path="explore" href="#">Explore</a><a aria-current="page" class="px-space-md py-space-xs uppercase transition-colors bg-primary-container text-on-primary-container font-medium rounded-lg shadow-[0_0_20px_rgba(255,90,31,0.35)]" data-path="compare" href="#">Compare</a><a class="px-space-md py-space-xs rounded font-label-caps text-label-caps uppercase transition-colors text-on-surface-variant hover:text-on-surface hover:bg-surface-container-high" data-path="methodology" href="#">Methodology</a></nav><div class="flex items-center gap-space-md"><div class="hidden lg:flex flex-col text-right"><span class="font-label-telemetry text-label-telemetry text-text-atmosphere uppercase tracking-wider">Orbit Ref</span><span class="font-label-telemetry text-label-telemetry text-text-starlight uppercase">71.4°N / 24.8°E</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="w-full pt-16 bg-surface min-h-[calc(100vh-16rem)]"><div class="flex flex-col w-full">
+<!-- Top Ambient Glow Scrim -->
+<div class="relative w-full max-w-7xl mx-auto px-6 lg:px-12 pt-8 pb-20">
+<div class="absolute top-0 left-1/3 w-96 h-96 bg-primary-container/10 rounded-full blur-[140px] pointer-events-none -z-10"></div>
+<div class="absolute top-24 right-1/4 w-80 h-80 bg-secondary-container/20 rounded-full blur-[120px] pointer-events-none -z-10"></div>
+<!-- 1. COMPACT EDITORIAL INTRODUCTION -->
+<header class="flex flex-col lg:flex-row lg:items-end justify-between gap-space-lg mb-space-xl">
+<div class="max-w-3xl flex flex-col gap-space-xs">
+<div class="flex items-center gap-space-xs text-tertiary">
+<span class="w-2 h-2 rounded-full bg-tertiary shadow-[0_0_10px_rgba(255,185,85,0.7)] animate-pulse"></span>
+<span class="font-label-telemetry text-label-telemetry uppercase tracking-widest text-tertiary">
+            COMPARATIVE ANALYSIS // MULTI-TEMPORAL &amp; SPATIAL ENGINE
+          </span>
+</div>
+<h1 class="font-headline-xl text-headline-xl text-text-starlight tracking-tight">
+          Compare fire activity across places and time.
+        </h1>
+<p class="font-body-lead text-body-lead text-text-atmosphere max-w-2xl">
+          Investigate how satellite-observed fire dynamics diverge between geographical regions and across observation periods. Decouple spatial boundaries and calendar windows to isolate climatological shifts, seasonal regimes, and decadal anomalies.
+        </p>
+</div>
+<!-- Shared Metric Mode Selector -->
+<div class="flex flex-col items-start lg:items-end gap-space-xs">
+<div class="inline-flex p-1 rounded-xl bg-surface-container-lowest/90 backdrop-blur-md shadow-sm">
+<button class="px-space-md py-space-xs rounded-lg font-label-caps text-label-caps uppercase transition-all bg-primary-container text-on-primary-container font-medium shadow-[0_0_16px_rgba(255,90,31,0.3)]" id="metric-tab-detections">
+            Fire Detections
+          </button>
+<button class="px-space-md py-space-xs rounded-lg font-label-caps text-label-caps uppercase transition-all text-text-atmosphere hover:text-text-starlight hover:bg-surface-container-high" id="metric-tab-frp">
+            Fire Radiative Power (FRP)
+          </button>
+<button class="px-space-md py-space-xs rounded-lg font-label-caps text-label-caps uppercase transition-all text-text-atmosphere hover:text-text-starlight hover:bg-surface-container-high" id="metric-tab-index">
+            Activity Index
+          </button>
+</div>
+<span class="font-label-telemetry text-label-telemetry text-text-atmosphere flex items-center gap-space-xs">
+<span class="material-symbols-outlined text-[14px] text-tertiary">auto_graph</span>
+          Normalized spatial density available for unequal land surface areas.
+        </span>
+</div>
+</header>
+<!-- 2. CONFIGURATION BAR (INDEPENDENT DUAL-ZONE CONTROLS) -->
+<section class="mb-space-xl">
+<div class="rounded-xl bg-surface-container/70 backdrop-blur-xl shadow-lg p-space-md lg:p-space-lg flex flex-col gap-space-md">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-space-md items-center">
+<!-- ENTITY A CONFIGURATION -->
+<div class="lg:col-span-5 flex flex-col gap-space-sm p-space-md rounded-lg bg-surface-container-lowest/80 transition-all hover:bg-surface-container-lowest">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 rounded font-label-telemetry text-label-telemetry uppercase font-bold bg-secondary/20 text-secondary">
+                  [A]
+                </span>
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-starlight tracking-wider">
+                  Baseline Target
+                </span>
+</div>
+<span class="font-label-telemetry text-label-telemetry text-secondary">114,763 km² • WGS84</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-telemetry text-label-telemetry uppercase text-text-atmosphere">Geographic Domain</label>
+<div class="flex items-center bg-surface-midnight px-space-sm py-space-xs rounded text-text-starlight">
+<span class="material-symbols-outlined text-[16px] text-secondary mr-2">public</span>
+<input class="bg-transparent font-body-muted text-body-muted text-text-starlight focus:outline-none w-full truncate" type="text" value="Benin (Savanna &amp; Forest)"/>
+<span class="material-symbols-outlined text-[16px] text-text-atmosphere">arrow_drop_down</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-telemetry text-label-telemetry uppercase text-text-atmosphere">Observation Epoch</label>
+<div class="flex items-center bg-surface-midnight px-space-sm py-space-xs rounded text-text-starlight">
+<span class="material-symbols-outlined text-[16px] text-secondary mr-2">calendar_today</span>
+<input class="bg-transparent font-body-muted text-body-muted text-text-starlight focus:outline-none w-full truncate" type="text" value="2020-01-01 – 2020-12-31"/>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs text-text-atmosphere">
+<span class="font-label-telemetry text-label-telemetry">VIIRS (375m) + MODIS (1km) Tier-1</span>
+<span class="px-space-xs py-0.5 rounded text-[10px] font-label-telemetry uppercase bg-surface-container text-secondary">Full Year 2020</span>
+</div>
+</div>
+<!-- CENTER ACTIONS -->
+<div class="lg:col-span-2 flex flex-row lg:flex-col items-center justify-center gap-space-sm py-2">
+<button class="w-10 h-10 rounded-full bg-surface-container-high hover:bg-surface-bright text-text-starlight flex items-center justify-center transition-transform hover:rotate-180 duration-300 shadow-md" id="btn-swap-entities" title="Swap Entities">
+<span class="material-symbols-outlined text-[20px]">swap_horiz</span>
+</button>
+<button class="px-space-md py-space-xs rounded font-label-telemetry text-label-telemetry uppercase font-bold bg-primary-container text-on-primary-container shadow-[0_0_20px_rgba(255,90,31,0.4)] hover:brightness-110 transition-all flex items-center gap-1.5 whitespace-nowrap" id="btn-recompute">
+<span class="material-symbols-outlined text-[16px]">sync</span>
+              Recompute
+            </button>
+<button class="font-label-telemetry text-label-telemetry uppercase text-text-atmosphere hover:text-text-starlight transition-colors" id="btn-reset">
+              Reset Filters
+            </button>
+</div>
+<!-- ENTITY B CONFIGURATION -->
+<div class="lg:col-span-5 flex flex-col gap-space-sm p-space-md rounded-lg bg-surface-container-lowest/80 transition-all hover:bg-surface-container-lowest">
+<div class="flex items-center justify-between pb-space-xs">
+<div class="flex items-center gap-space-xs">
+<span class="px-space-xs py-0.5 rounded font-label-telemetry text-label-telemetry uppercase font-bold bg-primary-container/20 text-primary-container">
+                  [B]
+                </span>
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-starlight tracking-wider">
+                  Comparative Target
+                </span>
+</div>
+<span class="font-label-telemetry text-label-telemetry text-primary-container">238,535 km² • WGS84</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-space-sm">
+<div class="flex flex-col gap-1">
+<label class="font-label-telemetry text-label-telemetry uppercase text-text-atmosphere">Geographic Domain</label>
+<div class="flex items-center bg-surface-midnight px-space-sm py-space-xs rounded text-text-starlight">
+<span class="material-symbols-outlined text-[16px] text-primary-container mr-2">public</span>
+<input class="bg-transparent font-body-muted text-body-muted text-text-starlight focus:outline-none w-full truncate" type="text" value="Ghana (Volta Basin &amp; Forest)"/>
+<span class="material-symbols-outlined text-[16px] text-text-atmosphere">arrow_drop_down</span>
+</div>
+</div>
+<div class="flex flex-col gap-1">
+<label class="font-label-telemetry text-label-telemetry uppercase text-text-atmosphere">Observation Epoch</label>
+<div class="flex items-center bg-surface-midnight px-space-sm py-space-xs rounded text-text-starlight">
+<span class="material-symbols-outlined text-[16px] text-primary-container mr-2">calendar_today</span>
+<input class="bg-transparent font-body-muted text-body-muted text-text-starlight focus:outline-none w-full truncate" type="text" value="2024-01-01 – 2024-12-31"/>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-space-xs text-text-atmosphere">
+<span class="font-label-telemetry text-label-telemetry">VIIRS (375m) + MODIS (1km) Tier-1</span>
+<span class="px-space-xs py-0.5 rounded text-[10px] font-label-telemetry uppercase bg-surface-container text-primary-container">Full Year 2024</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between pt-2">
+<div class="flex items-center gap-space-xs font-label-telemetry text-label-telemetry text-text-atmosphere">
+<span class="material-symbols-outlined text-[15px] text-tertiary">tune</span>
+            Independent temporal windows enabled: <strong class="text-text-starlight">Benin (2020)</strong> vs <strong class="text-text-starlight">Ghana (2024)</strong> • Decoupled inter-annual climate window.
+          </div>
+<div class="hidden md:flex items-center gap-space-sm font-label-telemetry text-label-telemetry text-text-atmosphere">
+<span>Algorithm: FIRMS Collection 6 / VNP14IMGTDL</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. GEOGRAPHICAL COMPARISON (SIDE-BY-SIDE CARTOGRAPHY VIEWPORTS) -->
+<section class="mb-space-xl flex flex-col gap-space-md">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-sm">
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-atmosphere tracking-wider">Spatial Distribution Analysis</span>
+<span class="px-space-xs py-0.5 rounded font-label-telemetry text-[10px] bg-surface-container-high text-text-starlight uppercase">EPSG:4326</span>
+</div>
+<span class="font-label-telemetry text-label-telemetry text-text-atmosphere">Scale-adjusted projection grid</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-space-lg">
+<!-- LEFT VIEWPORT: BENIN 2020 -->
+<div class="rounded-xl bg-surface-midnight flex flex-col overflow-hidden shadow-2xl relative group">
+<!-- Viewport Header Ribbon -->
+<div class="px-space-md py-space-sm bg-surface-container/90 backdrop-blur-md flex items-center justify-between z-20">
+<div class="flex items-center gap-space-xs">
+<span class="px-1.5 py-0.5 rounded text-[11px] font-label-telemetry font-bold bg-secondary text-on-secondary">[A]</span>
+<span class="font-headline-md text-body-lead font-bold text-text-starlight">Benin</span>
+<span class="text-text-atmosphere font-body-muted text-body-muted">• West Africa</span>
+</div>
+<div class="flex items-center gap-space-md font-label-telemetry text-label-telemetry">
+<span class="text-secondary hidden sm:inline">09°18'N, 02°14'E</span>
+<span class="text-text-atmosphere">2020 Epoch</span>
+</div>
+</div>
+<!-- Interactive Style Map Canvas -->
+<div class="relative h-96 w-full bg-surface-container-lowest overflow-hidden flex items-center justify-center">
+<!-- Simulated Satellite Canvas Background with Map Anchor -->
+<div class="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-luminosity filter contrast-125" data-location="Benin, West Africa" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuApbZAESyR3FfseuiRVbpy-7jTeMm7-ttls73ZLqLgJCCHLqJ-ESHSzmyJZCcCxkzy4RoaKL90Cjs_xe4KPYa6HiikRVY9ZSSYMobbjUPQCbaeTaxa6qCRGzQmlJ9J1FkJzBaFsuUEh9owC1RdnnOxep5oO-UBAd7lzjhQZ59ASC603cQg8ouc3LQqC5ZOLgN5WHHQuBXvwuyV69vdqUe_DYMwS48Ra3XCku7xYYi8')"></div>
+<!-- Graticule & Scientific Cartography Overlay SVG -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" preserveaspectratio="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="60" id="grid-a" patternunits="userSpaceOnUse" width="60">
+<path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(76, 111, 255, 0.08)" stroke-width="1"></path>
+</pattern>
+<radialgradient cx="50%" cy="50%" id="heat-glow-a" r="50%">
+<stop offset="0%" stop-color="#4C6FFF" stop-opacity="0.8"></stop>
+<stop offset="60%" stop-color="#FF5A1F" stop-opacity="0.4"></stop>
+<stop offset="100%" stop-color="#070B16" stop-opacity="0"></stop>
+</radialgradient>
+</defs>
+<rect fill="url(#grid-a)" height="100%" width="100%"></rect>
+<!-- Benin Regional Vector Silhouette Representation -->
+<path d="M 230 60 L 260 90 L 270 140 L 250 200 L 255 270 L 240 330 L 205 325 L 200 240 L 190 150 L 210 80 Z" fill="rgba(13, 20, 38, 0.6)" stroke="#4C6FFF" stroke-dasharray="3 3" stroke-width="1.5"></path>
+<!-- Thermal Anomaly Hotspots (Savanna Clusters in North Atacora / Borgou) -->
+<g class="animate-pulse">
+<circle cx="235" cy="110" fill="url(#heat-glow-a)" r="28"></circle>
+<circle cx="245" cy="130" fill="url(#heat-glow-a)" r="18"></circle>
+<circle class="animate-ping" cx="225" cy="95" fill="#FF5A1F" r="8"></circle>
+<circle cx="235" cy="110" fill="#ffffff" r="3"></circle>
+<circle cx="242" cy="122" fill="#ffffff" r="2.5"></circle>
+<circle cx="250" cy="105" fill="#FFB547" r="2"></circle>
+<circle cx="230" cy="135" fill="#4C6FFF" r="2.5"></circle>
+<circle cx="220" cy="100" fill="#ffffff" r="2"></circle>
+<circle cx="248" cy="145" fill="#FF5A1F" r="3"></circle>
+<circle cx="215" cy="155" fill="#FFB547" r="2"></circle>
+</g>
+<!-- Latitude/Longitude Coordinates Markers -->
+<text fill="#9AA8C7" font-family="Space Grotesk" font-size="10" x="20" y="30">11°30'N • PARK W-ARLY</text>
+<text fill="#9AA8C7" font-family="Space Grotesk" font-size="10" x="20" y="340">06°20'N • BIGHT OF BENIN</text>
+<line stroke="rgba(76, 111, 255, 0.2)" stroke-dasharray="2 4" stroke-width="0.75" x1="20" x2="320" y1="35" y2="35"></line>
+<line stroke="rgba(76, 111, 255, 0.2)" stroke-dasharray="2 4" stroke-width="0.75" x1="20" x2="320" y1="345" y2="345"></line>
+</svg>
+<!-- Floating Map HUD -->
+<div class="absolute top-4 right-4 flex flex-col gap-1 z-10">
+<button class="w-7 h-7 rounded bg-surface-midnight/80 hover:bg-surface-bright text-text-starlight flex items-center justify-center font-bold text-sm shadow">
+                +
+              </button>
+<button class="w-7 h-7 rounded bg-surface-midnight/80 hover:bg-surface-bright text-text-starlight flex items-center justify-center font-bold text-sm shadow">
+                −
+              </button>
+</div>
+<div class="absolute bottom-4 left-4 z-10 flex items-center gap-space-sm bg-surface-midnight/85 backdrop-blur-md px-space-sm py-1 rounded">
+<span class="w-8 h-1 bg-secondary inline-block"></span>
+<span class="font-label-telemetry text-label-telemetry text-text-atmosphere">100 km</span>
+<span class="text-text-atmosphere">•</span>
+<span class="font-label-telemetry text-label-telemetry text-text-starlight">Biome: Sudan Savanna</span>
+</div>
+<div class="absolute top-4 left-4 z-10 flex gap-1">
+<span class="px-space-xs py-0.5 rounded font-label-telemetry text-[10px] uppercase bg-surface-midnight/90 text-secondary">
+                Atacora Savanna Belt
+              </span>
+</div>
+</div>
+<!-- Inset Telemetry Bar -->
+<div class="p-space-md bg-surface-container flex flex-col gap-space-xs">
+<div class="grid grid-cols-3 gap-space-sm">
+<div class="flex flex-col">
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-atmosphere">Raw Hotspots</span>
+<span class="font-headline-md text-headline-md font-bold text-text-starlight">18,420</span>
+<span class="font-label-telemetry text-label-telemetry text-secondary">375m / 1km VIIRS+MODIS</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-atmosphere">Spatial Density</span>
+<span class="font-headline-md text-headline-md font-bold text-secondary">0.160</span>
+<span class="font-label-telemetry text-label-telemetry text-secondary-fixed">Detections / km²</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-atmosphere">Peak Cluster</span>
+<span class="font-body-default text-body-default font-medium text-text-starlight leading-snug">Pendjari Savanna</span>
+<span class="font-label-telemetry text-label-telemetry text-text-atmosphere">Nov – Jan (Harmattan)</span>
+</div>
+</div>
+</div>
+</div>
+<!-- RIGHT VIEWPORT: GHANA 2024 -->
+<div class="rounded-xl bg-surface-midnight flex flex-col overflow-hidden shadow-2xl relative group">
+<!-- Viewport Header Ribbon -->
+<div class="px-space-md py-space-sm bg-surface-container/90 backdrop-blur-md flex items-center justify-between z-20">
+<div class="flex items-center gap-space-xs">
+<span class="px-1.5 py-0.5 rounded text-[11px] font-label-telemetry font-bold bg-primary-container text-on-primary-container">[B]</span>
+<span class="font-headline-md text-body-lead font-bold text-text-starlight">Ghana</span>
+<span class="text-text-atmosphere font-body-muted text-body-muted">• West Africa</span>
+</div>
+<div class="flex items-center gap-space-md font-label-telemetry text-label-telemetry">
+<span class="text-primary-container hidden sm:inline">07°57'N, 01°02'W</span>
+<span class="text-text-atmosphere">2024 Epoch</span>
+</div>
+</div>
+<!-- Interactive Style Map Canvas -->
+<div class="relative h-96 w-full bg-surface-container-lowest overflow-hidden flex items-center justify-center">
+<!-- Simulated Satellite Canvas Background with Map Anchor -->
+<div class="absolute inset-0 bg-cover bg-center opacity-40 mix-blend-luminosity filter contrast-125" data-location="Ghana, West Africa" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAWnu0eQQ0DxLx2VY1n-N2k5cSqNLkqrbiroCmdPJEXAFfObDDj6bi9xspKXDKtpg_4VSRMNVofmTX55AqZA57oFAKRhNQzZsA3riM0Ewb08kQ77-I_j-cegWfD2Ho_Q_QRJ6jDtf0F6ApCMowlGH5zk237UoHxjHIB6L0P4jBl3mikFWIgMiKdCZuA2WE6mv4iJcZdY6UnhUqZFpPTb6wCzOaQEEcQNN62y_s_FK0')"></div>
+<!-- Graticule & Scientific Cartography Overlay SVG -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" preserveaspectratio="none" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<pattern height="60" id="grid-b" patternunits="userSpaceOnUse" width="60">
+<path d="M 60 0 L 0 0 0 60" fill="none" stroke="rgba(255, 90, 31, 0.08)" stroke-width="1"></path>
+</pattern>
+<radialgradient cx="50%" cy="50%" id="heat-glow-b" r="50%">
+<stop offset="0%" stop-color="#FF5A1F" stop-opacity="0.85"></stop>
+<stop offset="70%" stop-color="#FFB547" stop-opacity="0.3"></stop>
+<stop offset="100%" stop-color="#070B16" stop-opacity="0"></stop>
+</radialgradient>
+</defs>
+<rect fill="url(#grid-b)" height="100%" width="100%"></rect>
+<!-- Ghana Cartographic Outline Representation -->
+<path d="M 180 50 L 290 60 L 305 140 L 315 220 L 280 320 L 210 330 L 160 260 L 170 170 L 165 90 Z" fill="rgba(13, 20, 38, 0.6)" stroke="#FF5A1F" stroke-dasharray="3 3" stroke-width="1.5"></path>
+<!-- Lake Volta Indicator -->
+<path d="M 270 150 Q 285 190 280 240 Q 265 260 275 280" fill="none" opacity="0.4" stroke="#4C6FFF" stroke-width="3"></path>
+<!-- Thermal Anomaly Hotspots (Concentrated in Northern and Brong-Ahafo Transition) -->
+<g class="animate-pulse">
+<circle cx="230" cy="115" fill="url(#heat-glow-b)" r="36"></circle>
+<circle cx="210" cy="170" fill="url(#heat-glow-b)" r="26"></circle>
+<circle cx="255" cy="140" fill="url(#heat-glow-b)" r="20"></circle>
+<circle class="animate-ping" cx="230" cy="115" fill="#ffffff" r="3.5"></circle>
+<circle cx="225" cy="105" fill="#FFB547" r="2.5"></circle>
+<circle cx="240" cy="125" fill="#ffffff" r="2.5"></circle>
+<circle cx="205" cy="165" fill="#ffffff" r="3"></circle>
+<circle cx="218" cy="180" fill="#FF5A1F" r="2"></circle>
+<circle cx="260" cy="135" fill="#FFB547" r="2.5"></circle>
+<circle cx="245" cy="160" fill="#FF5A1F" r="2"></circle>
+<circle cx="195" cy="120" fill="#ffffff" r="2"></circle>
+</g>
+<!-- Lat/Long Anchor Reference -->
+<text fill="#9AA8C7" font-family="Space Grotesk" font-size="10" x="20" y="30">11°00'N • UPPER EAST REGION</text>
+<text fill="#9AA8C7" font-family="Space Grotesk" font-size="10" x="20" y="340">04°45'N • CAPE THREE POINTS</text>
+<line stroke="rgba(255, 90, 31, 0.2)" stroke-dasharray="2 4" stroke-width="0.75" x1="20" x2="340" y1="35" y2="35"></line>
+<line stroke="rgba(255, 90, 31, 0.2)" stroke-dasharray="2 4" stroke-width="0.75" x1="20" x2="340" y1="345" y2="345"></line>
+</svg>
+<!-- Floating Map HUD -->
+<div class="absolute top-4 right-4 flex flex-col gap-1 z-10">
+<button class="w-7 h-7 rounded bg-surface-midnight/80 hover:bg-surface-bright text-text-starlight flex items-center justify-center font-bold text-sm shadow">
+                +
+              </button>
+<button class="w-7 h-7 rounded bg-surface-midnight/80 hover:bg-surface-bright text-text-starlight flex items-center justify-center font-bold text-sm shadow">
+                −
+              </button>
+</div>
+<div class="absolute bottom-4 left-4 z-10 flex items-center gap-space-sm bg-surface-midnight/85 backdrop-blur-md px-space-sm py-1 rounded">
+<span class="w-8 h-1 bg-primary-container inline-block"></span>
+<span class="font-label-telemetry text-label-telemetry text-text-atmosphere">100 km</span>
+<span class="text-text-atmosphere">•</span>
+<span class="font-label-telemetry text-label-telemetry text-text-starlight">Biome: Guinean Forest-Savanna</span>
+</div>
+<div class="absolute top-4 left-4 z-10 flex gap-1">
+<span class="px-space-xs py-0.5 rounded font-label-telemetry text-[10px] uppercase bg-surface-midnight/90 text-primary-container">
+                Brong-Ahafo Corridor
+              </span>
+</div>
+</div>
+<!-- Inset Telemetry Bar -->
+<div class="p-space-md bg-surface-container flex flex-col gap-space-xs">
+<div class="grid grid-cols-3 gap-space-sm">
+<div class="flex flex-col">
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-atmosphere">Raw Hotspots</span>
+<span class="font-headline-md text-headline-md font-bold text-text-starlight">32,150</span>
+<span class="font-label-telemetry text-label-telemetry text-primary-container">375m / 1km VIIRS+MODIS</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-atmosphere">Spatial Density</span>
+<span class="font-headline-md text-headline-md font-bold text-primary-container">0.134</span>
+<span class="font-label-telemetry text-label-telemetry text-primary-fixed-dim">Detections / km²</span>
+</div>
+<div class="flex flex-col">
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-atmosphere">Peak Cluster</span>
+<span class="font-body-default text-body-default font-medium text-text-starlight leading-snug">Volta Transitional</span>
+<span class="font-label-telemetry text-label-telemetry text-text-atmosphere">Dec – Feb (Harmattan)</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Shared Legend and Cartographic Footnote -->
+<div class="p-space-md rounded-xl bg-surface-container-lowest/80 flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+<div class="flex items-center gap-space-md">
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-atmosphere">Thermal Flux Density:</span>
+<div class="flex items-center gap-2">
+<span class="font-label-telemetry text-[10px] text-text-atmosphere">0.01 MW/km²</span>
+<div class="w-32 h-2.5 rounded-full bg-gradient-to-r from-secondary via-tertiary to-primary-container shadow-inner"></div>
+<span class="font-label-telemetry text-[10px] text-text-starlight font-bold">1.20+ MW/km²</span>
+</div>
+</div>
+<p class="font-body-muted text-body-muted text-text-atmosphere max-w-xl">
+<strong class="text-text-starlight">Area normalization applied:</strong> Spatial density accounts for geographical area differences. Detections represent satellite observation footprints, not confirmed individual fire incidents.
+        </p>
+</div>
+</section>
+<!-- 4. TEMPORAL EVOLUTION COMPARISON -->
+<section class="mb-space-xl rounded-xl bg-surface-container/60 p-space-md lg:p-space-lg shadow-xl flex flex-col gap-space-lg">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-sm">
+<div class="flex flex-col">
+<h2 class="font-headline-md text-headline-md text-text-starlight tracking-tight">
+            How does fire activity evolve over time?
+          </h2>
+<span class="font-body-default text-body-default text-text-atmosphere">
+            Synchronized 12-month cyclical distribution showing dry-season peaks and biomass burning rhythm.
+          </span>
+</div>
+<!-- Legend Badges -->
+<div class="flex items-center gap-space-md">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-secondary shadow-[0_0_8px_rgba(76,111,255,0.7)]"></span>
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-starlight">Benin (2020)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-primary-container shadow-[0_0_8px_rgba(255,90,31,0.7)]"></span>
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-starlight">Ghana (2024)</span>
+</div>
+</div>
+</div>
+<!-- High-Fidelity Dual-Series SVG Chart -->
+<div class="relative w-full h-80 bg-surface-container-lowest/90 rounded-lg p-space-sm overflow-hidden flex flex-col justify-end">
+<!-- Harmattan Shaded Region Highlight -->
+<div class="absolute inset-y-0 left-0 w-[16.6%] bg-tertiary/5 pointer-events-none"></div>
+<div class="absolute inset-y-0 right-0 w-[24.9%] bg-tertiary/5 pointer-events-none"></div>
+<div class="absolute top-2 right-4 font-label-telemetry text-[10px] uppercase text-tertiary/70 tracking-widest pointer-events-none">
+          Harmattan Dry Season Belt • Nov–Feb
+        </div>
+<svg class="w-full h-64 overflow-visible" preserveaspectratio="none" viewbox="0 0 1000 260">
+<defs>
+<!-- Gradient Under Curves -->
+<lineargradient id="grad-benin" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#4C6FFF" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#4C6FFF" stop-opacity="0.0"></stop>
+</lineargradient>
+<lineargradient id="grad-ghana" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#FF5A1F" stop-opacity="0.4"></stop>
+<stop offset="100%" stop-color="#FF5A1F" stop-opacity="0.0"></stop>
+</lineargradient>
+</defs>
+<!-- Horizontal Grid Lines -->
+<line stroke="rgba(255,255,255,0.06)" stroke-width="1" x1="40" x2="980" y1="20" y2="20"></line>
+<line stroke="rgba(255,255,255,0.06)" stroke-width="1" x1="40" x2="980" y1="80" y2="80"></line>
+<line stroke="rgba(255,255,255,0.06)" stroke-width="1" x1="40" x2="980" y1="140" y2="140"></line>
+<line stroke="rgba(255,255,255,0.06)" stroke-width="1" x1="40" x2="980" y1="200" y2="200"></line>
+<!-- Y-axis numeric labels -->
+<text fill="#9AA8C7" font-family="Space Grotesk" font-size="11" text-anchor="end" x="30" y="24">8,000</text>
+<text fill="#9AA8C7" font-family="Space Grotesk" font-size="11" text-anchor="end" x="30" y="84">6,000</text>
+<text fill="#9AA8C7" font-family="Space Grotesk" font-size="11" text-anchor="end" x="30" y="144">4,000</text>
+<text fill="#9AA8C7" font-family="Space Grotesk" font-size="11" text-anchor="end" x="30" y="204">2,000</text>
+<!-- Ghana Curve B (Orange) -->
+<!-- Coordinates: Jan: 7,400 (38), Feb: 7,890 (23), Mar: 4,100 (137), Apr: 1,200 (224), May: 320 (250), Jun: 80 (257), Jul: 40 (258), Aug: 60 (258), Sep: 180 (254), Oct: 820 (235), Nov: 3,400 (158), Dec: 6,760 (57) -->
+<path d="M 50 38 Q 130 23 210 137 T 370 224 T 530 250 T 690 258 T 850 158 T 970 57 L 970 260 L 50 260 Z" fill="url(#grad-ghana)"></path>
+<path d="M 50 38 Q 130 23 210 137 T 370 224 T 530 250 T 690 258 T 850 158 T 970 57" fill="none" stroke="#FF5A1F" stroke-linecap="round" stroke-width="3"></path>
+<!-- Benin Curve A (Atmospheric Blue) -->
+<!-- Coordinates: Jan: 4,800 (116), Feb: 2,300 (191), Mar: 800 (236), Apr: 200 (254), May: 90 (257), Jun: 30 (259), Jul: 10 (260), Aug: 20 (260), Sep: 80 (257), Oct: 420 (247), Nov: 3,250 (162), Dec: 6,420 (67) -->
+<path d="M 50 116 Q 130 191 210 236 T 370 254 T 530 257 T 690 260 T 850 162 T 970 67 L 970 260 L 50 260 Z" fill="url(#grad-benin)"></path>
+<path d="M 50 116 Q 130 191 210 236 T 370 254 T 530 257 T 690 260 T 850 162 T 970 67" fill="none" stroke="#4C6FFF" stroke-linecap="round" stroke-width="3"></path>
+<!-- Key Data Markers & Glowing Nodes -->
+<!-- Benin Dec Peak -->
+<circle cx="970" cy="67" fill="#4C6FFF" r="5" stroke="#EAF0FF" stroke-width="1.5"></circle>
+<!-- Ghana Feb Peak -->
+<circle class="animate-pulse" cx="130" cy="23" fill="#FF5A1F" r="6" stroke="#EAF0FF" stroke-width="1.5"></circle>
+<!-- Ghana Dec Point -->
+<circle cx="970" cy="57" fill="#FF5A1F" r="5" stroke="#EAF0FF" stroke-width="1.5"></circle>
+<!-- Crosshair Telemetry Callout on Dec Convergence -->
+<line stroke="rgba(255, 185, 85, 0.4)" stroke-dasharray="2 3" stroke-width="1" x1="970" x2="970" y1="20" y2="240"></line>
+</svg>
+<!-- X-Axis Labels (Months) -->
+<div class="grid grid-cols-12 text-center pt-2 font-label-telemetry text-label-telemetry text-text-atmosphere">
+<span>JAN</span>
+<span>FEB</span>
+<span>MAR</span>
+<span>APR</span>
+<span>MAY</span>
+<span>JUN</span>
+<span>JUL</span>
+<span>AUG</span>
+<span>SEP</span>
+<span>OCT</span>
+<span>NOV</span>
+<span>DEC</span>
+</div>
+<!-- Overlaid Interactive Floating Callout Card -->
+<div class="absolute top-8 right-24 hidden lg:flex flex-col gap-1 p-space-sm rounded bg-surface-midnight/95 backdrop-blur-xl shadow-2xl pointer-events-none">
+<div class="flex items-center justify-between gap-space-md">
+<span class="font-label-telemetry text-[10px] text-tertiary uppercase font-bold tracking-wider">Synchronized Dec Convergence</span>
+<span class="font-label-telemetry text-[10px] text-text-atmosphere">Δ FRP +15.6%</span>
+</div>
+<div class="flex items-center gap-space-sm font-label-telemetry text-[11px] text-text-starlight">
+<span class="text-secondary font-bold">Benin (2020):</span> 6,420 det • 42.1 MW FRP
+          </div>
+<div class="flex items-center gap-space-sm font-label-telemetry text-[11px] text-text-starlight">
+<span class="text-primary-container font-bold">Ghana (2024):</span> 6,760 det • 48.7 MW FRP
+          </div>
+</div>
+</div>
+<!-- Temporal Metric Indicators Ribbon -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md pt-space-xs">
+<div class="p-space-md rounded-lg bg-surface-container-lowest/80 flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-secondary text-[24px] mt-0.5">event_repeat</span>
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps uppercase text-text-starlight font-bold">
+              Seasonal Peak Alignment
+            </span>
+<p class="font-body-default text-body-default text-text-atmosphere">
+              Both biomes show classic Northern Hemisphere Sudan-Guinean fire regimes: <strong class="text-text-starlight">92% of annual combustion</strong> occurs between November and February, immediately following the cessation of equatorial monsoons.
+            </p>
+</div>
+</div>
+<div class="p-space-md rounded-lg bg-surface-container-lowest/80 flex items-start gap-space-sm">
+<span class="material-symbols-outlined text-primary-container text-[24px] mt-0.5">timelapse</span>
+<div class="flex flex-col gap-1">
+<span class="font-label-caps text-label-caps uppercase text-text-starlight font-bold">
+              Fire Season Duration &amp; Persistence
+            </span>
+<p class="font-body-default text-body-default text-text-atmosphere">
+<strong class="text-secondary">Benin (2020):</strong> 78 active fire days concentrated into a rapid northern sweep. <strong class="text-primary-container">Ghana (2024):</strong> 104 active fire days due to delayed agricultural clearing in the south.
+            </p>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. COMPARATIVE SYNTHESIS & KEY DIFFERENCES -->
+<section class="mb-space-xl flex flex-col gap-space-md">
+<div class="flex items-center gap-space-xs text-text-atmosphere">
+<span class="font-label-telemetry text-label-telemetry uppercase tracking-widest">Observational Synthesis</span>
+<span>•</span>
+<span class="font-label-telemetry text-label-telemetry text-text-starlight">Analytical Matrix</span>
+</div>
+<h3 class="font-headline-lg text-headline-lg text-text-starlight tracking-tight">
+        Key differences between selected regimes
+      </h3>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-space-md">
+<!-- Summary Card 1 -->
+<article class="p-space-lg rounded-xl bg-surface-container/70 backdrop-blur-md shadow-md flex flex-col justify-between transition-all hover:bg-surface-container-high">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-telemetry text-label-telemetry uppercase text-secondary tracking-wider">Dimension 01</span>
+<span class="material-symbols-outlined text-secondary text-[20px]">layers</span>
+</div>
+<h4 class="font-headline-md text-body-lead font-bold text-text-starlight">
+              Spatial Density vs. Raw Count Divergence
+            </h4>
+<p class="font-body-default text-body-default text-text-atmosphere">
+              Ghana registered <strong class="text-text-starlight">+74.5%</strong> more total satellite detections (32,150 vs 18,420), but Benin exhibited a <strong class="text-secondary">+19.4% higher spatial density</strong> (0.160 vs 0.134 detections/km²).
+            </p>
+</div>
+<div class="pt-space-md mt-space-sm">
+<div class="flex items-baseline justify-between text-xs font-label-telemetry uppercase text-text-atmosphere mb-1">
+<span>Benin Spatial Intensity</span>
+<span class="text-secondary font-bold">119% of Ghana Baseline</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 78%"></div>
+</div>
+</div>
+</article>
+<!-- Summary Card 2 -->
+<article class="p-space-lg rounded-xl bg-surface-container/70 backdrop-blur-md shadow-md flex flex-col justify-between transition-all hover:bg-surface-container-high">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-telemetry text-label-telemetry uppercase text-tertiary tracking-wider">Dimension 02</span>
+<span class="material-symbols-outlined text-tertiary text-[20px]">air</span>
+</div>
+<h4 class="font-headline-md text-body-lead font-bold text-text-starlight">
+              Temporal Onset &amp; Harmattan Dynamics
+            </h4>
+<p class="font-body-default text-body-default text-text-atmosphere">
+              Benin's 2020 fire season initiated <strong class="text-text-starlight">18 days earlier</strong> in mid-November with rapid savanna clearing, whereas Ghana's 2024 season sustained higher late-season intensity through mid-February across the Volta transitional mosaic.
+            </p>
+</div>
+<div class="pt-space-md mt-space-sm">
+<div class="flex items-baseline justify-between text-xs font-label-telemetry uppercase text-text-atmosphere mb-1">
+<span>Onset Timing Delta</span>
+<span class="text-tertiary font-bold">-18 Days (Early Peak)</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-tertiary rounded-full" style="width: 62%"></div>
+</div>
+</div>
+</article>
+<!-- Summary Card 3 -->
+<article class="p-space-lg rounded-xl bg-surface-container/70 backdrop-blur-md shadow-md flex flex-col justify-between transition-all hover:bg-surface-container-high">
+<div class="flex flex-col gap-space-sm">
+<div class="flex items-center justify-between pb-space-xs">
+<span class="font-label-telemetry text-label-telemetry uppercase text-primary-container tracking-wider">Dimension 03</span>
+<span class="material-symbols-outlined text-primary-container text-[20px]">local_fire_department</span>
+</div>
+<h4 class="font-headline-md text-body-lead font-bold text-text-starlight">
+              Radiative Energy &amp; Decadal Baseline Deviation
+            </h4>
+<p class="font-body-default text-body-default text-text-atmosphere">
+              Mean FRP in Ghana (2024) reached <strong class="text-text-starlight">46.2 MW/pixel</strong> (<span class="text-primary-container">+8.2%</span> vs its 10-year decadal norm), while Benin (2020) was consistent with its long-term baseline (+1.4% anomaly).
+            </p>
+</div>
+<div class="pt-space-md mt-space-sm">
+<div class="flex items-baseline justify-between text-xs font-label-telemetry uppercase text-text-atmosphere mb-1">
+<span>Decadal Anomaly Delta</span>
+<span class="text-primary-container font-bold">+8.2% Anomaly (Ghana)</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-lowest rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 88%"></div>
+</div>
+</div>
+</article>
+</div>
+</section>
+<!-- 6. SCIENTIFIC INTERPRETATION REMINDER / METHODOLOGICAL CITATION -->
+<section class="rounded-xl bg-surface-container-lowest/90 p-space-lg flex flex-col md:flex-row md:items-center justify-between gap-space-lg shadow-inner">
+<div class="flex items-start gap-space-md max-w-4xl">
+<span class="material-symbols-outlined text-text-atmosphere text-[28px] mt-1 shrink-0">info</span>
+<div class="flex flex-col gap-1">
+<span class="font-label-telemetry text-label-telemetry uppercase text-text-starlight font-bold tracking-wider">
+            Methodological Note &amp; Sensor Calibration
+          </span>
+<p class="font-body-default text-body-default text-text-atmosphere">
+            Satellite-observed detections represent radiometer-flagged thermal anomalies (375m VIIRS / 1km MODIS) during clear-sky overpasses. Cloud cover attenuation, differing orbital overpass times, and dense vegetation canopy shielding must be considered when evaluating inter-regional differences.
+          </p>
+</div>
+</div>
+<a class="inline-flex items-center gap-space-xs px-space-md py-space-sm rounded bg-surface-container hover:bg-surface-container-high text-text-starlight font-label-caps text-label-caps uppercase transition-colors shrink-0 shadow-sm" data-path="methodology" href="#">
+<span>Review Observation Limitations</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</section>
+</div>
+<script>
+    // Micro-interactions for comparison metric toggling
+    (function() {
+      const btnDet = document.getElementById('metric-tab-detections');
+      const btnFrp = document.getElementById('metric-tab-frp');
+      const btnIdx = document.getElementById('metric-tab-index');
+      const swapBtn = document.getElementById('btn-swap-entities');
+      const recomputeBtn = document.getElementById('btn-recompute');
+
+      const tabs = [btnDet, btnFrp, btnIdx];
+
+      function setActiveTab(active) {
+        tabs.forEach(tab => {
+          if (tab === active) {
+            tab.className = 'px-space-md py-space-xs rounded-lg font-label-caps text-label-caps uppercase transition-all bg-primary-container text-on-primary-container font-medium shadow-[0_0_16px_rgba(255,90,31,0.3)]';
+          } else {
+            tab.className = 'px-space-md py-space-xs rounded-lg font-label-caps text-label-caps uppercase transition-all text-text-atmosphere hover:text-text-starlight hover:bg-surface-container-high';
+          }
+        });
+      }
+
+      if (btnDet && btnFrp && btnIdx) {
+        btnDet.addEventListener('click', () => setActiveTab(btnDet));
+        btnFrp.addEventListener('click', () => setActiveTab(btnFrp));
+        btnIdx.addEventListener('click', () => setActiveTab(btnIdx));
+      }
+
+      if (swapBtn) {
+        swapBtn.addEventListener('click', () => {
+          swapBtn.classList.add('rotate-180');
+          setTimeout(() => swapBtn.classList.remove('rotate-180'), 300);
+        });
+      }
+
+      if (recomputeBtn) {
+        recomputeBtn.addEventListener('click', () => {
+          const icon = recomputeBtn.querySelector('.material-symbols-outlined');
+          if (icon) {
+            icon.classList.add('animate-spin');
+            setTimeout(() => icon.classList.remove('animate-spin'), 600);
+          }
+        });
+      }
+    })();
+  </script>
+</div></main><footer class="w-full bg-surface-container-lowest py-space-xl shadow-[0_-1px_8px_rgba(0,0,0,0.04)]"><div class="max-w-7xl mx-auto px-6 lg:px-12 flex flex-col gap-space-lg"><div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pb-space-lg"><div class="flex flex-col gap-space-xs"><span class="font-label-telemetry text-label-telemetry text-text-atmosphere uppercase tracking-widest">Primary Ingestion Sources</span><div class="flex flex-wrap items-center gap-space-md text-text-starlight font-label-caps text-label-caps uppercase"><span class="hover:text-primary transition-colors">NASA LANCE / FIRMS</span><span class="text-outline-variant">•</span><span class="hover:text-primary transition-colors">Copernicus EMS</span><span class="text-outline-variant">•</span><span class="hover:text-primary transition-colors">NOAA NESDIS</span></div></div><div class="flex flex-col lg:items-end gap-space-xs"><span class="font-label-telemetry text-label-telemetry text-text-atmosphere uppercase tracking-widest">Spatial Reference Grid</span><span class="font-label-telemetry text-label-telemetry text-text-starlight uppercase">WGS84 EPSG:4326</span></div></div><div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-md pt-space-md"><p class="font-body-muted text-body-muted text-on-surface-variant">© 2025 HEXAFIRE Planetary Observatory. Spectral Radiance Archive.</p><div class="flex items-center gap-space-sm font-label-telemetry text-label-telemetry text-text-atmosphere"><span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span><span class="uppercase tracking-wider">UTC 2025-05-18T14:32:09Z</span></div></div></div></footer></body></html>

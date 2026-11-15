@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n-doc="home.doc">HEXAFIRE · Observatoire planétaire des feux</title>
+  <meta name="description" content="HEXAFIRE : points chauds MODIS et VIIRS harmonisés, une seule série mensuelle de 2000 à aujourd'hui sur un globe interactif.">
+  <link rel="icon" href="public/assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles/base.css">
+  <link rel="stylesheet" href="src/styles/home.css">
+</head>
+<body data-page="home">
+<header id="shell-header" class="site-header"></header>
+
+<main class="home">
+  <!-- 1. Héros -->
+  <section class="hero">
+    <img class="hero-bg" src="public/assets/images/earth-orbit.jpg" alt="" aria-hidden="true">
+    <div class="hero-veil"></div>
+    <div class="glow orbital" style="top:-10rem;left:50%;width:70rem;height:40rem;transform:translateX(-50%)"></div>
+    <div class="hero-pips" aria-hidden="true">
+      <span style="top:46%;left:47%"><i></i><b>12.4° N, 24.2° E</b></span>
+      <span style="top:58%;left:30%"><i class="amber"></i><b>3.8° S, 62.1° W</b></span>
+      <span style="top:24%;right:20%"><i></i><b>64.2° N, 142.8° E</b></span>
+    </div>
+    <div class="wrap hero-top telemetry">
+      <span class="row"><span class="pip"></span><span data-i18n="home.top_left"></span><span class="dim">•</span><span class="soft" id="hero-months"></span></span>
+      <span class="row hide-sm"><span data-i18n="home.top_right"></span></span>
+    </div>
+    <div class="wrap hero-body">
+      <div class="brand-block">
+        <div class="row"><span class="display">HEXAFIRE</span><span class="pip big"></span></div>
+        <div class="telemetry row"><span data-i18n="shell.sub"></span><span class="dim">•</span><span class="soft" data-i18n="home.tagline"></span></div>
+      </div>
+      <h1 class="headline-xl" data-i18n="home.h1"></h1>
+      <p class="lead" data-i18n="home.lead"></p>
+      <div class="row hero-cta">
+        <a class="btn btn-ember" href="explore.html"><span data-i18n="home.cta"></span><span class="arrow">→</span></a>
+        <a class="btn btn-text" href="methodology.html" data-i18n="home.cta2"></a>
+      </div>
+    </div>
+    <div class="wrap hero-bottom telemetry">
+      <span class="row"><span class="bounce fire">↓</span><span data-i18n="home.scroll"></span></span>
+      <span>TERRA • AQUA • SUOMI NPP • NOAA-20 • NOAA-21</span>
+    </div>
+  </section>
+
+  <!-- 2. Le problème -->
+  <section class="section wrap problem">
+    <div class="glow orbital" style="right:-10rem;top:20%;width:30rem;height:30rem"></div>
+    <div class="grid problem-grid">
+      <figure class="card flat media">
+        <img src="public/assets/images/wildfire-orbit.jpg" alt="" loading="lazy">
+        <figcaption class="telemetry"><span class="row"><span class="pip pulse"></span><span data-i18n="home.fig1"></span></span><span class="dim" data-i18n="home.fig1b"></span></figcaption>
+        <span class="tick tl telemetry">+ [MODIS 1 KM]</span><span class="tick tr telemetry">[VIIRS 375 M]</span>
+      </figure>
+      <div class="stack problem-text">
+        <span class="eyebrow telemetry" data-i18n="home.s1_eyebrow"></span>
+        <h2 class="headline-xl" data-i18n="home.s1_title"></h2>
+        <p class="lead" data-i18n="home.s1_text"></p>
+        <div class="card flat conv">
+          <div class="row between telemetry"><span data-i18n="home.conv_title"></span><span class="soft" data-i18n="home.conv_right"></span></div>
+          <svg viewBox="0 0 400 110" class="conv-svg" aria-hidden="true">
+            <line x1="0" x2="400" y1="55" y2="55" stroke="rgba(76,111,255,.12)" stroke-dasharray="2 4"/>
+            <line x1="250" x2="250" y1="0" y2="110" stroke="rgba(76,111,255,.2)" stroke-dasharray="2 2"/>
+            <path d="M0 62 C 60 58, 120 66, 180 60 C 210 57, 230 58, 250 58" fill="none" stroke="#ffb547" stroke-width="2" opacity=".9"/>
+            <path d="M250 58 C 262 50, 268 22, 290 18 C 330 12, 360 28, 400 22" fill="none" stroke="#b8c3ff" stroke-width="2" opacity=".9"/>
+            <path d="M250 58 C 290 60, 330 56, 400 58" fill="none" stroke="#ff5a1f" stroke-width="2.6"/>
+            <circle cx="250" cy="58" r="4" fill="#ff5a1f"/><circle cx="250" cy="58" r="9" fill="#ff5a1f" fill-opacity=".25"/>
+            <text x="254" y="104" fill="#9aa8c7" font-size="9" font-family="Space Grotesk" letter-spacing="1">2021</text>
+            <text x="4" y="104" fill="#9aa8c7" font-size="9" font-family="Space Grotesk" letter-spacing="1">2000</text>
+          </svg>
+          <div class="row between telemetry conv-legend">
+            <span class="row"><span class="sw" style="background:#ffb547"></span>MODIS<span class="sw" style="background:#b8c3ff;margin-left:.75rem"></span><span data-i18n="home.conv_raw"></span></span>
+            <span class="row starlight"><span class="sw" style="background:#ff5a1f"></span><span data-i18n="home.conv_harm"></span></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Trois regards -->
+  <section class="section wrap lenses">
+    <div class="center stack" style="align-items:center;margin-bottom:var(--space-xl)">
+      <span class="eyebrow telemetry" data-i18n="home.s2_eyebrow"></span>
+      <h2 class="headline-xl" data-i18n="home.s2_title"></h2>
+      <p class="lead" data-i18n="home.s2_text"></p>
+    </div>
+    <div class="grid grid-3">
+      <a class="card lens" href="explore.html">
+        <div class="row between telemetry"><span class="dim">01</span><span class="soft" data-i18n="home.l1_tag"></span></div>
+        <div class="lens-visual"><img src="public/assets/images/earth-reticle.jpg" alt="" loading="lazy"><span class="tag telemetry" data-i18n="home.l1_cap"></span></div>
+        <h3 class="headline-md" data-i18n="home.l1_title"></h3>
+        <p class="muted" data-i18n="home.l1_text"></p>
+        <span class="lens-link telemetry"><span data-i18n="home.l1_link"></span><span class="arrow fire">→</span></span>
+      </a>
+      <a class="card lens" href="compare.html">
+        <div class="row between telemetry"><span class="dim">02</span><span class="soft" data-i18n="home.l2_tag"></span></div>
+        <div class="lens-visual matrix" id="lens-matrix"></div>
+        <h3 class="headline-md" data-i18n="home.l2_title"></h3>
+        <p class="muted" data-i18n="home.l2_text"></p>
+        <span class="lens-link telemetry"><span data-i18n="home.l2_link"></span><span class="arrow fire">→</span></span>
+      </a>
+      <a class="card lens" href="methodology.html">
+        <div class="row between telemetry"><span class="dim">03</span><span class="soft" data-i18n="home.l3_tag"></span></div>
+        <div class="lens-visual chart" id="lens-validation"></div>
+        <h3 class="headline-md" data-i18n="home.l3_title"></h3>
+        <p class="muted" data-i18n="home.l3_text"></p>
+        <span class="lens-link telemetry"><span data-i18n="home.l3_link"></span><span class="arrow fire">→</span></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 4. Chiffres clés (depuis index.json) -->
+  <section class="section wrap figures">
+    <div class="section-head">
+      <div><span class="eyebrow telemetry" data-i18n="home.s3_eyebrow"></span><h2 class="headline-lg" data-i18n="home.s3_title"></h2></div>
+      <p data-i18n="home.s3_text"></p>
+    </div>
+    <div class="grid grid-4" id="figures"></div>
+  </section>
+
+  <!-- 5. Appel final -->
+  <section class="final">
+    <img class="hero-bg" src="public/assets/images/earth-orbit.jpg" alt="" aria-hidden="true" loading="lazy">
+    <div class="final-veil"></div>
+    <div class="wrap telemetry row between dim"><span>LAT 00°00'N • LON 00°00'E</span><span data-i18n="home.final_top"></span></div>
+    <div class="wrap final-body">
+      <span class="chip starlight"><span class="pip pulse"></span><span data-i18n="home.final_chip"></span></span>
+      <h2 class="display" data-i18n="home.final_title"></h2>
+      <p class="lead" data-i18n="home.final_text"></p>
+      <a class="btn btn-primary" href="explore.html" style="padding:.9rem 2rem"><span data-i18n="home.cta"></span><span class="arrow">→</span></a>
+    </div>
+    <div class="wrap telemetry row between dim"><span data-i18n="home.final_bottom"></span><span>WGS84 • EPSG:4326</span></div>
+  </section>
+</main>
+
+<footer id="shell-footer" class="site-footer"></footer>
+<script type="module" src="src/pages/Home/home.js"></script>
+</body>
+</html>

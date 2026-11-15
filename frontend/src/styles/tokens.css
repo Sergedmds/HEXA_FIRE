@@ -1,0 +1,75 @@
+/* HEXAFIRE, jetons du système « Nuit Braise » (mockups/DESIGN.md). Thème nocturne unique. */
+:root {
+  color-scheme: dark;
+
+  /* Surfaces */
+  --void: #070b16;
+  --surface-lowest: #0a0e19;
+  --surface-low: #0d1426;
+  --surface: #0f131e;
+  --surface-container: #121a30;
+  --surface-high: #1b2238;
+  --surface-highest: #262e45;
+  --surface-bright: #353946;
+
+  /* Texte */
+  --starlight: #eaf0ff;
+  --atmosphere: #9aa8c7;
+  --atmosphere-dim: #6c7a99;
+
+  /* Accents */
+  --fire: #ff5a1f;
+  --fire-soft: #ffb59e;
+  --fire-pale: #ffdbd0;
+  --amber: #ffb547;
+  --amber-deep: #c68414;
+  --orbital: #4c6fff;
+  --orbital-soft: #b8c3ff;
+  --orbital-deep: #003acf;
+  --error: #ffb4ab;
+
+  /* Bordures optiques */
+  --border-orbital: rgba(76, 111, 255, 0.15);
+  --border-orbital-strong: rgba(76, 111, 255, 0.35);
+  --border-thermal: rgba(255, 90, 31, 0.25);
+  --border-thermal-strong: rgba(255, 90, 31, 0.6);
+  --hairline: rgba(255, 255, 255, 0.06);
+
+  /* Lueurs */
+  --glow-fire: 0 0 24px rgba(255, 90, 31, 0.3), 0 0 80px rgba(255, 90, 31, 0.08);
+  --glow-fire-strong: 0 0 36px rgba(255, 90, 31, 0.55), 0 0 100px rgba(255, 90, 31, 0.2);
+  --glow-orbital: 0 0 24px rgba(76, 111, 255, 0.25);
+
+  /* Typographie */
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "Space Grotesk", ui-monospace, "Cascadia Mono", monospace;
+
+  /* Rythme */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.75rem;
+  --space-xl: 3rem;
+  --space-2xl: 5rem;
+  --gutter: 1.5rem;
+  --margin: clamp(1.25rem, 4vw, 4rem);
+  --content-max: 80rem;
+
+  /* Rayons */
+  --r-sm: 0.125rem;
+  --r: 0.25rem;
+  --r-md: 0.375rem;
+  --r-lg: 0.5rem;
+  --r-xl: 0.75rem;
+  --r-2xl: 1rem;
+  --r-full: 9999px;
+
+  /* Palette des données (voir src/utils/stats.js) */
+  --cal-0: #121a30;
+  --cls-tres-inf: #2a4fd6;
+  --cls-inf: #8fa6ff;
+  --cls-normale: #3a4258;
+  --cls-sup: #ffb547;
+  --cls-tres-sup: #ff5a1f;
+}

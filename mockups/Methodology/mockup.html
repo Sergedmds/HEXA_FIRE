@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_standard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;1,400&amp;family=Space+Grotesk:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config={"darkMode":"class","theme":{"extend":{"colors":{"on-tertiary-fixed":"#291800","on-secondary-fixed-variant":"#0035be","border-thermal":"rgba(255, 90, 31, 0.25)","outline-variant":"#5b4038","on-tertiary-container":"#3e2600","outline":"#ab897f","surface-tint":"#ffb59e","tertiary-container":"#c68414","surface":"#070B16","secondary-fixed-dim":"#b8c3ff","on-error":"#690005","on-primary-container":"#541400","secondary-container":"#003acf","on-tertiary":"#452b00","primary-fixed":"#ffdbd0","surface-container-high":"#151C33","inverse-surface":"#dfe2f2","secondary-fixed":"#dde1ff","on-surface-variant":"#9AA8C7","on-primary-fixed-variant":"#852400","on-primary":"#5e1700","on-primary-fixed":"#3a0b00","surface-midnight":"#0D1426","tertiary-fixed":"#ffddb4","on-secondary":"#002388","secondary":"#b8c3ff","inverse-on-surface":"#2c303c","surface-variant":"#1E2742","surface-container-highest":"#222D4B","primary":"#ffb59e","tertiary-fixed-dim":"#ffb955","tertiary":"#ffb955","on-secondary-container":"#afbcff","surface-container":"#121A30","primary-fixed-dim":"#ffb59e","on-surface":"#dfe2f2","text-atmosphere":"#8E9DBE","surface-container-lowest":"#050811","error":"#ffb4ab","on-secondary-fixed":"#001356","surface-bright":"#26314F","text-starlight":"#F3F6FD","inverse-primary":"#ae3200","primary-container":"#ff5a1f","surface-dim":"#070B16","on-tertiary-fixed-variant":"#633f00","error-container":"#93000a","on-error-container":"#ffdad6","on-background":"#dfe2f2","surface-container-low":"#0A1020","border-orbital":"rgba(76, 111, 255, 0.12)","background":"#070B16"},"borderRadius":{"DEFAULT":"0.125rem","lg":"0.375rem","xl":"0.75rem","full":"0.75rem"},"spacing":{"gutter-mobile":"1.25rem","space-xl":"4rem","margin":"5rem","space-md":"1.5rem","space-sm":"0.75rem","space-xs":"0.375rem","margin-mobile":"1.5rem","space-lg":"2.5rem","gutter":"2rem"},"fontFamily":{"headline-lg":["Space Grotesk", "sans-serif"],"headline-md":["Space Grotesk", "sans-serif"],"label-telemetry":["Space Grotesk", "monospace"],"body-default":["Inter", "sans-serif"],"body-muted":["Inter", "sans-serif"],"headline-xl":["Space Grotesk", "sans-serif"],"label-caps":["Space Grotesk", "sans-serif"],"headline-xl-mobile":["Space Grotesk", "sans-serif"],"display-hero":["Space Grotesk", "sans-serif"],"display-hero-mobile":["Space Grotesk", "sans-serif"],"body-lead":["Inter", "sans-serif"]}}}}</script></head><body class="bg-[#070B16] font-body-default text-on-surface antialiased selection:bg-primary-container selection:text-white min-h-screen flex flex-col justify-between">
+<!-- Top Global Navigation Bar -->
+<header class="fixed top-0 w-full z-50 bg-[#070B16]/90 backdrop-blur-xl border-b border-white/[0.06]">
+<div class="h-16 w-full px-6 lg:px-16 max-w-7xl mx-auto flex items-center justify-between gap-6">
+<div class="flex items-center gap-6 shrink-0">
+<a class="flex items-center gap-2 group" data-path="home" href="#">
+<span class="font-headline-md text-xl tracking-tight text-text-starlight group-hover:text-primary-container transition-colors">HEXAFIRE</span>
+<span class="font-label-telemetry text-[11px] tracking-wider uppercase text-primary-container px-2 py-0.5 rounded bg-primary-container/10 border border-primary-container/20 hidden sm:inline-block">PLANETARY OBSERVATORY</span>
+</a>
+<div class="hidden xl:flex items-center gap-2.5 px-3 py-1 rounded-full bg-white/[0.03] border border-white/[0.06]">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+<span class="font-label-telemetry text-[11px] tracking-wider text-text-atmosphere uppercase">SATELLITE SYNC • VIIRS &amp; MODIS ACTIVE</span>
+</div>
+</div>
+<nav class="hidden md:flex items-center gap-2 text-[13px]" data-active-classes="text-primary-container bg-primary-container/10 border border-primary-container/20 rounded px-3 py-1.5">
+<a class="font-label-caps uppercase tracking-wider transition-colors text-text-atmosphere hover:text-white px-3 py-1.5 rounded hover:bg-white/[0.04]" data-path="home" href="#">Home</a>
+<a class="font-label-caps uppercase tracking-wider transition-colors text-text-atmosphere hover:text-white px-3 py-1.5 rounded hover:bg-white/[0.04]" data-path="explore" href="#">Explore</a>
+<a class="font-label-caps uppercase tracking-wider transition-colors text-text-atmosphere hover:text-white px-3 py-1.5 rounded hover:bg-white/[0.04]" data-path="compare" href="#">Compare</a>
+<a aria-current="page" class="font-label-caps uppercase tracking-wider transition-colors text-primary-container bg-primary-container/10 border border-primary-container/25 rounded px-3 py-1.5 font-medium" data-path="methodology" href="#">Methodology</a>
+</nav>
+<div class="flex items-center gap-5 shrink-0">
+<div class="hidden lg:flex flex-col items-end leading-tight">
+<span class="font-label-telemetry text-[10px] tracking-widest uppercase text-text-atmosphere">ORBIT REF</span>
+<span class="font-label-telemetry text-xs tracking-wider text-text-starlight font-medium">71.4°N / 24.8°E</span>
+</div>
+<div class="w-8 h-8 rounded-full bg-white/[0.06] border border-white/10 flex items-center justify-center text-text-starlight hover:border-primary-container/40 transition-colors">
+<span class="material-symbols-outlined text-[17px]">person</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Body Content -->
+<main class="w-full pt-16 flex-1">
+<div class="relative w-full overflow-hidden">
+<!-- Ambient Optical Glows -->
+<div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[900px] h-[450px] bg-gradient-to-b from-primary-container/15 via-[#003acf]/5 to-transparent blur-3xl pointer-events-none -z-10"></div>
+<div class="absolute top-[800px] right-0 w-[500px] h-[500px] bg-secondary-container/5 blur-[120px] pointer-events-none -z-10"></div>
+<!-- 2. HERO SECTION -->
+<section class="w-full px-6 lg:px-16 pt-20 pb-20 max-w-7xl mx-auto">
+<div class="max-w-4xl flex flex-col gap-8">
+<!-- Eyebrow & Status -->
+<div class="flex flex-wrap items-center gap-3">
+<span class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary-container/10 border border-primary-container/20">
+<span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-ping"></span>
+<span class="font-label-telemetry text-xs tracking-widest text-primary-container uppercase font-semibold">HEXAFIRE METHODOLOGY</span>
+</span>
+<span class="text-white/20 hidden sm:inline">•</span>
+<span class="font-label-telemetry text-xs tracking-widest text-text-atmosphere uppercase">CEOS CAL/VAL VALIDATED • REF: HXF-SCI-2025</span>
+</div>
+<!-- Headline -->
+<h1 class="font-headline-xl text-4xl sm:text-5xl lg:text-6xl text-text-starlight font-medium tracking-tight leading-[1.12]">
+            How we turn satellite data into planetary fire intelligence.
+          </h1>
+<!-- Editorial Lead Paragraph -->
+<p class="font-body-lead text-lg sm:text-xl text-text-atmosphere leading-relaxed font-normal max-w-3xl">
+            Earth's active fire regimes are observed by radiometers scanning the planet at thousands of miles per hour. We synthesize multi-spectral thermal infrared telemetry into calibrated, decadal-scale metrics—providing researchers, policy analysts, and conservation teams with an unclouded view of planetary combustion.
+          </p>
+<!-- Refined, Lightweight Telemetry Facts Ribbon (Open & Elegant) -->
+<div class="pt-6 border-t border-white/[0.08]">
+<div class="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
+<div class="flex flex-col gap-1.5">
+<span class="font-label-telemetry text-[11px] uppercase tracking-wider text-text-atmosphere/80">Sensors</span>
+<span class="font-headline-md text-base sm:text-lg text-text-starlight font-medium">VIIRS &amp; MODIS</span>
+<span class="text-xs text-text-atmosphere">NASA FIRMS &amp; NOAA</span>
+</div>
+<div class="flex flex-col gap-1.5 md:border-l md:border-white/[0.08] md:pl-6 lg:pl-8">
+<span class="font-label-telemetry text-[11px] uppercase tracking-wider text-text-atmosphere/80">Resolution</span>
+<span class="font-headline-md text-base sm:text-lg text-text-starlight font-medium">375m &amp; 1km</span>
+<span class="text-xs text-text-atmosphere">Sub-kilometer accuracy</span>
+</div>
+<div class="flex flex-col gap-1.5 border-t border-white/[0.08] pt-4 md:border-t-0 md:pt-0 md:border-l md:border-white/[0.08] md:pl-6 lg:pl-8">
+<span class="font-label-telemetry text-[11px] uppercase tracking-wider text-text-atmosphere/80">Baseline</span>
+<span class="font-headline-md text-base sm:text-lg text-text-starlight font-medium">10-Year Record</span>
+<span class="text-xs text-text-atmosphere">2014–2023 climatology</span>
+</div>
+<div class="flex flex-col gap-1.5 border-t border-white/[0.08] pt-4 md:border-t-0 md:pt-0 md:border-l md:border-white/[0.08] md:pl-6 lg:pl-8">
+<span class="font-label-telemetry text-[11px] uppercase tracking-wider text-text-atmosphere/80">Latency</span>
+<span class="font-headline-md text-base sm:text-lg text-text-starlight font-medium">&lt; 3 Hours</span>
+<span class="text-xs text-text-atmosphere">Direct downlink ingest</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 3. SECTION 1 — OBSERVING FROM ORBIT (Data Sources) -->
+<section class="w-full px-6 lg:px-16 py-20 border-t border-white/[0.06] bg-[#0A1020]/50">
+<div class="max-w-7xl mx-auto flex flex-col gap-12">
+<!-- Section Title with clear hierarchy -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-white/[0.06]">
+<div>
+<span class="font-label-telemetry text-xs uppercase tracking-widest text-primary-container font-semibold">01 // OBSERVING FROM ORBIT</span>
+<h2 class="font-headline-lg text-2xl lg:text-3xl text-text-starlight font-medium mt-1.5">Where the data comes from</h2>
+</div>
+<p class="font-body-default text-text-atmosphere max-w-md text-sm">
+              Continuous polar and sun-synchronous orbital telemetry provides multi-angle radiance measurements across every continent twice daily.
+            </p>
+</div>
+<!-- Open, Airy 3-Column Editorial Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<!-- VIIRS Card -->
+<div class="group relative rounded-xl p-8 bg-[#0D1426]/70 border border-white/[0.08] hover:border-primary-container/30 transition-all duration-300 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-6">
+<span class="font-label-telemetry text-xs uppercase px-2.5 py-1 rounded bg-primary-container/10 text-primary-container border border-primary-container/20 font-medium">375m High-Resolution</span>
+<span class="font-label-telemetry text-xs text-text-atmosphere">SUOMI NPP / NOAA-20</span>
+</div>
+<h3 class="font-headline-md text-2xl text-text-starlight font-medium mb-3">VIIRS Radiometer</h3>
+<p class="font-body-default text-text-atmosphere leading-relaxed text-sm">
+                  The Visible Infrared Imaging Radiometer Suite captures active flame fronts with exceptional 375-meter spatial fidelity. Passing overhead twice daily per satellite, its mid-infrared channels detect small flaming perimeter movements, prescribed agricultural burns, and localized boreal flare-ups hours before conventional sensors.
+                </p>
+</div>
+<div class="pt-6 mt-6 border-t border-white/[0.06] flex items-center justify-between text-xs text-text-atmosphere/80 font-label-telemetry uppercase">
+<span>Spectral Band: 3.74 µm (I4)</span>
+<span class="text-primary-container">Active Fronts</span>
+</div>
+</div>
+<!-- MODIS Card -->
+<div class="group relative rounded-xl p-8 bg-[#0D1426]/70 border border-white/[0.08] hover:border-secondary/30 transition-all duration-300 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-6">
+<span class="font-label-telemetry text-xs uppercase px-2.5 py-1 rounded bg-secondary/10 text-secondary border border-secondary/20 font-medium">1000m Climate Baseline</span>
+<span class="font-label-telemetry text-xs text-text-atmosphere">TERRA &amp; AQUA EOS</span>
+</div>
+<h3 class="font-headline-md text-2xl text-text-starlight font-medium mb-3">MODIS Archive</h3>
+<p class="font-body-default text-text-atmosphere leading-relaxed text-sm">
+                  With uninterrupted operational scanning dating back to 2000, MODIS provides our gold-standard climate record. Its calibrated 4 µm and 11 µm contextual thresholds allow HEXAFIRE to establish normalized multi-decadal fire anomalies and track long-term biome shifts with absolute radiometric consistency.
+                </p>
+</div>
+<div class="pt-6 mt-6 border-t border-white/[0.06] flex items-center justify-between text-xs text-text-atmosphere/80 font-label-telemetry uppercase">
+<span>Continuity: 25+ Years</span>
+<span class="text-secondary">Decadal Norms</span>
+</div>
+</div>
+<!-- Sentinel & Copernicus Card -->
+<div class="group relative rounded-xl p-8 bg-[#0D1426]/70 border border-white/[0.08] hover:border-tertiary/30 transition-all duration-300 flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-6">
+<span class="font-label-telemetry text-xs uppercase px-2.5 py-1 rounded bg-tertiary/10 text-tertiary border border-tertiary/20 font-medium">Perimeter Delineation</span>
+<span class="font-label-telemetry text-xs text-text-atmosphere">SENTINEL-2 &amp; 3 / EFFIS</span>
+</div>
+<h3 class="font-headline-md text-2xl text-text-starlight font-medium mb-3">Copernicus EMS</h3>
+<p class="font-body-default text-text-atmosphere leading-relaxed text-sm">
+                  Integrated European Space Agency optical and multispectral imaging validates post-fire burned surface scar areas and vegetative recovery indices. Combined with EFFIS fire weather danger calculations, this stream provides rich structural context behind active thermal detections.
+                </p>
+</div>
+<div class="pt-6 mt-6 border-t border-white/[0.06] flex items-center justify-between text-xs text-text-atmosphere/80 font-label-telemetry uppercase">
+<span>Burn Scar Delineation</span>
+<span class="text-tertiary">Vegetation Index</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. SECTION 2 — THE PROCESSING PIPELINE -->
+<section class="w-full px-6 lg:px-16 py-20 max-w-7xl mx-auto">
+<div class="flex flex-col gap-12">
+<!-- Section Heading -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-white/[0.06]">
+<div>
+<span class="font-label-telemetry text-xs uppercase tracking-widest text-primary-container font-semibold">02 // THE PROCESSING PIPELINE</span>
+<h2 class="font-headline-lg text-2xl lg:text-3xl text-text-starlight font-medium mt-1.5">From raw telemetry to planetary insight</h2>
+</div>
+<p class="font-body-default text-text-atmosphere max-w-md text-sm">
+              Raw sensor packages undergo an automated five-stage verification pipeline before rendering on the live planetary grid.
+            </p>
+</div>
+<!-- Spaced Horizontal Timeline Cards -->
+<div class="grid grid-cols-1 md:grid-cols-5 gap-4 relative">
+<!-- Stage 1 -->
+<div class="relative bg-[#0D1426]/50 rounded-xl p-6 border border-white/[0.07] flex flex-col justify-between hover:bg-[#0D1426] transition-colors">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-telemetry text-xs font-semibold text-primary-container">STAGE 01</span>
+<span class="material-symbols-outlined text-primary-container text-xl">satellite_alt</span>
+</div>
+<h4 class="font-headline-md text-base text-text-starlight font-medium mb-2">Ingestion</h4>
+<p class="font-body-default text-xs text-text-atmosphere leading-relaxed">
+                  Real-time direct telemetry ingest via NASA LANCE and NOAA NESDIS satellite downlinks within minutes of orbital acquisition.
+                </p>
+</div>
+<div class="mt-6 pt-4 border-t border-white/[0.04] text-[11px] font-label-telemetry text-text-atmosphere">
+                LATENCY &lt; 180 MIN
+              </div>
+</div>
+<!-- Stage 2 -->
+<div class="relative bg-[#0D1426]/50 rounded-xl p-6 border border-white/[0.07] flex flex-col justify-between hover:bg-[#0D1426] transition-colors">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-telemetry text-xs font-semibold text-primary-container">STAGE 02</span>
+<span class="material-symbols-outlined text-primary-container text-xl">filter_alt</span>
+</div>
+<h4 class="font-headline-md text-base text-text-starlight font-medium mb-2">Atmospheric Mask</h4>
+<p class="font-body-default text-xs text-text-atmosphere leading-relaxed">
+                  Contextual filtering strips out sunglint, false specular reflections, cloud edges, and static non-wildfire industrial flares.
+                </p>
+</div>
+<div class="mt-6 pt-4 border-t border-white/[0.04] text-[11px] font-label-telemetry text-text-atmosphere">
+                QA / CAL FILTERS
+              </div>
+</div>
+<!-- Stage 3 -->
+<div class="relative bg-[#0D1426]/50 rounded-xl p-6 border border-white/[0.07] flex flex-col justify-between hover:bg-[#0D1426] transition-colors">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-telemetry text-xs font-semibold text-primary-container">STAGE 03</span>
+<span class="material-symbols-outlined text-primary-container text-xl">polyline</span>
+</div>
+<h4 class="font-headline-md text-base text-text-starlight font-medium mb-2">Spatial Binning</h4>
+<p class="font-body-default text-xs text-text-atmosphere leading-relaxed">
+                  Hotspots are indexed onto WGS84 coordinates and intersecting global biomes (Amazon, Boreal Taiga, Cerrado, Congo).
+                </p>
+</div>
+<div class="mt-6 pt-4 border-t border-white/[0.04] text-[11px] font-label-telemetry text-text-atmosphere">
+                H3 DISCRETE GRID
+              </div>
+</div>
+<!-- Stage 4 -->
+<div class="relative bg-[#0D1426]/50 rounded-xl p-6 border border-white/[0.07] flex flex-col justify-between hover:bg-[#0D1426] transition-colors">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-telemetry text-xs font-semibold text-primary-container">STAGE 04</span>
+<span class="material-symbols-outlined text-primary-container text-xl">analytics</span>
+</div>
+<h4 class="font-headline-md text-base text-text-starlight font-medium mb-2">Baseline Norm</h4>
+<p class="font-body-default text-xs text-text-atmosphere leading-relaxed">
+                  Observations are cross-referenced with rolling historical baselines to compute standardized day-of-year seasonal anomalies.
+                </p>
+</div>
+<div class="mt-6 pt-4 border-t border-white/[0.04] text-[11px] font-label-telemetry text-text-atmosphere">
+                10-YEAR ROLLING CLIMATOLOGY
+              </div>
+</div>
+<!-- Stage 5 -->
+<div class="relative bg-[#0D1426]/50 rounded-xl p-6 border border-white/[0.07] flex flex-col justify-between hover:bg-[#0D1426] transition-colors">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-telemetry text-xs font-semibold text-secondary">STAGE 05</span>
+<span class="material-symbols-outlined text-secondary text-xl">travel_explore</span>
+</div>
+<h4 class="font-headline-md text-base text-text-starlight font-medium mb-2">Visual Rendering</h4>
+<p class="font-body-default text-xs text-text-atmosphere leading-relaxed">
+                  Interactive GPU-accelerated projection of thermal vectors, fire radiative power distributions, and regional comparisons.
+                </p>
+</div>
+<div class="mt-6 pt-4 border-t border-white/[0.04] text-[11px] font-label-telemetry text-secondary">
+                LIVE WEBGL ENGINE
+              </div>
+</div>
+</div>
+</div>
+</section>
+<!-- 5. SECTION 3 — CORE METRICS EXPLAINED -->
+<section class="w-full px-6 lg:px-16 py-20 border-t border-white/[0.06] bg-[#0A1020]/50">
+<div class="max-w-7xl mx-auto flex flex-col gap-12">
+<!-- Section Heading -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-white/[0.06]">
+<div>
+<span class="font-label-telemetry text-xs uppercase tracking-widest text-primary-container font-semibold">03 // CORE METRICS EXPLAINED</span>
+<h2 class="font-headline-lg text-2xl lg:text-3xl text-text-starlight font-medium mt-1.5">Measuring combustion with intellectual clarity</h2>
+</div>
+<p class="font-body-default text-text-atmosphere max-w-md text-sm">
+              Wildfire data is frequently misunderstood. We separate counts, energetic output, and climate deviations into distinct physical indicators.
+            </p>
+</div>
+<!-- Balanced 3-Column Feature Layout with Ample Whitespace -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Metric 1: Thermal Detections -->
+<div class="bg-[#0D1426]/70 rounded-xl p-8 border border-white/[0.08] flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-telemetry text-xs text-primary-container tracking-wider uppercase font-medium">Unit: Count</span>
+<span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+</div>
+<h3 class="font-headline-md text-xl text-text-starlight font-medium mb-4">Thermal Detections</h3>
+<div class="space-y-4 text-sm text-text-atmosphere leading-relaxed">
+<div>
+<h5 class="font-label-telemetry text-xs text-text-starlight uppercase tracking-wider mb-1">What it measures</h5>
+<p>The total tally of satellite sensor pixels flagged above ambient thermal baseline within a given window. A single high-intensity wildfire covering multiple square kilometers will produce dozens of simultaneous detections across its perimeter.</p>
+</div>
+<div>
+<h5 class="font-label-telemetry text-xs text-text-starlight uppercase tracking-wider mb-1">How to interpret</h5>
+<p>Best utilized for tracking spatial distribution, perimeter growth trajectories, and fire frequency across broad landscape regions rather than counting individual independent blazes.</p>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs text-text-atmosphere">
+<span>Direct sensor pixels</span>
+<span class="font-label-telemetry text-text-starlight">SPATIAL FREQUENCY</span>
+</div>
+</div>
+<!-- Metric 2: FRP -->
+<div class="bg-[#0D1426]/70 rounded-xl p-8 border border-white/[0.08] flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-telemetry text-xs text-secondary tracking-wider uppercase font-medium">Unit: Megawatts [MW]</span>
+<span class="w-2.5 h-2.5 rounded-full bg-secondary"></span>
+</div>
+<h3 class="font-headline-md text-xl text-text-starlight font-medium mb-4">Fire Radiative Power</h3>
+<div class="space-y-4 text-sm text-text-atmosphere leading-relaxed">
+<div>
+<h5 class="font-label-telemetry text-xs text-text-starlight uppercase tracking-wider mb-1">What it measures</h5>
+<p>The instantaneous rate of radiant thermal heat released by actively burning biomass, calculated directly from 4 µm middle infrared radiances using Wooster’s empirical formulation.</p>
+</div>
+<div>
+<h5 class="font-label-telemetry text-xs text-text-starlight uppercase tracking-wider mb-1">How to interpret</h5>
+<p>Serves as a reliable direct proxy for fuel consumption rates (kg/s) and atmospheric smoke aerosol generation. A small, violent crown fire will yield vastly higher FRP than a broad smoldering understory burn.</p>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs text-text-atmosphere">
+<span>Combustion energy output</span>
+<span class="font-label-telemetry text-text-starlight">INTENSITY &amp; SMOKE</span>
+</div>
+</div>
+<!-- Metric 3: Activity Index -->
+<div class="bg-[#0D1426]/70 rounded-xl p-8 border border-white/[0.08] flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-4">
+<span class="font-label-telemetry text-xs text-tertiary tracking-wider uppercase font-medium">Unit: % Anomaly vs Baseline</span>
+<span class="w-2.5 h-2.5 rounded-full bg-tertiary"></span>
+</div>
+<h3 class="font-headline-md text-xl text-text-starlight font-medium mb-4">Fire Activity Index</h3>
+<div class="space-y-4 text-sm text-text-atmosphere leading-relaxed">
+<div>
+<h5 class="font-label-telemetry text-xs text-text-starlight uppercase tracking-wider mb-1">What it measures</h5>
+<p>Current thermal hotspot density mathematically normalized against the specific 10-year day-of-year seasonal distribution for that exact biome or territory.</p>
+</div>
+<div>
+<h5 class="font-label-telemetry text-xs text-text-starlight uppercase tracking-wider mb-1">How to interpret</h5>
+<p>Essential for contextual analysis. It immediately isolates whether elevated fire counts are part of expected dry-season agricultural rotations or represent critical climate-driven ecological crises.</p>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-4 border-t border-white/[0.06] flex items-center justify-between text-xs text-text-atmosphere">
+<span>Decadal historical context</span>
+<span class="font-label-telemetry text-text-starlight">CLIMATE DEVIATION</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. SECTION 4 — INTERPRETATION & SCIENTIFIC PRINCIPLES -->
+<section class="w-full px-6 lg:px-16 py-20 max-w-7xl mx-auto">
+<div class="flex flex-col gap-12">
+<!-- Section Heading -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-white/[0.06]">
+<div>
+<span class="font-label-telemetry text-xs uppercase tracking-widest text-primary-container font-semibold">04 // SCIENTIFIC RIGOR</span>
+<h2 class="font-headline-lg text-2xl lg:text-3xl text-text-starlight font-medium mt-1.5">Understanding satellite observations</h2>
+</div>
+<p class="font-body-default text-text-atmosphere max-w-md text-sm">
+              Transparent satellite science requires understanding the physical boundaries of spaceborne thermal radiometers.
+            </p>
+</div>
+<!-- Clean 2x2 Curated Guide Grid with generous breathing room -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="p-8 rounded-xl bg-[#0D1426]/50 border border-white/[0.07] flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-lg bg-primary-container/10 border border-primary-container/20 flex items-center justify-center text-primary-container font-headline-md font-semibold text-sm">1</span>
+<h4 class="font-headline-md text-lg text-text-starlight font-medium">Hotspot Detections Are Not Fire Counts</h4>
+</div>
+<p class="font-body-default text-sm text-text-atmosphere leading-relaxed mt-1">
+                A single complex wildfire spanning several miles can trigger dozens of pixel detections in one satellite overpass. Conversely, dozens of localized agricultural debris fires within a single 1km² pixel may register as just one aggregated detection. Always treat detections as indicators of spatial extent and thermal activity rather than discrete incidents.
+              </p>
+</div>
+<div class="p-8 rounded-xl bg-[#0D1426]/50 border border-white/[0.07] flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-lg bg-primary-container/10 border border-primary-container/20 flex items-center justify-center text-primary-container font-headline-md font-semibold text-sm">2</span>
+<h4 class="font-headline-md text-lg text-text-starlight font-medium">Sensor Limits &amp; Atmospheric Obscuration</h4>
+</div>
+<p class="font-body-default text-sm text-text-atmosphere leading-relaxed mt-1">
+                Thermal infrared radiation cannot penetrate dense convective cloud cover, heavy smoke pyrocumulonimbus blankets, or thick multi-story forest canopies. Absence of detection does not guarantee absence of surface fire. When reviewing regions with persistent cloudiness, observations represent temporal snapshots between clearings.
+              </p>
+</div>
+<div class="p-8 rounded-xl bg-[#0D1426]/50 border border-white/[0.07] flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-lg bg-primary-container/10 border border-primary-container/20 flex items-center justify-center text-primary-container font-headline-md font-semibold text-sm">3</span>
+<h4 class="font-headline-md text-lg text-text-starlight font-medium">Spatial Resolution Cannot Be Directly Equated</h4>
+</div>
+<p class="font-body-default text-sm text-text-atmosphere leading-relaxed mt-1">
+                VIIRS (375m) resolves approximately ten times more pixels per square kilometer than MODIS (1km). Due to its higher sensitivity, VIIRS consistently detects smaller, cooler fires that MODIS misses. Consequently, detection numbers from these two sensors cannot be summed or directly compared without sensor-specific calibration factors.
+              </p>
+</div>
+<div class="p-8 rounded-xl bg-[#0D1426]/50 border border-white/[0.07] flex flex-col gap-3">
+<div class="flex items-center gap-3">
+<span class="w-8 h-8 rounded-lg bg-primary-container/10 border border-primary-container/20 flex items-center justify-center text-primary-container font-headline-md font-semibold text-sm">4</span>
+<h4 class="font-headline-md text-lg text-text-starlight font-medium">Decadal Baselines Provide Real Significance</h4>
+</div>
+<p class="font-body-default text-sm text-text-atmosphere leading-relaxed mt-1">
+                In many ecosystems (such as the African Miombo or Brazilian Cerrado), fire is a natural, cyclical ecological process. Evaluating raw detection numbers without historical context creates misleading alarms. True climate anomalies become evident only when current detections are indexed against multi-year seasonal baselines.
+              </p>
+</div>
+</div>
+</div>
+</section>
+<!-- 7. SECTION 5 — OPEN ACCESS, REFERENCES & CTA -->
+<section class="w-full px-6 lg:px-16 py-20 border-t border-white/[0.06] bg-[#0A1020]/30">
+<div class="max-w-7xl mx-auto flex flex-col gap-12">
+<!-- Section Heading -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-4 border-b border-white/[0.06]">
+<div>
+<span class="font-label-telemetry text-xs uppercase tracking-widest text-primary-container font-semibold">05 // OPEN SCIENCE &amp; ACCESS</span>
+<h2 class="font-headline-lg text-2xl lg:text-3xl text-text-starlight font-medium mt-1.5">Institutional data providers</h2>
+</div>
+<p class="font-body-default text-text-atmosphere max-w-md text-sm">
+              All telemetry visualized across HEXAFIRE originates from open-access scientific space programs and international cal/val consortiums.
+            </p>
+</div>
+<!-- Clean, uncluttered list of institutional data providers -->
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 font-label-telemetry text-xs">
+<a class="p-4 rounded-lg bg-[#0D1426] border border-white/[0.06] hover:border-primary-container/40 flex flex-col justify-between h-24 text-text-atmosphere hover:text-white transition-all group" href="https://earthdata.nasa.gov/firms" rel="noopener noreferrer" target="_blank">
+<span class="text-text-starlight font-medium group-hover:text-primary-container transition-colors">NASA FIRMS</span>
+<div class="flex items-center justify-between">
+<span class="text-[10px] text-text-atmosphere/60">LANCE INGEST</span>
+<span class="material-symbols-outlined text-[15px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">arrow_outward</span>
+</div>
+</a>
+<a class="p-4 rounded-lg bg-[#0D1426] border border-white/[0.06] hover:border-primary-container/40 flex flex-col justify-between h-24 text-text-atmosphere hover:text-white transition-all group" href="https://modis-fire.umd.edu/" rel="noopener noreferrer" target="_blank">
+<span class="text-text-starlight font-medium group-hover:text-primary-container transition-colors">MODIS ATBD</span>
+<div class="flex items-center justify-between">
+<span class="text-[10px] text-text-atmosphere/60">UMD / NASA EOS</span>
+<span class="material-symbols-outlined text-[15px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">arrow_outward</span>
+</div>
+</a>
+<a class="p-4 rounded-lg bg-[#0D1426] border border-white/[0.06] hover:border-primary-container/40 flex flex-col justify-between h-24 text-text-atmosphere hover:text-white transition-all group" href="https://viirsfire.geog.umd.edu/" rel="noopener noreferrer" target="_blank">
+<span class="text-text-starlight font-medium group-hover:text-primary-container transition-colors">VIIRS 375m</span>
+<div class="flex items-center justify-between">
+<span class="text-[10px] text-text-atmosphere/60">NOAA JPSS</span>
+<span class="material-symbols-outlined text-[15px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">arrow_outward</span>
+</div>
+</a>
+<a class="p-4 rounded-lg bg-[#0D1426] border border-white/[0.06] hover:border-primary-container/40 flex flex-col justify-between h-24 text-text-atmosphere hover:text-white transition-all group" href="https://effis.jrc.ec.europa.eu/" rel="noopener noreferrer" target="_blank">
+<span class="text-text-starlight font-medium group-hover:text-primary-container transition-colors">Copernicus EFFIS</span>
+<div class="flex items-center justify-between">
+<span class="text-[10px] text-text-atmosphere/60">EUROPEAN COMM.</span>
+<span class="material-symbols-outlined text-[15px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">arrow_outward</span>
+</div>
+</a>
+<a class="p-4 rounded-lg bg-[#0D1426] border border-white/[0.06] hover:border-primary-container/40 flex flex-col justify-between h-24 text-text-atmosphere hover:text-white transition-all group" href="https://www.nesdis.noaa.gov/" rel="noopener noreferrer" target="_blank">
+<span class="text-text-starlight font-medium group-hover:text-primary-container transition-colors">NOAA NESDIS</span>
+<div class="flex items-center justify-between">
+<span class="text-[10px] text-text-atmosphere/60">ENVIRONMENTAL SATELLITES</span>
+<span class="material-symbols-outlined text-[15px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">arrow_outward</span>
+</div>
+</a>
+<a class="p-4 rounded-lg bg-[#0D1426] border border-white/[0.06] hover:border-primary-container/40 flex flex-col justify-between h-24 text-text-atmosphere hover:text-white transition-all group" href="https://doi.org/10.1029/2005GL023162" rel="noopener noreferrer" target="_blank">
+<span class="text-text-starlight font-medium group-hover:text-primary-container transition-colors">Wooster FRP</span>
+<div class="flex items-center justify-between">
+<span class="text-[10px] text-text-atmosphere/60">AGU GEOPHYSICAL</span>
+<span class="material-symbols-outlined text-[15px] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">arrow_outward</span>
+</div>
+</a>
+</div>
+<!-- Subtle, inviting bottom action row linking to Explore and Compare -->
+<div class="mt-4 p-8 rounded-2xl bg-gradient-to-r from-[#0D1426] to-[#121A30] border border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded-xl bg-primary-container/10 border border-primary-container/20 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary-container text-2xl">public</span>
+</div>
+<div>
+<h4 class="font-headline-md text-lg text-text-starlight font-medium">Ready to explore active telemetry?</h4>
+<p class="font-body-default text-sm text-text-atmosphere mt-0.5">Interact with the real-time planetary fire matrix and inspect regional combustion patterns.</p>
+</div>
+</div>
+<div class="flex items-center gap-3 shrink-0 w-full sm:w-auto">
+<a class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-primary-container hover:bg-[#ff6c36] text-white font-label-telemetry text-xs tracking-wider uppercase px-5 py-3 rounded-lg transition-all font-semibold shadow-[0_0_20px_rgba(255,90,31,0.25)]" data-path="explore" href="#">
+<span>Launch Explore</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+<a class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 bg-white/[0.05] hover:bg-white/[0.08] text-text-starlight border border-white/10 font-label-telemetry text-xs tracking-wider uppercase px-5 py-3 rounded-lg transition-colors" data-path="compare" href="#">
+                Compare Biomes
+              </a>
+</div>
+</div>
+</div>
+</section>
+</div>
+</main>
+<!-- Global Footer -->
+<footer class="w-full bg-[#050811] border-t border-white/[0.06]">
+<div class="w-full px-6 lg:px-16 py-12 max-w-7xl mx-auto flex flex-col gap-8">
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs font-label-telemetry text-text-atmosphere uppercase tracking-wider">
+<div class="flex flex-wrap items-center gap-3">
+<span>DATA PARTNERS:</span>
+<span class="text-text-starlight hover:text-primary-container transition-colors">NASA LANCE / FIRMS</span>
+<span class="text-white/20">•</span>
+<span class="text-text-starlight hover:text-primary-container transition-colors">COPERNICUS EMS</span>
+<span class="text-white/20">•</span>
+<span class="text-text-starlight hover:text-primary-container transition-colors">NOAA NESDIS</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[15px] text-primary-container">public</span>
+<span>COORDINATE SYSTEM: WGS84 EPSG:4326</span>
+</div>
+</div>
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-6 border-t border-white/[0.04] text-xs text-text-atmosphere/80">
+<p>© 2025 HEXAFIRE Planetary Observatory. Spectral Radiance Archive.</p>
+<p class="font-label-telemetry text-[11px] uppercase tracking-widest text-text-atmosphere/60">UTC SYNCHRONIZED • ISO 8601 CONTINUOUS TELEMETRY</p>
+</div>
+</div>
+</footer>
+</body></html>
