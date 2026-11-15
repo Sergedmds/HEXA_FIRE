@@ -178,4 +178,7 @@ td.ok { color: #7ee2a0; } td.ko { color: var(--error); }
 
 /* Barre de menus : rectangles simples, sans angles arrondis */
 .site-nav a, .lang, .lang button, .site-header .btn, .site-header .icon-btn, .mobile-nav a { border-radius: 0; }
-.site-footer { display: none; }
+.site-footer { margin-top: var(--space-2xl); border-top: 1px solid var(--hairline); box-shadow: none; background: var(--surface-lowest); }
+.site-footer .inner { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--space-md); padding-block: var(--space-lg); }
+.site-footer .notes { display: grid; gap: .5rem; max-width: 52rem; }
+.site-footer .ack { max-width: 52rem; font-size: 12px; color: var(--atmosphere-dim); line-height: 1.5; }

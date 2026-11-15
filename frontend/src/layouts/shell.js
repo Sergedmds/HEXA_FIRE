@@ -32,7 +32,14 @@ export function monterShell({ page }) {
       </div>
     </div>
     <nav class="mobile-nav" id="mobile-nav" aria-label="Navigation">${nav(page)}</nav>`;
-  if (footer) footer.remove();
+  if (footer) footer.innerHTML = `
+    <div class="wrap inner">
+      <div class="brand"><span class="name">HEXA<b>FIRE</b></span><span class="pip"></span><span class="sub" data-i18n="shell.sub"></span></div>
+      <div class="notes">
+        <p class="ack" data-i18n-html="shell.ack"></p>
+        <p class="ack" data-i18n-html="shell.si"></p>
+      </div>
+    </div>`;
 
   const majLangue = () => document.querySelectorAll(".lang button").forEach(b => b.classList.toggle("active", b.dataset.lang === getLangue()));
   document.querySelectorAll(".lang button").forEach(b => (b.onclick = () => choisirLangue(b.dataset.lang)));

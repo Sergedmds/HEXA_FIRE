@@ -69,3 +69,9 @@
 .final .wrap { position: relative; z-index: 2; }
 .final-body { display: flex; flex-direction: column; align-items: center; text-align: center; gap: var(--space-lg); max-width: 50rem; margin-block: auto; padding-block: var(--space-xl); }
 .final-body .lead { max-width: 34rem; }
+
+/* Marque des images générées par SI (règlement Space Apps) */
+.ai-mark { position: absolute; z-index: 3; right: .6rem; top: .6rem; padding: .15rem .45rem; border-radius: var(--r); background: rgba(7, 11, 22, .7); color: rgba(154, 168, 199, .85); font-family: var(--font-mono); font-size: 9px; letter-spacing: .1em; text-transform: uppercase; pointer-events: none; }
+.media { position: relative; }
+.ai-mark.hero-mark { top: auto; bottom: 1rem; right: 1rem; }
+.lens-visual.chart .axis { margin-top: .4rem; }

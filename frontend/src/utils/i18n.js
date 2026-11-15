@@ -7,6 +7,7 @@ const T = {
   fr: {
     // coquille
     "nav.home": "Accueil", "nav.explore": "Explorer", "nav.compare": "Comparer", "nav.methodology": "À propos et guide",
+    "shell.si": "Ce site a été réalisé avec l'aide d'outils de Super Intelligence (SI) : Claude (Anthropic) pour le code et les textes, Google Stitch pour les maquettes. Les images marquées « Image générée par SI » ont été générées par SI. Détails dans le <a href=\"https://github.com/Sergedmds/HEXA_FIRE#use-of-si-tools\" target=\"_blank\" rel=\"noopener\">dépôt du projet</a>.", "shell.ai_img": "Image générée par SI",
     "shell.sub": "Observatoire planétaire des feux", "shell.launch": "Ouvrir le globe", "shell.menu": "Menu",
     "shell.example": "Données d'exemple (fictives) : lancez python -m hexafire publier pour la série réelle",
     "shell.sources": "Sources", "shell.github": "Dépôt GitHub", "shell.docs": "Documentation",
@@ -74,6 +75,7 @@ const T = {
   },
   en: {
     "nav.home": "Home", "nav.explore": "Explore", "nav.compare": "Compare", "nav.methodology": "About & guide",
+    "shell.si": "This site was built with the help of Super Intelligence (SI) tools: Claude (Anthropic) for code and text, Google Stitch for the mockups. Images marked “SI-generated image” were generated with SI. Details in the <a href=\"https://github.com/Sergedmds/HEXA_FIRE#use-of-si-tools\" target=\"_blank\" rel=\"noopener\">project repository</a>.", "shell.ai_img": "SI-generated image",
     "shell.sub": "Planetary fire observatory", "shell.launch": "Open the globe", "shell.menu": "Menu",
     "shell.example": "Example data (fictitious): run python -m hexafire publier for the real series",
     "shell.sources": "Sources", "shell.github": "GitHub repository", "shell.docs": "Documentation",

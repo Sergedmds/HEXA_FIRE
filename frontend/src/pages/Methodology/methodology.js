@@ -1,126 +1,107 @@
 // Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
-// Page « About & guide » : ce que montre le site, comment le lire, mots utiles, limites. Langage simple, même contenu en anglais et en français.
+// "About & guide" page: what the site shows, how to use it, key terms, limits. Plain words, same content in both languages.
 import { CONFIG } from "../../config/app.js";
 import { monterShell, signalerExemple } from "../../layouts/shell.js";
-import { getLangue, ajouterTextes, surChangementLangue, appliquerTextes } from "../../utils/i18n.js";
+import { t, getLangue, ajouterTextes, surChangementLangue, appliquerTextes } from "../../utils/i18n.js";
 import { chargerIndex } from "../../services/data.js";
+import { icon } from "../../components/icons.js";
 
 ajouterTextes({
-  en: {
-    "me.doc": "HEXAFIRE · About & guide",
-    "me.h1": "Twenty-five years of fire, on one timeline",
-    "me.lead": "HEXAFIRE shows where and when fires were seen from space, anywhere on Earth, from 2000 to today. This page explains in a few words what you are looking at and how to use the site.",
-  },
-  fr: {
-    "me.doc": "HEXAFIRE · À propos et guide",
-    "me.h1": "Vingt-cinq ans de feux, sur une seule ligne du temps",
-    "me.lead": "HEXAFIRE montre où et quand des feux ont été vus depuis l'espace, partout sur Terre, de 2000 à aujourd'hui. Cette page explique en quelques mots ce que vous regardez et comment utiliser le site.",
-  },
+  en: { "me.doc": "HEXAFIRE · About & guide", "me.h1": "Twenty-five years of fire, on one timeline",
+        "me.lead": "HEXAFIRE shows where and when vegetation fires were seen from space, anywhere on Earth, from November 2000 to today. This page explains what you are looking at and how to use the site, in plain words.",
+        "hotspot.text": "A hotspot is a spot on the ground that a satellite saw as much hotter than its surroundings when it passed over, usually a fire burning at that moment. One large fire can produce many hotspots; small fires, or fires hidden by clouds, may produce none. Hotspots tell you where and when fire activity happens, not how many fires there were." },
+  fr: { "me.doc": "HEXAFIRE · À propos et guide", "me.h1": "Vingt-cinq ans de feux, sur une seule ligne du temps",
+        "me.lead": "HEXAFIRE montre où et quand des feux de végétation ont été vus depuis l'espace, partout sur Terre, de novembre 2000 à aujourd'hui. Cette page explique ce que vous regardez et comment utiliser le site, en mots simples.",
+        "hotspot.text": "Un point chaud est un endroit du sol qu'un satellite a vu nettement plus chaud que ses alentours à son passage, en général un feu en train de brûler à ce moment-là. Un grand feu peut produire beaucoup de points chauds ; de petits feux, ou des feux cachés par les nuages, peuvent n'en produire aucun. Les points chauds indiquent où et quand il y a de l'activité de feu, pas combien de feux il y a eu." },
 });
 
 const C = {
   en: {
-    blocs: [
-      ["What the site does", "Choose an area and see, month by month, how many fire hotspots satellites detected there since November 2000. You can see which months usually burn, which years were exceptional, and whether this month is unusual."],
-      ["What a hotspot is", "A hotspot is a small patch of land that a satellite saw as much hotter than its surroundings. Most of the time it is a burning fire. One large fire can produce many hotspots, while a small fire under clouds may produce none."],
-      ["Two satellites, one record", "Since 2000, NASA's MODIS instruments have spotted fires from space. Since 2012, the newer VIIRS instruments see much smaller fires, so they count many more hotspots. Put side by side, the two records would show a rise in fires that never happened. HEXAFIRE puts VIIRS on the same scale as MODIS, so that 25 years can be compared fairly."],
-      ["How to read the colours", "On the calendar and on the globe, the brighter the orange, the more hotspots there were that month. In the “compared with normal” view, blue means fewer hotspots than usual for that month, grey means usual, and orange to red means more than usual."],
+    s1: { h: "Two satellites, one story" },
+    sats: [
+      ["MODIS, since 2000", "NASA's Terra and Aqua satellites have spotted fires every day since 2000. Their view is coarse: each pixel covers about one kilometre."],
+      ["VIIRS, since 2012", "The newer VIIRS instruments (Suomi NPP, NOAA-20, NOAA-21) see finer detail, about 375 metres. They notice many small fires that MODIS misses, so they count far more hotspots for the same amount of fire."],
+      ["Making them agree", "Put end to end, the two records would show a jump in fire activity around 2021 that never happened. HEXAFIRE used the years when both satellites flew together (2012–2020) to learn how to translate VIIRS counts into MODIS counts. The result is one continuous series: a month in 2024 can be compared fairly with a month in 2005."],
     ],
-    guideTitre: "Using the site",
+    s2: { h: "How to use the site" },
     guide: [
-      "On Explore, choose an area: a country, a shape drawn on the globe, a point with a radius, or a place name.",
-      "Read the short summary, then the calendar. Hover a month to see its details.",
-      "On Compare, put two areas or two years side by side.",
-      "Download the results, or copy the link to share exactly what you see.",
+      ["Explore", ["Pick an area: search a place or a country, click the globe, or draw a rectangle or a polygon.", "Read the summary in plain words, then the three key figures.", "Look at the calendar: one row per year, one square per month. Switch between “Count” and “Departure from normal”.", "Use the monthly layer to play the months on the globe, or click a square of the calendar.", "Download the numbers (CSV) or copy the link to share exactly what you see."]],
+      ["Compare", ["Choose two areas from the list, or type a point and a radius, and a year for each.", "Press “Compare”: the site reads both areas and writes the comparison in a few sentences.", "Switch the measure: hotspots, hotspots per area (fairer for areas of different sizes), or compared with usual."]],
     ],
-    motsTitre: "Words you will meet",
-    mots: [
-      ["Normal", "The usual number of hotspots for the same month, taken from the years 2003 to 2020."],
-      ["Compared with normal", "How a month compares with its normal: half, the same, twice as much."],
-      ["Converted month", "A month seen by VIIRS and put on the MODIS scale."],
-      ["Provisional month", "A recent month that may still change when complete data arrive."],
-      ["95% interval", "The range in which the value very likely lies, given the conversion between satellites."],
-      ["FRP", "Fire radiative power: how much heat a fire gives off, in megawatts."],
+    s3: { h: "Key terms" },
+    termes: [
+      ["Hotspot", ""],
+      ["Usual level", "For each month of the year and each area, the usual level is the middle value observed over 2003–2020. “Departure from normal” tells you whether a month had more or less fire than that. It is not computed when an area usually has almost no fire in that month."],
+      ["Measured or estimated", "Until 2020 the numbers are what the MODIS satellites measured. From 2021 they are estimated from VIIRS, translated to the MODIS scale. Squares with a small corner mark in the calendar are estimated."],
+      ["Hatched squares", "The satellite did not observe the whole month (for example after a breakdown, or for the month in progress). Read those months with care."],
+      ["MODIS scale and VIIRS scale", "Next to the calendar you can count on either scale. Only the size of the numbers changes; the comparison with usual years stays the same."],
     ],
-    limitesTitre: "What the site does not do",
-    limites: [
-      "It does not count wildfires: it counts hotspots seen from space.",
-      "No hotspot does not prove there was no fire. Clouds and smoke can hide fires.",
-      "It does not measure burned area and does not forecast fires.",
-      "It does not replace field reports or official alerts.",
-    ],
-    donneesTitre: "Data",
-    donnees: "Fire detections from NASA's MODIS and VIIRS instruments, distributed by NASA FIRMS. We acknowledge the use of data and/or imagery from NASA's Fire Information for Resource Management System (FIRMS), part of NASA's Earth Science Data and Information System (ESDIS). NASA does not endorse this project.",
-    liens: [["NASA FIRMS", CONFIG.liens.firms], ["Source code and documents", CONFIG.liens.depot]],
-    cta: "Start exploring",
+    s4: { h: "What the site does and does not do" },
+    fait: ["Shows monthly fire activity anywhere on Earth since November 2000, on one consistent scale.", "Tells you whether a month, or a year, had more or less fire than usual for that place.", "Lets you compare two places or two periods fairly."],
+    faitpas: ["It is not real time: the series is monthly, and the most recent months are provisional.", "It does not count individual fires or burned area, and it cannot see fires hidden by clouds or dense smoke.", "It does not forecast fire danger and does not replace local warnings or emergency services."],
+    s5: { h: "Data" },
+    donnees: "All fire detections come from NASA's active fire products (MODIS and VIIRS), distributed by NASA FIRMS and the University of Maryland. The globe background is NASA's Black Marble night imagery. Country borders come from Natural Earth. The full description of the method and the code are in the project repository.",
+    liens: [["NASA FIRMS", CONFIG.liens.firms], ["Project repository", CONFIG.liens.depot]],
+    cta: { h: "Ready to look?", p: "Open the globe, choose a place, and read its fire history.", b1: "Open the globe", b2: "Compare regions" },
   },
   fr: {
-    blocs: [
-      ["Ce que fait le site", "Choisissez une zone et voyez, mois par mois, combien de points chauds les satellites y ont détectés depuis novembre 2000. Vous voyez quels mois brûlent habituellement, quelles années ont été exceptionnelles et si ce mois-ci sort de l'ordinaire."],
-      ["Ce qu'est un point chaud", "Un point chaud est une petite parcelle de terrain qu'un satellite a vue beaucoup plus chaude que ses alentours. Le plus souvent, c'est un feu en train de brûler. Un grand feu peut produire de nombreux points chauds, alors qu'un petit feu sous les nuages peut n'en produire aucun."],
-      ["Deux satellites, un seul historique", "Depuis 2000, les instruments MODIS de la NASA repèrent les feux depuis l'espace. Depuis 2012, les instruments VIIRS, plus récents, voient des feux bien plus petits et comptent donc beaucoup plus de points chauds. Mis côte à côte, les deux historiques montreraient une hausse des feux qui n'a jamais eu lieu. HEXAFIRE ramène VIIRS à l'échelle de MODIS, pour comparer équitablement 25 ans."],
-      ["Comment lire les couleurs", "Sur le calendrier et sur le globe, plus l'orange est vif, plus il y a eu de points chauds ce mois-là. Dans la vue « comparé à la normale », le bleu signifie moins de points chauds que d'habitude pour ce mois, le gris signifie comme d'habitude, et l'orange au rouge signifie plus que d'habitude."],
+    s1: { h: "Deux satellites, une seule histoire" },
+    sats: [
+      ["MODIS, depuis 2000", "Les satellites Terra et Aqua de la NASA repèrent les feux chaque jour depuis 2000. Leur vue est grossière : chaque pixel couvre environ un kilomètre."],
+      ["VIIRS, depuis 2012", "Les instruments VIIRS, plus récents (Suomi NPP, NOAA-20, NOAA-21), voient plus fin, environ 375 mètres. Ils remarquent beaucoup de petits feux que MODIS manque, et comptent donc bien plus de points chauds pour la même quantité de feu."],
+      ["Les faire concorder", "Mis bout à bout, les deux enregistrements montreraient un saut d'activité vers 2021 qui n'a jamais eu lieu. HEXAFIRE a utilisé les années où les deux satellites volaient ensemble (2012–2020) pour apprendre à traduire les comptages VIIRS en comptages MODIS. Le résultat est une seule série continue : un mois de 2024 se compare honnêtement à un mois de 2005."],
     ],
-    guideTitre: "Utiliser le site",
+    s2: { h: "Comment utiliser le site" },
     guide: [
-      "Sur Explorer, choisissez une zone : un pays, une forme tracée sur le globe, un point avec un rayon ou un nom de lieu.",
-      "Lisez le court résumé, puis le calendrier. Survolez un mois pour voir son détail.",
-      "Sur Comparer, mettez deux zones ou deux années côte à côte.",
-      "Téléchargez les résultats, ou copiez le lien pour partager exactement ce que vous voyez.",
+      ["Explorer", ["Choisissez une zone : cherchez un lieu ou un pays, cliquez sur le globe, ou dessinez un rectangle ou un polygone.", "Lisez le résumé en mots simples, puis les trois chiffres clés.", "Regardez le calendrier : une ligne par année, une case par mois. Passez de « Nombre » à « Écart à la normale ».", "Utilisez la couche du mois pour faire défiler les mois sur le globe, ou cliquez une case du calendrier.", "Téléchargez les chiffres (CSV) ou copiez le lien pour partager exactement ce que vous voyez."]],
+      ["Comparer", ["Choisissez deux zones dans la liste, ou saisissez un point et un rayon, et une année pour chacune.", "Appuyez sur « Comparer » : le site lit les deux zones et écrit la comparaison en quelques phrases.", "Changez de mesure : points chauds, points chauds par surface (plus juste pour des zones de tailles différentes), ou par rapport à d'habitude."]],
     ],
-    motsTitre: "Les mots que vous rencontrerez",
-    mots: [
-      ["Normale", "Le nombre habituel de points chauds pour le même mois, calculé sur les années 2003 à 2020."],
-      ["Comparé à la normale", "Comment un mois se situe par rapport à sa normale : moitié moins, pareil, deux fois plus."],
-      ["Mois converti", "Un mois vu par VIIRS et ramené à l'échelle de MODIS."],
-      ["Mois provisoire", "Un mois récent qui peut encore changer quand les données complètes arriveront."],
-      ["Intervalle à 95 %", "La fourchette dans laquelle se trouve très probablement la valeur, compte tenu de la conversion entre satellites."],
-      ["FRP", "Puissance radiative du feu : la chaleur qu'il dégage, en mégawatts."],
+    s3: { h: "Mots clés" },
+    termes: [
+      ["Point chaud", ""],
+      ["Niveau habituel", "Pour chaque mois de l'année et chaque zone, le niveau habituel est la valeur médiane observée sur 2003–2020. « Écart à la normale » vous dit si un mois a eu plus ou moins de feu que cela. Il n'est pas calculé quand une zone n'a presque jamais de feu ce mois-là."],
+      ["Mesuré ou estimé", "Jusqu'en 2020, les chiffres sont ce que les satellites MODIS ont mesuré. À partir de 2021, ils sont estimés à partir de VIIRS, traduits à l'échelle MODIS. Les cases avec une petite marque dans le coin du calendrier sont estimées."],
+      ["Cases hachurées", "Le satellite n'a pas observé tout le mois (par exemple après une panne, ou pour le mois en cours). Lisez ces mois avec prudence."],
+      ["Échelle MODIS et échelle VIIRS", "À côté du calendrier, vous pouvez compter sur l'une ou l'autre échelle. Seule la taille des nombres change ; la comparaison avec les années habituelles reste la même."],
     ],
-    limitesTitre: "Ce que le site ne fait pas",
-    limites: [
-      "Il ne compte pas les incendies : il compte les points chauds vus depuis l'espace.",
-      "L'absence de point chaud ne prouve pas l'absence de feu. Les nuages et la fumée peuvent cacher des feux.",
-      "Il ne mesure pas les surfaces brûlées et ne prévoit pas les feux.",
-      "Il ne remplace ni les observations de terrain ni les alertes officielles.",
-    ],
-    donneesTitre: "Données",
-    donnees: "Détections de feux des instruments MODIS et VIIRS de la NASA, diffusées par NASA FIRMS. We acknowledge the use of data and/or imagery from NASA's Fire Information for Resource Management System (FIRMS), part of NASA's Earth Science Data and Information System (ESDIS). La NASA n'approuve pas ce projet.",
-    liens: [["NASA FIRMS", CONFIG.liens.firms], ["Code source et documents", CONFIG.liens.depot]],
-    cta: "Commencer à explorer",
+    s4: { h: "Ce que le site fait et ne fait pas" },
+    fait: ["Montre l'activité mensuelle des feux partout sur Terre depuis novembre 2000, sur une échelle cohérente.", "Vous dit si un mois, ou une année, a eu plus ou moins de feu que d'habitude à cet endroit.", "Permet de comparer honnêtement deux lieux ou deux périodes."],
+    faitpas: ["Ce n'est pas du temps réel : la série est mensuelle, et les mois les plus récents sont provisoires.", "Il ne compte ni les incendies un par un ni les surfaces brûlées, et ne voit pas les feux cachés par les nuages ou une fumée dense.", "Il ne prévoit pas le danger d'incendie et ne remplace ni les alertes locales ni les services de secours."],
+    s5: { h: "Données" },
+    donnees: "Toutes les détections de feux proviennent des produits de feux actifs de la NASA (MODIS et VIIRS), distribués par NASA FIRMS et l'université du Maryland. Le fond du globe est l'imagerie nocturne Black Marble de la NASA. Les frontières viennent de Natural Earth. La description complète de la méthode et le code sont dans le dépôt du projet.",
+    liens: [["NASA FIRMS", CONFIG.liens.firms], ["Dépôt du projet", CONFIG.liens.depot]],
+    cta: { h: "Prêt à regarder ?", p: "Ouvrez le globe, choisissez un lieu et lisez son histoire du feu.", b1: "Ouvrir le globe", b2: "Comparer des régions" },
   },
 };
 
+const tete = s => `<div class="section-head"><h2 class="headline-lg">${s.h}</h2></div>`;
+
 function rendre() {
   const c = C[getLangue()] || C.en;
+  c.termes[0][1] = t("hotspot.text");
   document.getElementById("sections").innerHTML = `
-    <section class="me-section"><div class="wrap">
-      <div class="grid guide-grid">${c.blocs.map(([h, p]) => `<article class="card guide-card"><h2 class="headline-md">${h}</h2><p>${p}</p></article>`).join("")}</div>
-    </div></section>
-    <section class="me-section tinted"><div class="wrap">
-      <h2 class="headline-lg">${c.guideTitre}</h2>
-      <ol class="guide-steps">${c.guide.map(s => `<li>${s}</li>`).join("")}</ol>
-    </div></section>
-    <section class="me-section"><div class="wrap">
-      <h2 class="headline-lg">${c.motsTitre}</h2>
-      <dl class="glossary">${c.mots.map(([m, d]) => `<div><dt>${m}</dt><dd>${d}</dd></div>`).join("")}</dl>
-    </div></section>
-    <section class="me-section tinted"><div class="wrap">
-      <h2 class="headline-lg">${c.limitesTitre}</h2>
-      <ul class="guide-limits">${c.limites.map(s => `<li>${s}</li>`).join("")}</ul>
-    </div></section>
-    <section class="me-section"><div class="wrap">
-      <h2 class="headline-lg">${c.donneesTitre}</h2>
-      <p class="muted guide-data">${c.donnees}</p>
-      <p class="guide-links">${c.liens.map(([l, u]) => `<a href="${u}" target="_blank" rel="noopener">${l} →</a>`).join("")}</p>
-      <p style="margin-top:var(--space-lg)"><a class="btn btn-ember" href="explore.html">${c.cta}<span class="arrow">→</span></a></p>
-    </div></section>`;
+    <section class="me-section tinted"><div class="wrap">${tete(c.s1)}
+      <div class="grid grid-3">${c.sats.map(([h, p], i) => `<article class="card flat principle"><div class="row"><span class="num">${i + 1}</span><h4 class="headline-md">${h}</h4></div><p>${p}</p></article>`).join("")}</div></div></section>
+    <section class="me-section"><div class="wrap">${tete(c.s2)}
+      <div class="grid grid-2">${c.guide.map(([h, etapes]) => `<article class="card flat guide"><h3 class="headline-md">${h}</h3><ol>${etapes.map(e => `<li>${e}</li>`).join("")}</ol></article>`).join("")}</div></div></section>
+    <section class="me-section tinted"><div class="wrap">${tete(c.s3)}
+      <div class="grid grid-2">${c.termes.map(([h, p]) => `<article class="card flat principle"><h4 class="headline-md">${h}</h4><p>${p}</p></article>`).join("")}</div></div></section>
+    <section class="me-section"><div class="wrap">${tete(c.s4)}
+      <div class="grid grid-2">
+        <article class="card flat dodont"><ul class="does">${c.fait.map(x => `<li>${icon("check")}<span>${x}</span></li>`).join("")}</ul></article>
+        <article class="card flat dodont"><ul class="donts">${c.faitpas.map(x => `<li>${icon("close")}<span>${x}</span></li>`).join("")}</ul></article>
+      </div></div></section>
+    <section class="me-section tinted"><div class="wrap">${tete(c.s5)}
+      <p class="lead" style="max-width:60rem">${c.donnees}</p>
+      <div class="row" style="margin-top:var(--space-md)">${c.liens.map(([b, u]) => `<a class="btn btn-ghost btn-sm" href="${u}" target="_blank" rel="noopener">${b} ${icon("external")}</a>`).join("")}</div>
+      <div class="cta-row"><div class="row" style="gap:var(--space-md)"><span class="ico">${icon("globe")}</span><div><h4 class="headline-md" style="font-size:1.15rem">${c.cta.h}</h4><p class="muted" style="font-size:.9rem">${c.cta.p}</p></div></div>
+        <div class="row"><a class="btn btn-primary" href="explore.html">${c.cta.b1}<span class="arrow">→</span></a><a class="btn btn-ghost" href="compare.html">${c.cta.b2}</a></div></div></div></section>`;
   appliquerTextes();
 }
 
 async function demarrer() {
   monterShell({ page: "methodology" });
-  try { signalerExemple(await chargerIndex()); } catch { /* la page reste lisible sans données */ }
+  try { signalerExemple(await chargerIndex()); } catch { /* the page stays readable without data */ }
   rendre();
   surChangementLangue(rendre);
 }

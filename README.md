@@ -8,7 +8,7 @@ Team HEXAFIRE, ENSGMM, Université Nationale des Sciences, Technologies, Ingéni
 | | |
 |---|---|
 | **Web application** | <https://sergedmds.github.io/HEXA_FIRE/> |
-| **Demo video (30 s)** | [HEXAFIRE_demo.mp4](HEXAFIRE_demo.mp4) |
+| **Demo video (30 s)** | [demo_hexa_fire.mp4](demo_hexa_fire.mp4) |
 | **Research document** | [English](docs/HEXAFIRE_document_en.pdf) · [Français](docs/HEXAFIRE_document.pdf) |
 | **Data provenance** | [`docs/data-sources.md`](docs/data-sources.md) |
 
