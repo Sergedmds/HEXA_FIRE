@@ -1,3 +1,4 @@
+# Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 """Étape 6 : publication des fichiers lus par l'application web (format d'échange v2).
 
 Dossier produit (par défaut ../frontend/public/data) :

@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Calendrier années × mois en SVG (niveau ou écart à la normale) et sa légende.
 import { t, nomMois } from "../utils/i18n.js";
 import { CLASSES, SEQUENTIELLE, COULEUR_REFUS, couleurNiveau, nomClasse } from "../utils/stats.js";

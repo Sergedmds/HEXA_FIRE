@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Lien partageable : la zone et les options sont encodées dans l'adresse (#...).
 //   z = cercle:lat,lon,rayon | rect:sud,nord,ouest,est | pays:CODE | poly:lon lat;lon lat;...
 //   m = niveau|anomalie, a = debut-fin, u = modis|viirs, y = année affichée, l = fr|en

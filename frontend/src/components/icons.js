@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Icônes SVG en ligne (traits 1,5 px), pour ne dépendre d'aucune police d'icônes.
 const base = (d, extra = "") => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"${extra}>${d}</svg>`;
 

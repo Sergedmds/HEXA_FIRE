@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Page Méthode : contenu éditorial bilingue, fidèle au moteur (backend/hexafire) et au dossier technique.
 import { CONFIG } from "../../config/app.js";
 import { monterShell, signalerExemple } from "../../layouts/shell.js";

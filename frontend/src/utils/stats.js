@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Statistiques d'une série de zone : normale 2003–2020 (médiane par mois de l'année), classes d'écart,
 // intervalle de conversion à 95 %, palettes des données.
 import { t } from "./i18n.js";

@@ -1,3 +1,4 @@
+/* Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE. */
 /* Page Explorer : recherche, outils, scène du globe, bandeau de sélection, résultats. */
 .explore { position: relative; overflow: hidden; padding-top: var(--space-lg); }
 .explore-head { text-align: center; display: flex; flex-direction: column; align-items: center; gap: var(--space-sm); padding-bottom: var(--space-md); }
@@ -95,3 +96,10 @@
   .stage-frame .corner.tr { display: none; }
   .selection-banner .stats { gap: var(--space-md); }
 }
+
+/* Analyses : graphiques sur toute la largeur, tableaux côte à côte (lisibilité des textes SVG) */
+.analyses { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; }
+.analyses > .block:nth-child(-n+2) { grid-column: 1 / -1; }
+@media (max-width: 760px) { .analyses { grid-template-columns: 1fr; } }
+/* Sur petit écran, le graphique garde une taille lisible et défile horizontalement */
+.chart svg { min-width: 560px; }

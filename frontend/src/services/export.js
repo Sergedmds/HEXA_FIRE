@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Exports : CSV du calendrier (avec en-tête de provenance), cellules × mois, JSON, image SVG et PNG.
 import { getIndex } from "./data.js";
 import { t } from "../utils/i18n.js";

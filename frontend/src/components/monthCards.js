@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Douze cartes mensuelles d'une année (valeur, écart à la normale, barre), comme dans la maquette Explorer (état B).
 import { t, nf, nomMois, nomMoisLong } from "../utils/i18n.js";
 import { nomClasseCourt } from "../utils/stats.js";

@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Page Explorer : globe, sélection d'une zone, calendrier harmonisé, analyses, couche mensuelle, exports.
 import { CONFIG } from "../../config/app.js";
 import { monterShell, signalerExemple, afficherErreurDonnees } from "../../layouts/shell.js";

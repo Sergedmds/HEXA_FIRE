@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Page Comparer : deux zones (A, B) et deux années, sur la même échelle harmonisée.
 import { CONFIG } from "../../config/app.js";
 import { monterShell, signalerExemple, afficherErreurDonnees } from "../../layouts/shell.js";

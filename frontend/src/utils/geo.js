@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Géométrie des zones et de la grille. Une zone est un objet :
 //   cercle {type, lat, lon, rayon}        rect {type, sud, nord, ouest, est}
 //   poly {type, anneaux: [[[lon, lat], ...]]}   pays {type, code, nom_fr, nom_en, anneaux}

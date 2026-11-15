@@ -1,7 +1,7 @@
 # Méthode d'harmonisation (résumé)
 
-Le détail mathématique est dans [`DOSSIER_TECHNIQUE.pdf`](DOSSIER_TECHNIQUE.pdf) (section 5) et
-[`HEXAFIRE_document.pdf`](HEXAFIRE_document.pdf). La page *Méthode* du site en donne une version grand public.
+Le détail mathématique est dans [`DOSSIER_TECHNIQUE.pdf`](DOSSIER_TECHNIQUE.pdf) (section 5) et dans le document de
+recherche ([français](HEXAFIRE_document.pdf), [anglais](HEXAFIRE_document_en.pdf)). La page *Méthode* du site en donne une version grand public.
 
 ## Le problème
 
@@ -64,7 +64,9 @@ de référence ou médiane < 5. Indépendant de l'unité.
 Pour chaque année de test, les facteurs sont recalculés sans elle, VIIRS est converti et le verdict mensuel (bas /
 normal / haut, seuils 10 % et 90 % de 2003–2011) est comparé au vrai MODIS. Critères : kappa ≥ 0,5, fausses anomalies
 ≤ 0,15, |biais médian| < 0,10, erreur médiane < 0,25, saut annuel max < 0,10. Comparaison avec M1 (un facteur
-mondial) et M0 (VIIRS brut). Résultats actuels : voir le README et l'onglet *Capteurs* du site.
+mondial) et M0 (VIIRS brut). Sur 2012–2020 (17 309 région-mois), HEXAFIRE obtient un kappa de 0,747 et 9,0 % de
+fausses anomalies, contre 0,558 et 23,9 % pour M1. Le tableau complet figure dans le README et en bas de la page
+*Explorer* du site.
 
 ## Limites
 

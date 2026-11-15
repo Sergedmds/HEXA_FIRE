@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Configuration de l'application HEXAFIRE (frontend statique, sans étape de compilation).
 // Tous les chemins sont relatifs à la racine du dossier frontend/, servie telle quelle.
 
@@ -40,7 +41,7 @@ export const CONFIG = {
   ],
 
   liens: {
-    depot: "https://github.com/sergedmds/Hexafire",
+    depot: "https://github.com/Sergedmds/HEXA_FIRE",
     firms: "https://www.earthdata.nasa.gov/firms",
     sources: "docs/data-sources.md",
   },

@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Accès aux fichiers publiés par le moteur (backend/hexafire/publication.py, format v2) :
 //   index.json, tuiles/t_<ilat>_<ilon>.json (0,25°), cartes/m_<t>.json (1°), pays.geojson (facultatif).
 // Calcule la série mensuelle d'une zone en sommant les cellules dont le centre est dans la zone.

@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Recherche de lieu : OpenStreetMap Nominatim, une requête par recherche déclenchée par l'utilisateur
 // (politique d'usage : pas d'autocomplétion, au plus une requête par seconde).
 import { CONFIG } from "../config/app.js";

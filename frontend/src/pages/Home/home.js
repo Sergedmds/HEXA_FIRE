@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Page d'accueil : textes éditoriaux, vignettes alimentées par index.json (matrice mondiale, validation, chiffres clés).
 import { monterShell, signalerExemple } from "../../layouts/shell.js";
 import { t, nf, ajouterTextes, surChangementLangue, appliquerTextes } from "../../utils/i18n.js";

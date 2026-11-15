@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Graphiques SVG sans bibliothèque : profil saisonnier, saison cumulée, brut vs harmonisé,
 // courbes de comparaison A / B, tableaux (années, mois inhabituels, validation).
 import { t, nf, nomMois } from "../utils/i18n.js";

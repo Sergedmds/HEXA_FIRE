@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Test de fumée du frontend : ouvre chaque page dans un navigateur Chromium/Edge sans fenêtre (protocole
 // DevTools), relève les erreurs JavaScript et les requêtes en échec, enregistre une capture d'écran.
 //

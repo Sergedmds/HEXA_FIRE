@@ -1,3 +1,4 @@
+/* Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE. */
 /* Page Méthode : éditorial aéré. */
 .methodology { position: relative; overflow: hidden; }
 .hero-me { display: flex; flex-direction: column; gap: var(--space-lg); padding-block: var(--space-2xl) var(--space-xl); max-width: 64rem; }

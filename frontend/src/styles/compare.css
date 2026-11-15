@@ -1,3 +1,4 @@
+/* Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE. */
 /* Page Comparer : deux entités A et B, globes jumeaux, courbes, synthèse. */
 .compare { position: relative; padding-block: var(--space-xl) var(--space-2xl); display: flex; flex-direction: column; gap: var(--space-lg); }
 .co-head { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between; gap: var(--space-lg); }

@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Coquille commune : en-tête (marque, navigation, langue), bandeau « données d'exemple », pied de page.
 // Chaque page appelle monterShell({ page }) puis charge son module.
 import { CONFIG } from "../config/app.js";

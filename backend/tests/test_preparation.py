@@ -1,3 +1,4 @@
+# Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 import gzip
 from pathlib import Path
 

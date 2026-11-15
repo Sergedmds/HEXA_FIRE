@@ -1,3 +1,4 @@
+// Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE.
 // Globe interactif (MapLibre GL JS 5, projection « globe ») : fond nocturne, dessin d'une zone
 // (point + rayon, rectangle, polygone), affichage d'un pays, couche mensuelle de 1°, rotation lente au repos.
 // Sans connexion ou sans WebGL, creerGlobe() rejette : la page reste utilisable par saisie des coordonnées.
