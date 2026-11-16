@@ -190,6 +190,8 @@ function rafraichir() {
   calendrier();
   indicateurs();
   lecture();
+  profilSaisonnier($("g-profil"), etat.stats); saisonCumulee($("g-saison"), etat.stats);
+  tableAnnees($("t-annees"), classementAnnees(etat.stats)); tableInhabituels($("t-inhabituels"), etat.stats);
   brutHarmonise($("g-capteurs"), getIndex(), etat.serie); tableValidation($("t-validation"), getIndex().validation);
   const val = getIndex().validation || [], vh = val.find(v => v.methode === "HEXAFIRE"), v0 = val.find(v => v.methode.startsWith("M0"));
   $("v-simple").innerHTML = vh && v0 ? t("ex.v_simple", nf(vh.fausses_anomalies * 100, 0), nf(v0.fausses_anomalies * 100, 0)) : "";
@@ -205,7 +207,8 @@ function bandeau() {
   $("sel-year-label").textContent = t("ex.total_year", etat.annee);
   $("sel-total").textContent = nf(r.total);
   $("sel-total-ctx").textContent = r.rapport ? t("ex.total_ctx", nf(r.rapport, 2), uniteCourte()) : uniteCourte();
-  const cases = etat.stats.cases.filter(c => c.valeur !== null), d = cases.at(-1);
+  const cases = etat.stats.cases.filter(c => c.valeur !== null);
+  const d = [...cases].reverse().find(c => c.statut !== "couverture partielle") || cases.at(-1);
   $("sel-last").textContent = d ? nf(d.valeur) : t("nd");
   $("sel-last-ctx").textContent = d ? `${nomMois(d.mois - 1)} ${d.annee} · ${t("statut." + d.statut)}${d.classe ? " · " + nomClasseCourt(d.classe) : ""}` : "";
   if (etat.serie.nCellules === 0) $("sel-area").textContent += ` · ${t("zone.vide")}`;
@@ -237,7 +240,7 @@ function calendrier() {
 const LECTURE = {
   en: {
     pic: m => `In this area, fires usually peak in <b>${m}</b>.`,
-    dernier: (m, v, cmp) => `In <b>${m}</b>, satellites saw about <b>${v}</b> hotspots${cmp ? `, ${cmp}` : ""}.`,
+    dernier: (m, v, cmp) => `In <b>${m}</b>, satellites saw about <b>${v}</b> ${v === "1" ? "hotspot" : "hotspots"}${cmp ? `, ${cmp}` : ""}.`,
     cmp: { tres_inf: "far fewer than usual for that month", inf: "fewer than usual for that month", normale: "about as many as usual for that month", sup: "more than usual for that month", tres_sup: "far more than usual for that month" },
     prov: "This recent month is provisional and may still change.",
     rang: (a, r, n) => r === 1 ? `<b>${a}</b> was the most active year since 2000.` : r === n ? `<b>${a}</b> was the least active year since 2000.` : `<b>${a}</b> ranks ${r} out of ${n} years for fire activity (1 = most active).`,
@@ -245,7 +248,7 @@ const LECTURE = {
   },
   fr: {
     pic: m => `Dans cette zone, les feux culminent habituellement en <b>${m}</b>.`,
-    dernier: (m, v, cmp) => `En <b>${m}</b>, les satellites y ont vu environ <b>${v}</b> points chauds${cmp ? `, ${cmp}` : ""}.`,
+    dernier: (m, v, cmp) => `En <b>${m}</b>, les satellites y ont vu environ <b>${v}</b> ${v === "1" || v === "0" ? "point chaud" : "points chauds"}${cmp ? `, ${cmp}` : ""}.`,
     cmp: { tres_inf: "beaucoup moins que d'habitude pour ce mois", inf: "moins que d'habitude pour ce mois", normale: "à peu près comme d'habitude pour ce mois", sup: "plus que d'habitude pour ce mois", tres_sup: "beaucoup plus que d'habitude pour ce mois" },
     prov: "Ce mois récent est provisoire et peut encore changer.",
     rang: (a, r, n) => r === 1 ? `<b>${a}</b> a été l'année la plus active depuis 2000.` : r === n ? `<b>${a}</b> a été l'année la moins active depuis 2000.` : `<b>${a}</b> se classe ${r}<sup>e</sup> sur ${n} années pour l'activité des feux (1 = la plus active).`,
@@ -256,7 +259,8 @@ const LECTURE = {
 function lecture() {
   const L = LECTURE[getLangue()] || LECTURE.en, el = $("reading");
   if (!el) return;
-  const cases = etat.stats.cases.filter(c => c.valeur !== null), d = cases.at(-1);
+  const cases = etat.stats.cases.filter(c => c.valeur !== null);
+  const d = [...cases].reverse().find(c => c.statut !== "couverture partielle") || cases.at(-1);
   if (!cases.length || cases.every(c => c.valeur === 0)) { el.innerHTML = `<p>${L.vide}</p>`; return; }
   const med = etat.stats.mediane.map(x => (Number.isFinite(x) ? x : -1)), pic = med.indexOf(Math.max(...med));
   const completes = classementAnnees(etat.stats);
@@ -272,7 +276,8 @@ function lecture() {
 
 function indicateurs() {
   const [d0, d1] = etat.periode;
-  const cases = etat.stats.cases.filter(c => c.valeur !== null), dernier = cases.at(-1);
+  const cases = etat.stats.cases.filter(c => c.valeur !== null);
+  const dernier = [...cases].reverse().find(c => c.statut !== "couverture partielle") || cases.at(-1);
   const total = cases.filter(c => c.annee >= d0 && c.annee <= d1).reduce((s, c) => s + c.valeur, 0);
   const med = etat.stats.mediane.map(x => (Number.isFinite(x) ? x : -1)), pic = med.indexOf(Math.max(...med));
   const completes = classementAnnees(etat.stats);
