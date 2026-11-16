@@ -1,0 +1,199 @@
+<!doctype html>
+<!-- Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n-doc="ex.doc">HEXAFIRE · Explore</title>
+  <meta name="description" content="Globe interactif des points chauds MODIS et VIIRS harmonisés, 2000 → aujourd'hui.">
+  <link rel="icon" href="public/assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles/base.css">
+  <link rel="stylesheet" href="src/styles/explore.css">
+</head>
+<body data-page="explore">
+<header id="shell-header" class="site-header"></header>
+
+<main class="explore">
+  <div class="glow orbital" style="top:-6rem;left:50%;width:46rem;height:26rem;transform:translateX(-50%)"></div>
+  <div class="glow fire" style="top:14rem;left:50%;width:32rem;height:22rem;transform:translateX(-50%)"></div>
+
+  <!-- En-tête de page -->
+  <section class="wrap explore-head">
+    <h1 class="headline-xl" data-i18n="ex.titre"></h1>
+    <p class="lead" data-i18n="ex.sous"></p>
+  </section>
+
+  <!-- Recherche, suggestions, outils de sélection -->
+  <section class="wrap controls" aria-labelledby="ctrl-title">
+    <h2 id="ctrl-title" class="sr-only" data-i18n="ex.ctrl"></h2>
+    <form id="search" class="search" role="search" autocomplete="off">
+      <span class="ico" id="search-ico"></span>
+      <input id="search-input" type="search" data-i18n-ph="ex.search_ph" data-i18n-aria="ex.search_aria">
+      <kbd>↵</kbd>
+    </form>
+    <p id="search-state" class="telemetry dim search-state" aria-live="polite"></p>
+    <div class="suggestions"><span class="telemetry dim" data-i18n="ex.suggest"></span><span id="suggestions"></span></div>
+    <div class="seg tools" id="tools" role="group" data-i18n-aria="ex.tools"></div>
+    <div id="tool-params" class="tool-params">
+      <div data-params="cercle" class="row">
+        <label class="field radius"><span><span data-i18n="zone.rayon"></span> · <b id="radius-value">150</b> km</span>
+          <input id="radius" type="range" min="25" max="1000" step="5" value="150"></label>
+        <div class="row coords">
+          <label class="field"><span data-i18n="zone.lat"></span><input id="in-lat" class="input" type="number" step="0.01" min="-90" max="90" placeholder="9.50"></label>
+          <label class="field"><span data-i18n="zone.lon"></span><input id="in-lon" class="input" type="number" step="0.01" min="-180" max="180" placeholder="2.30"></label>
+          <button type="button" class="btn btn-ghost btn-sm" id="apply-coords" data-i18n="ex.apply"></button>
+        </div>
+      </div>
+      <div data-params="rect" class="row" hidden>
+        <label class="field"><span data-i18n="zone.nord"></span><input id="in-nord" class="input" type="number" step="0.25"></label>
+        <label class="field"><span data-i18n="zone.sud"></span><input id="in-sud" class="input" type="number" step="0.25"></label>
+        <label class="field"><span data-i18n="zone.ouest"></span><input id="in-ouest" class="input" type="number" step="0.25"></label>
+        <label class="field"><span data-i18n="zone.est"></span><input id="in-est" class="input" type="number" step="0.25"></label>
+        <button type="button" class="btn btn-ghost btn-sm" id="apply-rect" data-i18n="ex.apply"></button>
+      </div>
+      <div data-params="poly" class="row" hidden>
+        <span class="telemetry" id="poly-state"></span>
+        <button type="button" class="btn btn-ghost btn-sm" id="poly-undo" data-i18n="ex.undo"></button>
+        <button type="button" class="btn btn-primary btn-sm" id="poly-finish" data-i18n="ex.finish"></button>
+      </div>
+      <div data-params="pays" class="row" hidden>
+        <label class="field country"><span data-i18n="zone.pays"></span><select id="in-pays" class="select"></select></label>
+        <span id="pays-state" class="telemetry dim"></span>
+      </div>
+    </div>
+    <p class="chip guidance" id="guidance"><span class="pip pulse"></span><span id="guidance-text"></span></p>
+  </section>
+
+  <!-- Bandeau de la zone sélectionnée (état B) -->
+  <section class="wrap" id="selection" hidden>
+    <div class="pane selection-banner">
+      <div class="stats">
+        <div class="stat"><span class="label" data-i18n="ex.target"></span><span class="value" id="sel-name" style="font-size:1.15rem"></span><span class="ctx" id="sel-type"></span></div>
+        <div class="stat"><span class="label" data-i18n="ex.coords"></span><span class="value orbital" id="sel-coords" style="font-size:1rem;font-family:var(--font-mono)"></span><span class="ctx" id="sel-area"></span></div>
+        <div class="stat"><span class="label fire" id="sel-year-label"></span><span class="value fire" id="sel-total"></span><span class="ctx" id="sel-total-ctx"></span></div>
+        <div class="stat"><span class="label" data-i18n="ex.latest"></span><span class="value" id="sel-last"></span><span class="ctx" id="sel-last-ctx"></span></div>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn btn-ghost btn-sm" id="btn-clear" data-i18n="ex.clear"></button>
+        <button type="button" class="btn btn-ghost btn-sm" id="btn-link"><span id="ico-link"></span><span data-i18n="ex.link"></span></button>
+        <div class="export">
+          <button type="button" class="btn btn-primary btn-sm" id="btn-export" aria-haspopup="menu" aria-expanded="false"><span id="ico-dl"></span><span data-i18n="ex.export"></span></button>
+          <div class="menu pane" id="export-menu" role="menu" hidden>
+            <button type="button" role="menuitem" data-export="csv" data-i18n="ex.x_csv"></button>
+            <button type="button" role="menuitem" data-export="cellules" data-i18n="ex.x_cells"></button>
+            <button type="button" role="menuitem" data-export="json">JSON</button>
+            <button type="button" role="menuitem" data-export="png" data-i18n="ex.x_png"></button>
+            <button type="button" role="menuitem" data-export="svg" data-i18n="ex.x_svg"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scène du globe -->
+  <section class="wrap stage" aria-labelledby="stage-title">
+    <h2 id="stage-title" class="sr-only" data-i18n="ex.globe"></h2>
+    <div class="stage-frame">
+      <div id="globe" data-i18n-aria="ex.globe_aria" role="application"></div>
+      <div class="corner tl telemetry"><span id="cursor-pos">LAT —  LON —</span><span id="zoom-level"></span></div>
+      <div class="corner tr telemetry"><span id="stage-months"></span><span id="stage-source" data-i18n="ex.stage_source"></span></div>
+      <div class="overlay bl pane layer-box">
+        <div class="row between">
+          <span class="row"><span id="ico-layers"></span><strong class="telemetry" data-i18n="ex.layer"></strong></span>
+          <div class="seg thermal mini" id="layer-mode">
+            <button type="button" data-layer="aucune" data-i18n="ex.l_none"></button>
+            <button type="button" data-layer="niveau" class="active" data-i18n="ex.l_level"></button>
+            <button type="button" data-layer="anomalie" data-i18n="ex.l_anom"></button>
+          </div>
+        </div>
+        <div id="layer-options">
+          <div class="row between month-row">
+            <button type="button" class="icon-btn" id="btn-prev" data-i18n-aria="ex.prev"></button>
+            <button type="button" class="icon-btn" id="btn-play" data-i18n-aria="ex.play"></button>
+            <button type="button" class="icon-btn" id="btn-next" data-i18n-aria="ex.next"></button>
+            <strong class="month-label" id="layer-month"></strong>
+          </div>
+          <input id="layer-t" type="range" min="0" max="0" value="0" data-i18n-aria="ex.month_slider">
+          <div class="legend" id="layer-legend"></div>
+        </div>
+      </div>
+      <div class="overlay br seg">
+        <button type="button" class="icon-btn" id="zoom-in" data-i18n-aria="ex.zoom_in"></button>
+        <button type="button" class="icon-btn" id="zoom-out" data-i18n-aria="ex.zoom_out"></button>
+        <button type="button" class="icon-btn" id="zoom-reset" data-i18n-aria="ex.zoom_reset"></button>
+      </div>
+      <div id="globe-fallback" class="globe-fallback" hidden></div>
+    </div>
+  </section>
+
+  <!-- Ruban de repères mondiaux -->
+  <section class="wrap ribbon" id="ribbon" aria-live="polite" hidden></section>
+
+  <!-- Résultats -->
+  <section class="wrap results" id="results" hidden>
+    <article class="pane block" hidden>
+      <div class="block-head">
+        <div>
+          <h2 class="headline-md" data-i18n="ex.cycle"></h2>
+          <p class="muted" id="cycle-sub"></p>
+        </div>
+        <div class="seg thermal years" id="years" role="tablist"></div>
+      </div>
+      <div class="month-grid" id="month-cards"></div>
+    </article>
+
+    <article class="pane block">
+      <div class="block-head">
+        <div>
+          <h2 class="headline-md" data-i18n="ex.calendar"></h2>
+          <p class="muted" data-i18n="ex.calendar_sub"></p>
+        </div>
+        <div class="row">
+          <div class="seg thermal" id="mode">
+            <button type="button" data-mode="niveau" class="active" data-i18n="ex.m_level"></button>
+            <button type="button" data-mode="anomalie" data-i18n="ex.m_anom"></button>
+          </div>
+          <div class="seg" id="unit">
+            <button type="button" data-unit="modis" class="active" data-i18n="u.modis"></button>
+            <button type="button" data-unit="viirs" data-i18n="u.viirs"></button>
+          </div>
+          <label class="field inline"><span data-i18n="ex.from"></span><select id="in-debut" class="select"></select></label>
+          <label class="field inline"><span data-i18n="ex.to"></span><select id="in-fin" class="select"></select></label>
+        </div>
+      </div>
+      <div class="reading" id="reading"></div>
+      <div class="indicators" id="indicators"></div>
+      <div class="calendar-wrap" id="calendar"></div>
+      <div class="legend" id="legend"></div>
+      <p class="muted" style="font-size:.8rem" data-i18n="ex.unit_help"></p>
+      <div class="explain">
+        <div><h3 data-i18n="ex.q_hotspot"></h3><p data-i18n="ex.a_hotspot"></p></div>
+        <div><h3 data-i18n="ex.q_colours"></h3><p data-i18n="ex.a_colours"></p></div>
+      </div>
+    </article>
+
+    <div class="grid grid-2 analyses">
+      <article class="pane block"><h3 class="headline-md" data-i18n="ex.h_profile"></h3><div class="chart" id="g-profil"></div></article>
+      <article class="pane block"><h3 class="headline-md" data-i18n="ex.h_season"></h3><div class="chart" id="g-saison"></div></article>
+      <article class="pane block"><h3 class="headline-md" data-i18n="ex.h_years"></h3><div id="t-annees"></div></article>
+      <article class="pane block"><h3 class="headline-md" data-i18n="ex.h_unusual"></h3><div id="t-inhabituels"></div></article>
+    </div>
+
+    <article class="pane block">
+      <div class="block-head"><div><h2 class="headline-md" data-i18n="ex.h_sensors"></h2><p class="muted" data-i18n="ex.h_sensors_sub"></p></div></div>
+      <div class="chart" id="g-capteurs"></div>
+      <h3 class="headline-md" style="font-size:1.1rem;margin-top:var(--space-lg)" data-i18n="ex.h_validation"></h3>
+      <p class="muted v-simple" id="v-simple"></p>
+      <div id="t-validation"></div>
+    </article>
+
+    <p class="chip" style="white-space:normal"><span class="pip amber"></span><span data-i18n="avertissement"></span></p>
+  </section>
+</main>
+
+<footer id="shell-footer" class="site-footer"></footer>
+<script type="module" src="src/pages/Explore/explore.js"></script>
+</body>
+</html>

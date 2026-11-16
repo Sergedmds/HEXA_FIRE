@@ -1,0 +1,104 @@
+<!doctype html>
+<!-- Code written with the help of Claude (Anthropic), a Super Intelligence (SI) assistant, then run and tested by team HEXAFIRE. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title data-i18n-doc="home.doc">HEXAFIRE · Planetary fire observatory</title>
+  <meta name="description" content="HEXAFIRE : points chauds MODIS et VIIRS harmonisés, une seule série mensuelle de 2000 à aujourd'hui sur un globe interactif.">
+  <link rel="icon" href="public/assets/icons/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="src/styles/base.css">
+  <link rel="stylesheet" href="src/styles/home.css">
+</head>
+<body data-page="home">
+<header id="shell-header" class="site-header"></header>
+
+<main class="home">
+  <!-- 1. Héros -->
+  <section class="hero">
+    <img class="hero-bg" src="public/assets/images/earth-orbit.jpg" alt="" aria-hidden="true">
+    <div class="hero-veil"></div>
+    <span class="ai-mark hero-mark" data-i18n="shell.ai_img"></span>
+    <div class="glow orbital" style="top:-10rem;left:50%;width:70rem;height:40rem;transform:translateX(-50%)"></div>
+    <div class="hero-pips" aria-hidden="true">
+      <span style="top:46%;left:47%"><i></i></span>
+      <span style="top:58%;left:30%"><i class="amber"></i></span>
+      <span style="top:24%;right:20%"><i></i></span>
+    </div>
+    <div class="wrap hero-body">
+      <div class="brand-block">
+        <div class="row"><span class="display">HEXAFIRE</span><span class="pip big"></span></div>
+        <div class="telemetry row"><span data-i18n="shell.sub"></span></div>
+      </div>
+      <h1 class="headline-xl" data-i18n="home.h1"></h1>
+      <p class="lead" data-i18n="home.lead"></p>
+      <div class="row hero-cta">
+        <a class="btn btn-ember" href="explore.html"><span data-i18n="home.cta"></span><span class="arrow">→</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Le problème -->
+  <section class="section wrap problem">
+    <div class="glow orbital" style="right:-10rem;top:20%;width:30rem;height:30rem"></div>
+    <div class="grid problem-grid">
+      <figure class="card flat media">
+        <img src="public/assets/images/wildfire-orbit.jpg" alt="" loading="lazy">
+        <span class="ai-mark" data-i18n="shell.ai_img"></span>
+      </figure>
+      <div class="stack problem-text">
+        <h2 class="headline-xl" data-i18n="home.s1_title"></h2>
+        <p class="lead" data-i18n="home.s1_text"></p>
+        <p class="lead" data-i18n="home.s1_text2"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Trois regards -->
+  <section class="section wrap lenses">
+    <div class="center stack" style="align-items:center;margin-bottom:var(--space-xl)">
+      <h2 class="headline-xl" data-i18n="home.s2_title"></h2>
+      <p class="lead" data-i18n="home.s2_text"></p>
+    </div>
+    <div class="grid grid-3">
+      <a class="card lens" href="explore.html">
+        <div class="lens-visual"><img src="public/assets/images/earth-reticle.jpg" alt="" loading="lazy"><span class="ai-mark" data-i18n="shell.ai_img"></span></div>
+        <h3 class="headline-md" data-i18n="home.l1_title"></h3>
+        <p class="muted" data-i18n="home.l1_text"></p>
+        <span class="lens-link telemetry"><span data-i18n="home.l1_link"></span><span class="arrow fire">→</span></span>
+      </a>
+      <a class="card lens" href="compare.html">
+        <div class="lens-visual matrix" id="lens-matrix"></div>
+        <h3 class="headline-md" data-i18n="home.l2_title"></h3>
+        <p class="muted" data-i18n="home.l2_text"></p>
+        <span class="lens-link telemetry"><span data-i18n="home.l2_link"></span><span class="arrow fire">→</span></span>
+      </a>
+      <a class="card lens" href="methodology.html">
+        <div class="lens-visual chart" id="lens-understand"></div>
+        <h3 class="headline-md" data-i18n="home.l3_title"></h3>
+        <p class="muted" data-i18n="home.l3_text"></p>
+        <span class="lens-link telemetry"><span data-i18n="home.l3_link"></span><span class="arrow fire">→</span></span>
+      </a>
+    </div>
+  </section>
+
+  <!-- 5. Appel final -->
+  <section class="final">
+    <img class="hero-bg" src="public/assets/images/earth-orbit.jpg" alt="" aria-hidden="true" loading="lazy">
+    <div class="final-veil"></div>
+    <span class="ai-mark hero-mark" data-i18n="shell.ai_img"></span>
+    <div class="wrap final-body">
+      <span class="chip starlight"><span class="pip pulse"></span><span data-i18n="home.final_chip"></span></span>
+      <h2 class="display" data-i18n="home.final_title"></h2>
+      <p class="lead" data-i18n="home.final_text"></p>
+      <a class="btn btn-primary" href="explore.html" style="padding:.9rem 2rem"><span data-i18n="home.cta"></span><span class="arrow">→</span></a>
+    </div>
+  </section>
+</main>
+
+<footer id="shell-footer" class="site-footer"></footer>
+<script type="module" src="src/pages/Home/home.js"></script>
+</body>
+</html>
